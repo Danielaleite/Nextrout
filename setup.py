@@ -104,6 +104,6 @@ execute(build_commands)
 make_command = {
     "muffe_p1p0/code": ["make",],
     "globals/axpy_timedata ": ["make",],
-    "geometry/interpolate_timedata/":: ["make",],
+    "geometry/interpolate_timedata/": ["make",],
 }
 execute(make_command)
