@@ -45,26 +45,33 @@ build_directories = {
     "muffe_p1p0": ["./setup.sh ../Tests"],
     "muffe_sparse_optimization": ["./setup.sh simplifications"],
     "python_scripts": [
-        "mv BP_simplification.py ../Tests/",
-        "mv filtering_triangles.py ../Tests/",
+        "mv build_run_getgraph.py ../Tests",
+        "mv continuous2graph.py ../Tests",
+        "mv debugger.py ../Tests",
+        "mv discrete2graph.py ../Tests",
+        "mv filtering.py ../Tests/",
         "mv get_graph.py ../Tests/",
-        "mv Getting_graphs.py ../Tests/",
         "mv Getting_sources_and_sinks.py ../Tests/",
         "mv graph2plotly.py ../Tests/",
+        "mv main.py ../Tests",
+        "mv pre_extraction.py ../Tests",
         "mv quality_measure.py ../Tests/",
         "mv source_sink_generator.py ../Tests/",
         "mv steiner_simplification.py ../Tests/",
         "mv transport_networks.py ../Tests",
         "mv utilities.py ../Tests",
-        "mv build_run_getgraph.py ../Tests",
-        "mv graph_cell_folder ../Tests",
+        "mv utils.py ../Tests",
+        "mv terminal_computation.py ../Tests",
+        "mv utilities.py ../Tests/python_script" "mv graph_cell_folder ../Tests",
         "mv par_files ../muffe_sparse_optimization/simplifications/",
+        "mv images ../Tests",
+        "mv PVM_data ../Tests",
     ],
 }
 execute(build_directories)
 
-remove_directories = {"python_scripts": ["rm -rf ;python_scripts"]}
-execute(remove_directories)
+# remove_directories = {"python_scripts": ["rm -rf ;python_scripts"]}
+# execute(remove_directories)
 
 
 # Build commands
@@ -96,5 +103,7 @@ execute(build_commands)
 
 make_command = {
     "muffe_p1p0/code": ["make",],
+    "globals/axpy_timedata ": ["make",],
+    "geometry/interpolate_timedata/":: ["make",],
 }
 execute(make_command)
