@@ -38,17 +38,9 @@ def execute(commands_in_dir):
         execute_in_dir(dir, commands)
 
 
-"""
-# Download all folders from Enrico's code
+# Download dependencies for the first step and backend for filtering
 download_commands = {"./otp_utilities": ["./init_otp_muffe.sh"]}
 execute(download_commands)
-"""
-# Download all folders from python_scripts repository
-
-"""
-download_python = {".": ["./init_py_scripts.sh"]}
-execute(download_python)
-"""
 
 # Build commands
 build_commands = {
