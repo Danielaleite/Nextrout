@@ -1,1 +1,9 @@
 network_extraction/
+otp_utilities/geometry
+otp_utilities/globals
+otp_utilities/linear_algebra
+otp_utilities/muffe_p1p0
+otp_utilities/muffe_sparse_optimization
+otp_utilities/p1galerkin
+otp_utilities/spectral
+otp_utilities/vtk
