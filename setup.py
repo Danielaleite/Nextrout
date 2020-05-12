@@ -14,6 +14,10 @@ def change_temporarily_into(dir):
         os.chdir(dir)
         yield
     except Exception as e:
+        if isinstance(e, FileNotFoundError):
+            print("I am in {}".format(os.getcwd()))
+            print("You are trying to cd into {}".format(dir))
+            print("Available directories:{}".format(os.listdir(os.getcwd())))
         raise e
     finally:
         os.chdir(current_dir)
@@ -34,76 +38,99 @@ def execute(commands_in_dir):
         execute_in_dir(dir, commands)
 
 
+"""
 # Download all folders from Enrico's code
-download_commands = {".": ["./init_otp_muffe.sh"]}
+download_commands = {"./otp_utilities": ["./init_otp_muffe.sh"]}
 execute(download_commands)
+"""
+# Download all folders from python_scripts repository
 
+"""
 download_python = {".": ["./init_py_scripts.sh"]}
 execute(download_python)
+"""
+
+# Build commands
+build_commands = {
+    "otp_utilities/geometry": ["./make_all.sh",],
+    "otp_utilities/globals": ["./make all.sh",],
+    "otp_utilities/linear_algebra/code": ["make clobber", "make dirs", "make",],
+    "otp_utilities/linear_algebra/Mxv": ["make clobber", "make dirs", "make",],
+    "otp_utilities/linear_algebra/test": ["make clobber", "make dirs", "make",],
+    "otp_utilities/muffe_p1p0/code": ["make clobber", "make dirs", "make",],
+    "otp_utilities/muffe_p1p0/preprocess/2d_assembly/subgrid_preprocess/code": [
+        "make clobber",
+        "make dirs",
+        "make",
+    ],
+    "otp_utilities/muffe_p1p0/python_interface": ["make clobber", "make dirs", "make",],
+    "otp_utilities/muffe_sparse_optimization/code": [
+        "make clobber",
+        "make dirs",
+        "make",
+    ],
+    "otp_utilities/p1galerkin/code": ["make clobber", "make dirs", "make",],
+    "otp_utilities/p1galerkin/assembly_stiff": ["make clobber", "make dirs", "make",],
+    "otp_utilities/p1galerkin/dirac2rhs": ["make clobber", "make dirs", "make",],
+    "otp_utilities/p1galerkin/eval_divergence_constrain": [
+        "make clobber",
+        "make dirs",
+        "make",
+    ],
+    "otp_utilities/p1galerkin/eval_gradient": ["make clobber", "make dirs", "make",],
+    "otp_utilities/p1galerkin/makerhs": ["make clobber", "make dirs", "make",],
+    "otp_utilities/p1galerkin/Laplace_Convergence": [
+        "make clobber",
+        "make dirs",
+        "make",
+    ],
+    "otp_utilities/spectral/src": ["make clobber", "make dirs", "make",],
+    "otp_utilities/vtk": ["make clobber", "make dirs", "make",],
+}
+
+execute(build_commands)
 
 build_directories = {
-    "muffe_p1p0": ["./setup.sh ../Tests"],
-    "muffe_sparse_optimization": ["./setup.sh simplifications"],
+    "otp_utilities/muffe_p1p0": ["./setup.sh ../../network_extraction"],
+    "otp_utilities/muffe_sparse_optimization/": [
+        "./setup.sh ../../network_extraction/simplifications"
+    ],
     "python_scripts": [
-        "mv build_run_getgraph.py ../Tests",
-        "mv continuous2graph.py ../Tests",
-        "mv debugger.py ../Tests",
-        "mv discrete2graph.py ../Tests",
-        "mv filtering.py ../Tests/",
-        "mv get_graph.py ../Tests/",
-        "mv Getting_sources_and_sinks.py ../Tests/",
-        "mv graph2plotly.py ../Tests/",
-        "mv main.py ../Tests",
-        "mv pre_extraction.py ../Tests",
-        "mv quality_measure.py ../Tests/",
-        "mv source_sink_generator.py ../Tests/",
-        "mv steiner_simplification.py ../Tests/",
-        "mv transport_networks.py ../Tests",
-        "mv utilities.py ../Tests",
-        "mv utils.py ../Tests",
-        "mv terminal_computation.py ../Tests",
-        "mv utilities.py ../Tests/python_script" "mv graph_cell_folder ../Tests",
-        "mv par_files ../muffe_sparse_optimization/simplifications/",
-        "mv images ../Tests",
-        "mv PVM_data ../Tests",
+        "cp network_extraction.py ../network_extraction",
+        "cp continuous2graph.py ../network_extraction",
+        "cp debugger.py ../network_extraction",
+        "cp discrete2graph.py ../network_extraction",
+        "cp filtering.py ../network_extraction",
+        "cp get_graph.py ../network_extraction",
+        "cp Getting_sources_and_sinks.py ../network_extraction",
+        "cp graph2plotly.py ../network_extraction",
+        "cp main.py ../network_extraction",
+        "cp pre_extraction.py ../network_extraction",
+        "cp quality_measure.py ../network_extraction",
+        "cp source_sink_generator.py ../network_extraction",
+        "cp steiner_simplification.py ../network_extraction",
+        "cp transport_networks.py ../network_extraction",
+        "cp utilities.py ../network_extraction",
+        "cp utils.py ../network_extraction",
+        "cp terminal_computation.py ../network_extraction",
+        "cp utilities.py ../network_extraction/python_script",
+        "cp -a graph_cell_folder ../network_extraction/",
+        "cp -a par_files ../network_extraction/simplifications/",
+        "cp -a images ../network_extraction",
+        "cp -a PVM_data ../network_extraction",
     ],
 }
+
 execute(build_directories)
 
 # remove_directories = {"python_scripts": ["rm -rf ;python_scripts"]}
 # execute(remove_directories)
 
-
-# Build commands
-build_commands = {
-    "geometry": ["./make_all.sh",],
-    "globals": ["./make all.sh",],
-    "linear_algebra/code": ["make clobber", "make dirs", "make",],
-    "linear_algebra/Mxv": ["make clobber", "make dirs", "make",],
-    "linear_algebra/test": ["make clobber", "make dirs", "make",],
-    "muffe_p1p0/code": ["make clobber", "make dirs", "make",],
-    "muffe_p1p0/preprocess/2d_assembly/subgrid_preprocess/code": [
-        "make clobber",
-        "make dirs",
-        "make",
-    ],
-    "muffe_p1p0/python_interface": ["make clobber", "make dirs", "make",],
-    "muffe_sparse_optimization/code": ["make clobber", "make dirs", "make",],
-    "p1galerkin/code": ["make clobber", "make dirs", "make",],
-    "p1galerkin/assembly_stiff": ["make clobber", "make dirs", "make",],
-    "p1galerkin/dirac2rhs": ["make clobber", "make dirs", "make",],
-    "p1galerkin/eval_divergence_constrain": ["make clobber", "make dirs", "make",],
-    "p1galerkin/eval_gradient": ["make clobber", "make dirs", "make",],
-    "p1galerkin/makerhs": ["make clobber", "make dirs", "make",],
-    "p1galerkin/Laplace_Convergence": ["make clobber", "make dirs", "make",],
-    "spectral/src": ["make clobber", "make dirs", "make",],
-    "vtk": ["make clobber", "make dirs", "make",],
-}
-execute(build_commands)
-
+"""
 make_command = {
     "muffe_p1p0/code": ["make",],
-    "globals/axpy_timedata ": ["make",],
+    "globals/axpy_timedata": ["make",],
     "geometry/interpolate_timedata/": ["make",],
 }
 execute(make_command)
+"""
