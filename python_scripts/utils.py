@@ -378,16 +378,18 @@ def pygraph2dat(
 
     if input_flag == None:
         # Moving the graph_cell.dat to the folder component_index/input
+        # os.chdir("../runs/")
         print(
-            "cp  ./"
+            "cp ../"
             + folder_name.split("/")[1]
             + "/"
             + folder_name.split("/")[-2]
             + "/input/graph_cell.dat"
+            " from %s" % os.getcwd()
         )
         print(new_dirn + "/" + "graph_cell.dat")
         os.system(
-            "cp  ./"
+            "cp  ../"
             + folder_name.split("/")[1]
             + "/"
             + folder_name.split("/")[-2]
@@ -564,12 +566,14 @@ def using_graph2incidence_matrix(folder_name, index, weight_flag=None):
 
     # main script for the generation of the files
 
-    program = "../geometry/graph2incidence_matrix/graph2incidence_matrix.out"
+    program = (
+        "../../otp_utilities/geometry/graph2incidence_matrix/graph2incidence_matrix.out"
+    )
 
     # folder path
-
+    print("###################", os.getcwd())
     folder_name_here = (
-        "./simplifications/runs/"
+        "./runs/"
         + folder_name[2:].split("/")[-2]
         + "/"
         + folder_name[2:].split("/")[-1]

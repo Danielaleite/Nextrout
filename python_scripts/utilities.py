@@ -23,7 +23,6 @@ def replace(filein, flag, index_column, value):
             line_str = line.rstrip().split()
             line_str[int(index_column)] = value
             lineout = str(" ".join([str(i) for i in line_str]))
-        print(lineout)
 
 
 def search_read(filename, flag, index_column):
