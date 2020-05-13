@@ -6,18 +6,16 @@ import numpy as np
 import shutil
 import distutils
 from threading import Thread
-from continuous2graph import *
-from discrete2graph import *
-from filtering import *
-from source_sink_generator import *
-#import BP_simplification
 import re
 import networkx as nx
 import matplotlib.pyplot as plt
-#from build_run_getgraph.py import new
+#------------------------------------
+import continuous2graph
+import discrete2graph
+#------------------------------------
 
 
-# todo: add g2 and g3 to the debugger
+
 
 data_flags = ['10_b12_10dv_sf15_rect_cnstrect_cnst']#,
               #'parabola_1_b10_20dv_sf15_5rch5rch' ]#'delta_1_b12_18dv_sf15_rect_cnstrect_cnst']#,                           ]
@@ -241,7 +239,7 @@ for folder in data_flags:
 
                                         if ge_input == 'yes':
                                             print('Flag and tolerance:', subfolder, t, graph_type, funct)
-                                            G=graph_extraction_from_dat_files(subfolder, t, graph_type,funct, weighting_method_graph,source_sink[0],source_sink[1])
+                                            G = continuous2graph.graph_extraction_from_dat_files(subfolder, t, graph_type,funct, weighting_method_graph,source_sink[0],source_sink[1])
                                         else:
                                             print('Skipping graph-extraction part.')
                                         print(gs_input.split(','))
@@ -260,11 +258,13 @@ for folder in data_flags:
                                                             1]  # write 'yes' to get the 2nd simpl
                                                         # print('>>>>>____________________Computing bp simplification for',subfolder, funct, t, graph_type, min_,weighting_method_graph, weighting_method_simplification)
                                                         i = 0
-                                                        beta_discr = float(beta_discr)
+                                                        #beta_discr = float(beta_discr)
                                                         i += 1
-                                                        updating_beta_discrete(beta_discr)
+                                                        #updating_beta_discrete(beta_discr)
                                                         # try:
-                                                        Simp = graph_filtering_from_dat_files(subfolder, t, graph_type, funct, min_,
+                                                        Simp = discrete2graph.graph_filtering_from_dat_files(subfolder, t, graph_type,
+                                                                                              beta_discr,
+                                                                                              funct, min_,
                                                                                  btns_factor_source, btns_factor_sink,
                                                                                  weighting_method_graph,
                                                                                  weighting_method_simplification,

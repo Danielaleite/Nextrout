@@ -99,7 +99,7 @@ def cp(path_original, path_copy):
     # read file path
     #
     for flag in input_flags:
-        print (flag)
+        print(flag)
         original_path=util.search_read(str(dst), flag, 0)
         if (original_path != '') :
             click.echo(flag +' '+ original.abspath+'/'+original_path )
@@ -469,6 +469,7 @@ def assembly(folder_name,file_ctrl):
     #
     cwd=os.getcwd()
     os.chdir(assembly_folder)
+    print(assembly_folder)
     command=('python main.py'  +' '+
              str(absctrl) +' '+
              str(folder.input)  +' '+

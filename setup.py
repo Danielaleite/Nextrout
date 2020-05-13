@@ -87,11 +87,11 @@ build_directories = {
     "otp_utilities/muffe_sparse_optimization/": [
         "./setup.sh ../../python_scripts/simplifications"
     ],
-}
+    
 
     "python_scripts": [
-        "mv utilities.py ./python_script",]
-    """
+        "mv utilities.py ./python_script",]}
+"""
         "mv continuous2graph.py ../python_scripts",
         "mv debugger.py ../python_scripts",
         "mv discrete2graph.py ../python_scripts",

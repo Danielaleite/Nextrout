@@ -17,71 +17,88 @@ import networkx as nx
 import pickle as pkl
 import matplotlib.pyplot as plt
 
-
 import os, os.path
 import shutil
 import glob
 import subprocess
 from shutil import copytree, ignore_patterns
 
-
-click.echo("Define the parameters for the continuous part here!")
+click.echo("Define the parameters for the network extraction routine.")
 
 
 @click.command()
 @click.option(
     "--flag_list",
-    prompt="What is your flag?",
-    help="This is where you should put the name of the flag.",
+    prompt="What is the tdens0 flag?",
+    help="This is where you should put the name of the tdens0 flag.",
 )
 @click.option(
     "--ndiv_list",
-    prompt="What is the number of divisions for the Mesh?",
+    prompt="What is the number of divisions of the mesh?",
     help="This is the number of divisions for your triangular mesh.",
 )
 @click.option(
     "--beta_list",
-    prompt="What is the value for beta?",
-    help="This is the value of your Beta exponent.",
+    prompt="What is the value for beta to be used in the DMK-solver?",
+    help="This is the value of the Beta exponent.",
 )
 @click.option(
     "--source_list",
-    prompt="What is(are) the flag(s) for source?",
+    prompt="What is(are) the flag(s) for source function?",
     help="Source information.",
 )
 @click.option(
-    "--sink_list", prompt="What is(are) the flag(s) for sink?", help="Sink information."
+    "--sink_list", prompt="What is(are) the flag(s) for sink function?", help="Sink information."
 )
 @click.option(
     "--bd_list",
-    prompt="What is the val for the discrete beta?",
+    prompt="What is the value for beta to be used in the filtering part?",
     help="Beta discrete information.",
 )
 @click.option(
-    "--dmk_input", prompt="continuous DMK solver?", help="Execute the DMK solver."
+    "--dmk_input", prompt="Should the DMK-solver step be executed?", help="Execute the DMK-solver."
 )
 @click.option(
     "--ge_input",
-    prompt="graph extraction?",
-    help="Extract the graph from the DMK solutions.",
+    prompt="Should the graph pre-extraction be done?",
+    help="Graph pre-extraction from the DMK solutions.",
 )
 @click.option(
     "--gs_input",
-    prompt="graph simplification, reduction?",
-    help="Simplify the graph using discrete DMK solver. Do a second-step simplification.",
+    prompt="Should the graph filtering/reduction be done?",
+    help="Filtering the graph using discrete DMK solver. Graph reduction.",
 )
-def new(
-    flag_list,
-    beta_list,
-    ndiv_list,
-    source_list,
-    sink_list,
-    bd_list,
-    dmk_input,
-    ge_input,
-    gs_input,
+def network_extraction(
+        flag_list,
+        beta_list,
+        ndiv_list,
+        source_list,
+        sink_list,
+        bd_list,
+        dmk_input,
+        ge_input,
+        gs_input,
 ):
-    # beta_discr=1.5#---------------------------------------------------------------------------------------------------!
+    '''
+    This script runs the network extraction procedure: DMK-solver, graph pre-extraction and graph-filtering. Input
+    values must be given as "flag1,flag2,flag3,..." if many flags are used.
+
+    :param flag_list: flags used for the initial transport density.
+    :param beta_list: values for exponent beta of DMK-solver (1st step).
+    :param ndiv_list: number of divisions of the x-axis used to the creation of the mesh.
+    :param source_list: flags for source function.
+    :param sink_list: flags for sink function. If "=", then it takes the same value as source_list.
+    :param bd_list: values for exponent beta of filtering (3rd step).
+    :param dmk_input: "yes" if DMK-solver to be used.
+    :param ge_input: "yes" if graph pre-extraction to be done.
+    :param gs_input: "yes,yes" if graph filtering *and* graph reduction to be done.
+    :return:
+        outputs stored in ./runs/folder_name
+
+    '''
+
+
+
     if sink_list == "=":
         sink_list = source_list
     source_list = source_list.split(",")
@@ -94,18 +111,18 @@ def new(
                 for source_sink in source_sink_list:
                     for beta_discr in bd_list.split(","):
                         folder_name = (
-                            "%s" % flag
-                            + "_"
-                            + "b"
-                            + str(int(10 * (float(beta))))
-                            + "_"
-                            + "%s" % ndiv
-                            + "dv"
-                            + "_sf"
-                            + str(int(10 * (float(beta_discr))))
-                            + "_"
-                            + "%s" % source_sink[0]
-                            + "%s" % source_sink[1]
+                                "%s" % flag
+                                + "_"
+                                + "b"
+                                + str(int(10 * (float(beta))))
+                                + "_"
+                                + "%s" % ndiv
+                                + "dv"
+                                + "_sf"
+                                + str(int(10 * (float(beta_discr))))
+                                + "_"
+                                + "%s" % source_sink[0]
+                                + "%s" % source_sink[1]
                         )
 
                         if dmk_input == "yes":
@@ -139,10 +156,10 @@ def new(
                             file.write("1.0 extra ! decay0" + "\n")
                             file.write(
                                 "rect_cnst  path/frog_source.dat ! flag_source" + "\n"
-                            )  #%s' %source_sink[0]+
+                            )  # %s' %source_sink[0]+
                             file.write(
                                 "rect_cnst  path/frog_sink2.dat ! flag_sink" + "\n"
-                            )  #%s' %source_sink[1]+
+                            )  # %s' %source_sink[1]+
                             file.write("0 ! flag_normalize" + "\n")
                             # file.write('%s' %flag + '!flag_tdens0 ' + "\n" )
                             file.write(
@@ -178,10 +195,10 @@ def new(
                             except OSError:
                                 pass
                             command = (
-                                "./dmk_folder.py assembly "
-                                + "./runs/"
-                                + folder_name
-                                + " inputs.ctrl "
+                                    "./dmk_folder.py assembly "
+                                    + "./runs/"
+                                    + folder_name
+                                    + " inputs.ctrl "
                             )
                             os.system(command)
 
@@ -192,62 +209,40 @@ def new(
                                 source_sink[1],
                             )
                             if (
-                                source_sink[0] != "rect_cnst"
-                                and source_sink[1] != "rect_cnst"
+                                    source_sink[0] != "rect_cnst"
+                                    and source_sink[1] != "rect_cnst"
                             ):
                                 source_sink_preprocess("./runs/" + folder_name)
 
                             command = (
-                                "./dmk_folder.py run "
-                                + "./runs/"
-                                + folder_name
-                                + " muffa.ctrl > outputs_dmk_c.txt"
+                                    "./dmk_folder.py run "
+                                    + "./runs/"
+                                    + folder_name
+                                    + " new_muffa.ctrl > outputs_dmk_c.txt"
                             )
                             os.system(command)
 
                             command = (
-                                "./dmk_folder.py get-graph "
-                                + "./runs/"
-                                + folder_name
-                                + " 0.1 "
-                                + " 100000000000  > outputs_gg.txt"
+                                    "./dmk_folder.py get-graph "
+                                    + "./runs/"
+                                    + folder_name
+                                    + " 0.1 "
+                                    + " 100000000000  > outputs_gg.txt"
                             )
                             os.system(command)
 
                             command = (
-                                "./dmk_folder.py vtk -a -tdens "
-                                + "./runs/"
-                                + folder_name
-                                + " > outputs_vtk.txt"
+                                    "./dmk_folder.py vtk -a -tdens "
+                                    + "./runs/"
+                                    + folder_name
+                                    + " > outputs_vtk.txt"
                             )
                             os.system(command)
-
-                            """
-							#moving the rhs.dat so we can the perturbation
-							
-
-							print(os.getcwd())
-							os.system('cp ./runs/'+folder_name+'/input/rhs.dat ' + '../globals/python_timedata/rhs.dat')
-							os.chdir('../globals/python_timedata/')
-							os.system('python perturbation.py')
-							os.system('python balance.py rhs_perturbation_damped.dat rhs_integrated.dat')
-							os.chdir('../../Tests')
-							os.system('cp ../globals/python_timedata/rhs_integrated.dat'+'  ./runs/'+folder_name+'/input/rhs_integrated.dat ')
-							
-							
-							
-							#running dmk once more
-							
-							command="./dmk_folder.py run " + './runs/'+ folder_name  + " new_muffa.ctrl > outputs_dmk_c.txt"
-							os.system(command)
-							command="./dmk_folder.py vtk -a -tdens " +  './runs/'+ folder_name +" > outputs_vtk.txt"
-							os.system(command)
-							"""
-                            # shutil.copyfile('inputs.ctrl', 'Test_set/inputs.ctrl')
 
                         else:
                             print("Skipping DMK-solver part.")
-                        ############## GRAPH EXTRACTION######################
+
+                        ############## GRAPH PRE-EXTRACTION######################
 
                         errors = []
                         for funct in ["tdens"]:
@@ -299,6 +294,20 @@ def new(
                                                 source_sink[0],
                                                 source_sink[1],
                                             )
+                                            ### writing parameters ###
+                                            file = open(subfolder + '/parameters.ctrl', 'w+')
+                                            file.write("--- dmk configuration ---" + "\n")
+                                            file.write("tdens0: " + str(flag) + "\n")
+                                            file.write("ndiv: " + str(ndiv) + "\n")
+                                            file.write("source_flag: " + str(source_sink[0]) + "\n")
+                                            file.write("sink_flag: " + str(source_sink[1]) + "\n")
+                                            file.write("beta: " + str(beta) + "\n")
+                                            file.write("--- graph pre-extraction ---" + "\n")
+                                            file.write("delta: " + str(threshold) + "\n")
+                                            file.write("graph_type: " + str(graph_type) + "\n")
+                                            file.write("funct: " + str(funct) + "\n")
+                                            file.write("weighting_method_graph: " + str(weighting_method_graph) + "\n")
+
                                         else:
                                             print("Skipping graph-extraction part.")
                                         print(gs_input.split(","))
@@ -334,9 +343,9 @@ def new(
                                                         i = 0
                                                         beta_discr = float(beta_discr)
                                                         i += 1
-                                                        # updating_beta_discrete(beta_discr)
 
-                                                        Simp = graph_filtering_from_dat_files(
+
+                                                        graph_filtering_from_dat_files(
                                                             subfolder,
                                                             t,
                                                             graph_type,
@@ -350,86 +359,23 @@ def new(
                                                             source_sink[0],
                                                             source_sink[1],
                                                             BP_weights,
-                                                            reduction_flag,
+                                                            reduction_flag
                                                         )
 
-                                                        # print('simulation failed')
-                                                        # errors.append([funct,graph_type,weighting_method_graph,threshold,minimum,weighting_method_simplification,btns_factor])
+                                                        file.write("--- filtering ---" + "\n")
+                                                        file.write("beta: " + str(beta_discr) + "\n")
+                                                        file.write("delta: " + str(min_) + "\n")
+                                                        file.write("btns_factor (s+/s-): " + str(btns_factor) + "\n")
+                                                        file.write("edge weights built from: " + str(BP_weights) + "\n")
+                                                        file.write("degree-2 reduction: " + str(reduction_flag) + "\n")
 
-                                                        # os.chdir("../../Tests/")
-                        print("errors!", errors)
-
-                    ############## GRAPH EXTRACTION (only for a single case) ######################
 
 
-"""
-					errors=[]
-					for funct in ['flux']:
-						for graph_type in ['3']: #','3']:
-							for weighting_method_graph in ['ER']:
-								if funct =='tdens':
-									if 0<float(beta)<=1:
-										t_list=[.5,.65]
-									else:
-										t_list=[0.001]
-								else:
-									if 0<float(beta)<=1:
-										t_list=[.5,.65]
-									else:
-										t_list=[0.001]
 
-								for threshold in t_list:
-									subfolder='./runs/'+folder_name
-									t=float(threshold)
 
-									new_dir = subfolder+'/'+funct
-
-									try:
-										os.mkdir(new_dir)
-									except OSError:
-										print ("Creation of the directory %s failed." % new_dir)
-									print('Flag and tolerance:',subfolder,t,graph_type,funct)
-									G=getting_graphs(subfolder, t, graph_type,funct, weighting_method_graph) 
-
-									for minimum in [0.001]:
-										for weighting_method_simplification in ['IBP']:#, 'BPW', 'ER', None]:
-											for btns_factor in [0.01]:#,0.05,0.1]:
-												min_=float(minimum)
-												btns_factor=float(btns_factor)
-												#print('>>>>>____________________Computing bp simplification for',subfolder, funct, t, graph_type, min_,weighting_method_graph, weighting_method_simplification)
-												try:
-													Simp=BP_simplification(subfolder,t,graph_type,funct,min_,btns_factor,weighting_method_graph,weighting_method_simplification)
-												except OSError: 
-													print('simulation failed')
-													errors.append([funct,graph_type,weighting_method_graph,threshold,minimum,weighting_method_simplification,btns_factor])
-						print('errors!',errors)
-					
-					#print('This graph has:',str(len(G.nodes())),str(len(G[subfolder][str(t)][graph_type].edges())))
-					#t_string= '%.0E' % decimal.Decimal( str(t) )
-					#path_=subfolder+'/'+funct+'/'+funct+'_graph_t'+t_string+'_graph'+str(graph_type)+'.dat'
-					#print('saving graph at',path_)
-					#with open(path_, 'wb') as file:
-					#    pkl.dump(G, file)
-
-				##################FILE COPY####################
-
-				#########BP SIMPLIFICATION#####
-
-				#	for subfolder in ["./runs/" + folder_name]:
-					
-					funct='tdens'
-					min_=float(minimum)
-					graph_type= 1
-					btns_factor=float(btns_factor)
-					weighting_method = 'AVG'
-					weighting_method_simplification = 'IBP'
-					#subfolder = dst + "/" + folder_name
-					print('computing bp simplification')
-					Simp=BP_simplification(subfolder,t,graph_type,funct,min_,btns_factor,weighting_method,weighting_method_simplification)
-"""
 ##############
 
 if __name__ == "__main__":
-    new()
+    network_extraction()
 
-# todo: add parameter.txt prints
+
