@@ -41,7 +41,7 @@ def execute(commands_in_dir):
 # Download dependencies for the first step and backend for filtering
 download_commands = {"./otp_utilities": ["./init_otp_muffe.sh"]}
 execute(download_commands)
-
+"""
 # Build commands
 build_commands = {
     "otp_utilities/geometry": ["./make_all.sh",],
@@ -81,16 +81,12 @@ build_commands = {
 }
 
 execute(build_commands)
-
+"""
 build_directories = {
     "otp_utilities/muffe_p1p0": ["./setup.sh ../../python_scripts"],
-    "otp_utilities/muffe_sparse_optimization/": [
-        "./setup.sh ../../python_scripts/simplifications"
-    ],
-    
-
-    "python_scripts": [
-        "mv utilities.py ./python_script",]}
+    "otp_utilities/muffe_sparse_optimization/": ["./setup.sh simplifications"],
+    "python_scripts": ["cp utilities.py ./python_script",],
+}
 """
         "mv continuous2graph.py ../python_scripts",
         "mv debugger.py ../python_scripts",
@@ -119,10 +115,11 @@ build_directories = {
 
 execute(build_directories)
 
-
+"""
 make_command = {
     "otp_utilities/muffe_p1p0/code": ["make",],
     "otp_utilities/globals/axpy_timedata": ["make",],
     "otp_utilities/geometry/interpolate_timedata/": ["make",],
 }
 execute(make_command)
+"""

@@ -48,7 +48,9 @@ click.echo("Define the parameters for the network extraction routine.")
     help="Source information.",
 )
 @click.option(
-    "--sink_list", prompt="What is(are) the flag(s) for sink function?", help="Sink information."
+    "--sink_list",
+    prompt="What is(are) the flag(s) for sink function?",
+    help="Sink information.",
 )
 @click.option(
     "--bd_list",
@@ -56,7 +58,9 @@ click.echo("Define the parameters for the network extraction routine.")
     help="Beta discrete information.",
 )
 @click.option(
-    "--dmk_input", prompt="Should the DMK-solver step be executed?", help="Execute the DMK-solver."
+    "--dmk_input",
+    prompt="Should the DMK-solver step be executed?",
+    help="Execute the DMK-solver.",
 )
 @click.option(
     "--ge_input",
@@ -69,17 +73,17 @@ click.echo("Define the parameters for the network extraction routine.")
     help="Filtering the graph using discrete DMK solver. Graph reduction.",
 )
 def network_extraction(
-        flag_list,
-        beta_list,
-        ndiv_list,
-        source_list,
-        sink_list,
-        bd_list,
-        dmk_input,
-        ge_input,
-        gs_input,
+    flag_list,
+    beta_list,
+    ndiv_list,
+    source_list,
+    sink_list,
+    bd_list,
+    dmk_input,
+    ge_input,
+    gs_input,
 ):
-    '''
+    """
     This script runs the network extraction procedure: DMK-solver, graph pre-extraction and graph-filtering. Input
     values must be given as "flag1,flag2,flag3,..." if many flags are used.
 
@@ -95,9 +99,7 @@ def network_extraction(
     :return:
         outputs stored in ./runs/folder_name
 
-    '''
-
-
+    """
 
     if sink_list == "=":
         sink_list = source_list
@@ -111,18 +113,18 @@ def network_extraction(
                 for source_sink in source_sink_list:
                     for beta_discr in bd_list.split(","):
                         folder_name = (
-                                "%s" % flag
-                                + "_"
-                                + "b"
-                                + str(int(10 * (float(beta))))
-                                + "_"
-                                + "%s" % ndiv
-                                + "dv"
-                                + "_sf"
-                                + str(int(10 * (float(beta_discr))))
-                                + "_"
-                                + "%s" % source_sink[0]
-                                + "%s" % source_sink[1]
+                            "%s" % flag
+                            + "_"
+                            + "b"
+                            + str(int(10 * (float(beta))))
+                            + "_"
+                            + "%s" % ndiv
+                            + "dv"
+                            + "_sf"
+                            + str(int(10 * (float(beta_discr))))
+                            + "_"
+                            + "%s" % source_sink[0]
+                            + "%s" % source_sink[1]
                         )
 
                         if dmk_input == "yes":
@@ -195,10 +197,10 @@ def network_extraction(
                             except OSError:
                                 pass
                             command = (
-                                    "./dmk_folder.py assembly "
-                                    + "./runs/"
-                                    + folder_name
-                                    + " inputs.ctrl "
+                                "./dmk_folder.py assembly "
+                                + "./runs/"
+                                + folder_name
+                                + " inputs.ctrl "
                             )
                             os.system(command)
 
@@ -209,33 +211,33 @@ def network_extraction(
                                 source_sink[1],
                             )
                             if (
-                                    source_sink[0] != "rect_cnst"
-                                    and source_sink[1] != "rect_cnst"
+                                source_sink[0] != "rect_cnst"
+                                and source_sink[1] != "rect_cnst"
                             ):
                                 source_sink_preprocess("./runs/" + folder_name)
 
                             command = (
-                                    "./dmk_folder.py run "
-                                    + "./runs/"
-                                    + folder_name
-                                    + " new_muffa.ctrl > outputs_dmk_c.txt"
+                                "./dmk_folder.py run "
+                                + "./runs/"
+                                + folder_name
+                                + " new_muffa.ctrl > outputs_dmk_c.txt"
                             )
                             os.system(command)
 
                             command = (
-                                    "./dmk_folder.py get-graph "
-                                    + "./runs/"
-                                    + folder_name
-                                    + " 0.1 "
-                                    + " 100000000000  > outputs_gg.txt"
+                                "./dmk_folder.py get-graph "
+                                + "./runs/"
+                                + folder_name
+                                + " 0.1 "
+                                + " 100000000000  > outputs_gg.txt"
                             )
                             os.system(command)
 
                             command = (
-                                    "./dmk_folder.py vtk -a -tdens "
-                                    + "./runs/"
-                                    + folder_name
-                                    + " > outputs_vtk.txt"
+                                "./dmk_folder.py vtk -a -tdens "
+                                + "./runs/"
+                                + folder_name
+                                + " > outputs_vtk.txt"
                             )
                             os.system(command)
 
@@ -295,18 +297,40 @@ def network_extraction(
                                                 source_sink[1],
                                             )
                                             ### writing parameters ###
-                                            file = open(subfolder + '/parameters.ctrl', 'w+')
-                                            file.write("--- dmk configuration ---" + "\n")
+                                            file = open(
+                                                subfolder + "/parameters.ctrl", "w+"
+                                            )
+                                            file.write(
+                                                "--- dmk configuration ---" + "\n"
+                                            )
                                             file.write("tdens0: " + str(flag) + "\n")
                                             file.write("ndiv: " + str(ndiv) + "\n")
-                                            file.write("source_flag: " + str(source_sink[0]) + "\n")
-                                            file.write("sink_flag: " + str(source_sink[1]) + "\n")
+                                            file.write(
+                                                "source_flag: "
+                                                + str(source_sink[0])
+                                                + "\n"
+                                            )
+                                            file.write(
+                                                "sink_flag: "
+                                                + str(source_sink[1])
+                                                + "\n"
+                                            )
                                             file.write("beta: " + str(beta) + "\n")
-                                            file.write("--- graph pre-extraction ---" + "\n")
-                                            file.write("delta: " + str(threshold) + "\n")
-                                            file.write("graph_type: " + str(graph_type) + "\n")
+                                            file.write(
+                                                "--- graph pre-extraction ---" + "\n"
+                                            )
+                                            file.write(
+                                                "delta: " + str(threshold) + "\n"
+                                            )
+                                            file.write(
+                                                "graph_type: " + str(graph_type) + "\n"
+                                            )
                                             file.write("funct: " + str(funct) + "\n")
-                                            file.write("weighting_method_graph: " + str(weighting_method_graph) + "\n")
+                                            file.write(
+                                                "weighting_method_graph: "
+                                                + str(weighting_method_graph)
+                                                + "\n"
+                                            )
 
                                         else:
                                             print("Skipping graph-extraction part.")
@@ -344,7 +368,6 @@ def network_extraction(
                                                         beta_discr = float(beta_discr)
                                                         i += 1
 
-
                                                         graph_filtering_from_dat_files(
                                                             subfolder,
                                                             t,
@@ -359,23 +382,38 @@ def network_extraction(
                                                             source_sink[0],
                                                             source_sink[1],
                                                             BP_weights,
-                                                            reduction_flag
+                                                            reduction_flag,
                                                         )
 
-                                                        file.write("--- filtering ---" + "\n")
-                                                        file.write("beta: " + str(beta_discr) + "\n")
-                                                        file.write("delta: " + str(min_) + "\n")
-                                                        file.write("btns_factor (s+/s-): " + str(btns_factor) + "\n")
-                                                        file.write("edge weights built from: " + str(BP_weights) + "\n")
-                                                        file.write("degree-2 reduction: " + str(reduction_flag) + "\n")
-
-
-
+                                                        file.write(
+                                                            "--- filtering ---" + "\n"
+                                                        )
+                                                        file.write(
+                                                            "beta: "
+                                                            + str(beta_discr)
+                                                            + "\n"
+                                                        )
+                                                        file.write(
+                                                            "delta: " + str(min_) + "\n"
+                                                        )
+                                                        file.write(
+                                                            "btns_factor (s+/s-): "
+                                                            + str(btns_factor)
+                                                            + "\n"
+                                                        )
+                                                        file.write(
+                                                            "edge weights built from: "
+                                                            + str(BP_weights)
+                                                            + "\n"
+                                                        )
+                                                        file.write(
+                                                            "degree-2 reduction: "
+                                                            + str(reduction_flag)
+                                                            + "\n"
+                                                        )
 
 
 ##############
 
 if __name__ == "__main__":
     network_extraction()
-
-
