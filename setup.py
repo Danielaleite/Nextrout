@@ -83,46 +83,46 @@ build_commands = {
 execute(build_commands)
 
 build_directories = {
-    "otp_utilities/muffe_p1p0": ["./setup.sh ../../network_extraction"],
+    "otp_utilities/muffe_p1p0": ["./setup.sh ../../python_scripts"],
     "otp_utilities/muffe_sparse_optimization/": [
-        "./setup.sh ../../network_extraction/simplifications"
-    ],
-    "python_scripts": [
-        "cp network_extraction.py ../network_extraction",
-        "cp continuous2graph.py ../network_extraction",
-        "cp debugger.py ../network_extraction",
-        "cp discrete2graph.py ../network_extraction",
-        "cp filtering.py ../network_extraction",
-        "cp get_graph.py ../network_extraction",
-        "cp Getting_sources_and_sinks.py ../network_extraction",
-        "cp graph2plotly.py ../network_extraction",
-        "cp main.py ../network_extraction",
-        "cp pre_extraction.py ../network_extraction",
-        "cp quality_measure.py ../network_extraction",
-        "cp source_sink_generator.py ../network_extraction",
-        "cp steiner_simplification.py ../network_extraction",
-        "cp transport_networks.py ../network_extraction",
-        "cp utilities.py ../network_extraction",
-        "cp utils.py ../network_extraction",
-        "cp terminal_computation.py ../network_extraction",
-        "cp utilities.py ../network_extraction/python_script",
-        "cp -a graph_cell_folder ../network_extraction/",
-        "cp -a par_files ../network_extraction/simplifications/",
-        "cp -a images ../network_extraction",
-        "cp -a PVM_data ../network_extraction",
+        "./setup.sh ../../python_scripts/simplifications"
     ],
 }
+
+    "python_scripts": [
+        "mv utilities.py ./python_script",]
+    """
+        "mv continuous2graph.py ../python_scripts",
+        "mv debugger.py ../python_scripts",
+        "mv discrete2graph.py ../python_scripts",
+        "mv filtering.py ../python_scripts",
+        "mv get_graph.py ../python_scripts",
+        "mv Getting_sources_and_sinks.py ../python_scripts",
+        "mv graph2plotly.py ../python_scripts",
+        "mv main.py ../python_scripts",
+        "mv pre_extraction.py ../python_scripts",
+        "mv quality_measure.py ../python_scripts",
+        "mv source_sink_generator.py ../python_scripts",
+        "mv steiner_simplification.py ../python_scripts",
+        "mv transport_networks.py ../python_scripts",
+        "mv utilities.py ../python_scripts",
+        "mv utils.py ../python_scripts",
+        "mv terminal_computation.py ../python_scripts",
+        "mv utilities.py ../python_scripts/python_script",
+        "mv graph_cell_folder ../python_scripts/",
+        "mv par_files ../python_scripts/simplifications/",
+        "mv images ../python_scripts",
+        "mv PVM_data ../python_scripts",
+    ],
+"""
+
 
 execute(build_directories)
 
-# remove_directories = {"python_scripts": ["rm -rf ;python_scripts"]}
-# execute(remove_directories)
 
-"""
 make_command = {
-    "muffe_p1p0/code": ["make",],
-    "globals/axpy_timedata": ["make",],
-    "geometry/interpolate_timedata/": ["make",],
+    "otp_utilities/muffe_p1p0/code": ["make",],
+    "otp_utilities/globals/axpy_timedata": ["make",],
+    "otp_utilities/geometry/interpolate_timedata/": ["make",],
 }
 execute(make_command)
-"""
