@@ -87,12 +87,11 @@ def graph_filtering_from_dat_files(
         weight_flag = "length"
 
         # Loading the Graph
-        print("+++++++++++++++++++++++++++++++++++++++", os.getcwd())
 
         t_string = "%.0E" % decimal.Decimal(str(t))
         if os.getcwd().split("/")[-1] == "simplifications":
             path_ = (
-                "/"
+                "./"
                 + folder_name[2:]
                 + "/"
                 + funct

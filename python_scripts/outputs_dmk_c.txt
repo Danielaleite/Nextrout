@@ -22,7 +22,7 @@
  ********** Start Tdens/Pot syncronization at tzero} *******************
 prec_type = IC ( nfill = 10, drop. tol.= 1.00000E-04)
     0   15 2.62220E-02 5.10400E-14 5.10131E-14 <<PCG solver>>
- 0.00s:PREC= 0.0%,MXV= 0.0%,VEC= 0.0%,SCAL=****%,ORT= 0.0%,OVH= 0.0%
+ 0.00s:PREC= 0.0%,MXV= 0.0%,VEC=****%,SCAL= 0.0%,ORT= 0.0%,OVH= 0.0%
  ********** Tdens/Pot syncronized at tzero} ****************************
 ********** info evolution *********************************************
 iter=    0 | time  =  0.00E+00
@@ -79,7 +79,7 @@ err   : td    =  2.54E+00 | wass  =  8.43E+00 | 1wass =  1.17E+00
 grad  : abs   =  6.81E-01 | avg   =  6.75E-01 | D3    =  3.95E-01
 linsys: resell=  3.92E-11
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.02 (s) ; USR:       0.02 (s) 
+Algorithm Time : WCT:       0.03 (s) ; USR:       0.03 (s) 
  time step =           1  nupdate =           1
 ***********************************************************************
  
@@ -319,7 +319,7 @@ err   : td    =  5.69E-01 | wass  =  4.31E+00 | 1wass =  6.61E-01
 grad  : abs   =  3.36E+00 | avg   =  2.63E+00 | D3    =  7.95E-01
 linsys: resell=  1.18E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.14 (s) ; USR:       0.14 (s) 
+Algorithm Time : WCT:       0.15 (s) ; USR:       0.15 (s) 
  time step =           5  nupdate =          10
 ***********************************************************************
  
@@ -854,7 +854,7 @@ err   : td    =  1.33E+00 | wass  =  2.25E+00 | 1wass =  4.05E-01
 grad  : abs   =  1.22E+01 | avg   =  8.86E+00 | D3    =  8.92E-01
 linsys: resell=  7.46E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.35 (s) ; USR:       0.36 (s) 
+Algorithm Time : WCT:       0.36 (s) ; USR:       0.36 (s) 
  time step =          15  nupdate =          30
 ***********************************************************************
  
@@ -907,7 +907,7 @@ err   : td    =  1.47E+00 | wass  =  2.11E+00 | 1wass =  3.87E-01
 grad  : abs   =  1.28E+01 | avg   =  8.96E+00 | D3    =  9.42E-01
 linsys: resell=  1.06E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.37 (s) ; USR:       0.38 (s) 
+Algorithm Time : WCT:       0.38 (s) ; USR:       0.38 (s) 
  time step =          16  nupdate =          32
 ***********************************************************************
  
@@ -960,7 +960,7 @@ err   : td    =  1.61E+00 | wass  =  1.99E+00 | 1wass =  3.71E-01
 grad  : abs   =  1.31E+01 | avg   =  9.12E+00 | D3    =  9.87E-01
 linsys: resell=  1.38E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.39 (s) ; USR:       0.40 (s) 
+Algorithm Time : WCT:       0.40 (s) ; USR:       0.40 (s) 
  time step =          17  nupdate =          34
 ***********************************************************************
  
@@ -1013,7 +1013,7 @@ err   : td    =  1.73E+00 | wass  =  1.88E+00 | 1wass =  3.58E-01
 grad  : abs   =  1.32E+01 | avg   =  9.18E+00 | D3    =  9.65E-01
 linsys: resell=  6.15E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.41 (s) ; USR:       0.42 (s) 
+Algorithm Time : WCT:       0.42 (s) ; USR:       0.42 (s) 
  time step =          18  nupdate =          36
 ***********************************************************************
  
@@ -1127,7 +1127,7 @@ err   : td    =  1.88E+00 | wass  =  1.75E+00 | 1wass =  3.42E-01
 grad  : abs   =  1.33E+01 | avg   =  9.21E+00 | D3    =  1.03E+00
 linsys: resell=  4.56E-11
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.45 (s) ; USR:       0.45 (s) 
+Algorithm Time : WCT:       0.45 (s) ; USR:       0.46 (s) 
  time step =          20  nupdate =          41
 ***********************************************************************
  
@@ -1225,7 +1225,7 @@ err   : td    =  2.03E+00 | wass  =  1.62E+00 | 1wass =  3.26E-01
 grad  : abs   =  1.33E+01 | avg   =  9.20E+00 | D3    =  9.35E-01
 linsys: resell=  1.45E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.48 (s) ; USR:       0.49 (s) 
+Algorithm Time : WCT:       0.49 (s) ; USR:       0.49 (s) 
  time step =          22  nupdate =          44
 ***********************************************************************
  
@@ -1278,7 +1278,7 @@ err   : td    =  2.10E+00 | wass  =  1.56E+00 | 1wass =  3.19E-01
 grad  : abs   =  1.33E+01 | avg   =  9.20E+00 | D3    =  8.64E-01
 linsys: resell=  7.41E-15
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.50 (s) ; USR:       0.50 (s) 
+Algorithm Time : WCT:       0.51 (s) ; USR:       0.51 (s) 
  time step =          23  nupdate =          46
 ***********************************************************************
  
@@ -1331,7 +1331,7 @@ err   : td    =  2.16E+00 | wass  =  1.51E+00 | 1wass =  3.12E-01
 grad  : abs   =  1.33E+01 | avg   =  9.20E+00 | D3    =  8.32E-01
 linsys: resell=  5.61E-16
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.52 (s) ; USR:       0.52 (s) 
+Algorithm Time : WCT:       0.52 (s) ; USR:       0.53 (s) 
  time step =          24  nupdate =          48
 ***********************************************************************
  
@@ -1384,7 +1384,7 @@ err   : td    =  2.21E+00 | wass  =  1.47E+00 | 1wass =  3.07E-01
 grad  : abs   =  1.33E+01 | avg   =  9.20E+00 | D3    =  8.08E-01
 linsys: resell=  2.94E-15
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.54 (s) ; USR:       0.54 (s) 
+Algorithm Time : WCT:       0.54 (s) ; USR:       0.55 (s) 
  time step =          25  nupdate =          50
 ***********************************************************************
  
@@ -1649,7 +1649,7 @@ err   : td    =  2.40E+00 | wass  =  1.33E+00 | 1wass =  2.89E-01
 grad  : abs   =  1.46E+01 | avg   =  9.36E+00 | D3    =  7.53E-01
 linsys: resell=  8.20E-16
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.63 (s) ; USR:       0.64 (s) 
+Algorithm Time : WCT:       0.64 (s) ; USR:       0.64 (s) 
  time step =          30  nupdate =          60
 ***********************************************************************
  
@@ -1702,7 +1702,7 @@ err   : td    =  2.43E+00 | wass  =  1.31E+00 | 1wass =  2.87E-01
 grad  : abs   =  1.45E+01 | avg   =  9.28E+00 | D3    =  7.50E-01
 linsys: resell=  2.14E-16
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.65 (s) ; USR:       0.66 (s) 
+Algorithm Time : WCT:       0.66 (s) ; USR:       0.66 (s) 
  time step =          31  nupdate =          62
 ***********************************************************************
  
@@ -1750,7 +1750,7 @@ err   : td    =  2.45E+00 | wass  =  1.29E+00 | 1wass =  2.85E-01
 grad  : abs   =  1.45E+01 | avg   =  9.23E+00 | D3    =  7.22E-01
 linsys: resell=  3.25E-11
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.66 (s) ; USR:       0.67 (s) 
+Algorithm Time : WCT:       0.67 (s) ; USR:       0.67 (s) 
  time step =          32  nupdate =          64
 ***********************************************************************
  
@@ -1803,7 +1803,7 @@ err   : td    =  2.47E+00 | wass  =  1.27E+00 | 1wass =  2.83E-01
 grad  : abs   =  1.44E+01 | avg   =  9.20E+00 | D3    =  7.33E-01
 linsys: resell=  1.51E-15
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.68 (s) ; USR:       0.69 (s) 
+Algorithm Time : WCT:       0.69 (s) ; USR:       0.69 (s) 
  time step =          33  nupdate =          66
 ***********************************************************************
  
@@ -1909,7 +1909,7 @@ err   : td    =  2.51E+00 | wass  =  1.25E+00 | 1wass =  2.80E-01
 grad  : abs   =  1.44E+01 | avg   =  9.20E+00 | D3    =  7.38E-01
 linsys: resell=  4.65E-16
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.72 (s) ; USR:       0.72 (s) 
+Algorithm Time : WCT:       0.72 (s) ; USR:       0.73 (s) 
  time step =          35  nupdate =          70
 ***********************************************************************
  
@@ -1962,7 +1962,7 @@ err   : td    =  2.53E+00 | wass  =  1.24E+00 | 1wass =  2.78E-01
 grad  : abs   =  1.43E+01 | avg   =  9.20E+00 | D3    =  7.13E-01
 linsys: resell=  9.37E-16
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.74 (s) ; USR:       0.74 (s) 
+Algorithm Time : WCT:       0.74 (s) ; USR:       0.75 (s) 
  time step =          36  nupdate =          72
 ***********************************************************************
  
@@ -2058,7 +2058,7 @@ err   : td    =  2.57E+00 | wass  =  1.22E+00 | 1wass =  2.76E-01
 grad  : abs   =  1.43E+01 | avg   =  9.19E+00 | D3    =  6.84E-01
 linsys: resell=  1.22E-10
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.76 (s) ; USR:       0.77 (s) 
+Algorithm Time : WCT:       0.77 (s) ; USR:       0.77 (s) 
  time step =          38  nupdate =          76
 ***********************************************************************
  
@@ -2111,7 +2111,7 @@ err   : td    =  2.59E+00 | wass  =  1.21E+00 | 1wass =  2.75E-01
 grad  : abs   =  1.43E+01 | avg   =  9.19E+00 | D3    =  6.78E-01
 linsys: resell=  8.03E-16
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.78 (s) ; USR:       0.79 (s) 
+Algorithm Time : WCT:       0.79 (s) ; USR:       0.79 (s) 
  time step =          39  nupdate =          78
 ***********************************************************************
  
@@ -2217,7 +2217,7 @@ err   : td    =  2.61E+00 | wass  =  1.20E+00 | 1wass =  2.73E-01
 grad  : abs   =  1.42E+01 | avg   =  9.18E+00 | D3    =  6.65E-01
 linsys: resell=  7.01E-16
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.82 (s) ; USR:       0.82 (s) 
+Algorithm Time : WCT:       0.82 (s) ; USR:       0.83 (s) 
  time step =          41  nupdate =          82
 ***********************************************************************
  
@@ -2262,7 +2262,7 @@ err   : td    =  2.63E+00 | wass  =  1.19E+00 | 1wass =  2.72E-01
 grad  : abs   =  1.42E+01 | avg   =  9.18E+00 | D3    =  6.25E-01
 linsys: resell=  1.06E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.84 (s) ; USR:       0.84 (s) 
+Algorithm Time : WCT:       0.84 (s) ; USR:       0.85 (s) 
  time step =          42  nupdate =          83
 ***********************************************************************
  
@@ -2315,7 +2315,7 @@ err   : td    =  2.63E+00 | wass  =  1.18E+00 | 1wass =  2.71E-01
 grad  : abs   =  1.42E+01 | avg   =  9.18E+00 | D3    =  6.33E-01
 linsys: resell=  3.20E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.86 (s) ; USR:       0.86 (s) 
+Algorithm Time : WCT:       0.87 (s) ; USR:       0.88 (s) 
  time step =          43  nupdate =          85
 ***********************************************************************
  
@@ -2368,7 +2368,7 @@ err   : td    =  2.64E+00 | wass  =  1.18E+00 | 1wass =  2.71E-01
 grad  : abs   =  1.41E+01 | avg   =  9.19E+00 | D3    =  6.31E-01
 linsys: resell=  1.49E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.88 (s) ; USR:       0.88 (s) 
+Algorithm Time : WCT:       0.91 (s) ; USR:       0.91 (s) 
  time step =          44  nupdate =          87
 ***********************************************************************
  
@@ -2421,7 +2421,7 @@ err   : td    =  2.64E+00 | wass  =  1.17E+00 | 1wass =  2.70E-01
 grad  : abs   =  1.41E+01 | avg   =  9.21E+00 | D3    =  6.39E-01
 linsys: resell=  1.27E-15
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.90 (s) ; USR:       0.90 (s) 
+Algorithm Time : WCT:       0.93 (s) ; USR:       0.93 (s) 
  time step =          45  nupdate =          89
 ***********************************************************************
  
@@ -2487,7 +2487,7 @@ err   : td    =  2.64E+00 | wass  =  1.17E+00 | 1wass =  2.70E-01
 grad  : abs   =  1.41E+01 | avg   =  9.22E+00 | D3    =  6.80E-01
 linsys: resell=  5.74E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.92 (s) ; USR:       0.92 (s) 
+Algorithm Time : WCT:       0.95 (s) ; USR:       0.95 (s) 
  time step =          46  nupdate =          92
 ***********************************************************************
  
@@ -2535,7 +2535,7 @@ err   : td    =  2.64E+00 | wass  =  1.17E+00 | 1wass =  2.70E-01
 grad  : abs   =  1.41E+01 | avg   =  9.23E+00 | D3    =  7.05E-01
 linsys: resell=  4.78E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.93 (s) ; USR:       0.94 (s) 
+Algorithm Time : WCT:       0.96 (s) ; USR:       0.97 (s) 
  time step =          47  nupdate =          94
 ***********************************************************************
  
@@ -2583,7 +2583,7 @@ err   : td    =  2.65E+00 | wass  =  1.17E+00 | 1wass =  2.70E-01
 grad  : abs   =  1.41E+01 | avg   =  9.24E+00 | D3    =  7.02E-01
 linsys: resell=  2.88E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.95 (s) ; USR:       0.95 (s) 
+Algorithm Time : WCT:       0.98 (s) ; USR:       0.98 (s) 
  time step =          48  nupdate =          96
 ***********************************************************************
  
@@ -2631,7 +2631,7 @@ err   : td    =  2.65E+00 | wass  =  1.17E+00 | 1wass =  2.69E-01
 grad  : abs   =  1.41E+01 | avg   =  9.24E+00 | D3    =  6.73E-01
 linsys: resell=  1.92E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.96 (s) ; USR:       0.96 (s) 
+Algorithm Time : WCT:       0.99 (s) ; USR:       0.99 (s) 
  time step =          49  nupdate =          98
 ***********************************************************************
  
@@ -2679,7 +2679,7 @@ err   : td    =  2.65E+00 | wass  =  1.16E+00 | 1wass =  2.69E-01
 grad  : abs   =  1.41E+01 | avg   =  9.25E+00 | D3    =  6.32E-01
 linsys: resell=  7.72E-15
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.97 (s) ; USR:       0.97 (s) 
+Algorithm Time : WCT:       1.00 (s) ; USR:       1.00 (s) 
  time step =          50  nupdate =         100
 ***********************************************************************
  
@@ -2719,7 +2719,7 @@ err   : td    =  2.65E+00 | wass  =  1.16E+00 | 1wass =  2.69E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.91E-01
 linsys: resell=  2.81E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       0.98 (s) ; USR:       0.99 (s) 
+Algorithm Time : WCT:       1.01 (s) ; USR:       1.02 (s) 
  time step =          51  nupdate =         101
 ***********************************************************************
  
@@ -2767,7 +2767,7 @@ err   : td    =  2.65E+00 | wass  =  1.16E+00 | 1wass =  2.69E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.83E-01
 linsys: resell=  1.68E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.00 (s) ; USR:       1.00 (s) 
+Algorithm Time : WCT:       1.03 (s) ; USR:       1.03 (s) 
  time step =          52  nupdate =         103
 ***********************************************************************
  
@@ -2815,7 +2815,7 @@ err   : td    =  2.65E+00 | wass  =  1.16E+00 | 1wass =  2.69E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.71E-01
 linsys: resell=  2.15E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.01 (s) ; USR:       1.01 (s) 
+Algorithm Time : WCT:       1.04 (s) ; USR:       1.04 (s) 
  time step =          53  nupdate =         105
 ***********************************************************************
  
@@ -2863,7 +2863,7 @@ err   : td    =  2.65E+00 | wass  =  1.16E+00 | 1wass =  2.69E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.58E-01
 linsys: resell=  2.17E-15
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.02 (s) ; USR:       1.03 (s) 
+Algorithm Time : WCT:       1.05 (s) ; USR:       1.06 (s) 
  time step =          54  nupdate =         107
 ***********************************************************************
  
@@ -2911,7 +2911,7 @@ err   : td    =  2.65E+00 | wass  =  1.16E+00 | 1wass =  2.69E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.45E-01
 linsys: resell=  7.75E-15
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.03 (s) ; USR:       1.04 (s) 
+Algorithm Time : WCT:       1.07 (s) ; USR:       1.07 (s) 
  time step =          55  nupdate =         109
 ***********************************************************************
  
@@ -2959,7 +2959,7 @@ err   : td    =  2.65E+00 | wass  =  1.16E+00 | 1wass =  2.69E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.34E-01
 linsys: resell=  3.83E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.05 (s) ; USR:       1.05 (s) 
+Algorithm Time : WCT:       1.08 (s) ; USR:       1.08 (s) 
  time step =          56  nupdate =         111
 ***********************************************************************
  
@@ -3007,7 +3007,7 @@ err   : td    =  2.65E+00 | wass  =  1.16E+00 | 1wass =  2.69E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.40E-01
 linsys: resell=  6.25E-15
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.06 (s) ; USR:       1.06 (s) 
+Algorithm Time : WCT:       1.09 (s) ; USR:       1.10 (s) 
  time step =          57  nupdate =         113
 ***********************************************************************
  
@@ -3055,7 +3055,7 @@ err   : td    =  2.65E+00 | wass  =  1.16E+00 | 1wass =  2.69E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.51E-01
 linsys: resell=  2.62E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.07 (s) ; USR:       1.08 (s) 
+Algorithm Time : WCT:       1.10 (s) ; USR:       1.11 (s) 
  time step =          58  nupdate =         115
 ***********************************************************************
  
@@ -3103,7 +3103,7 @@ err   : td    =  2.66E+00 | wass  =  1.16E+00 | 1wass =  2.69E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.67E-01
 linsys: resell=  1.54E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.09 (s) ; USR:       1.09 (s) 
+Algorithm Time : WCT:       1.12 (s) ; USR:       1.12 (s) 
  time step =          59  nupdate =         117
 ***********************************************************************
  
@@ -3151,7 +3151,7 @@ err   : td    =  2.66E+00 | wass  =  1.16E+00 | 1wass =  2.68E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.88E-01
 linsys: resell=  3.46E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.10 (s) ; USR:       1.10 (s) 
+Algorithm Time : WCT:       1.13 (s) ; USR:       1.13 (s) 
  time step =          60  nupdate =         119
 ***********************************************************************
  
@@ -3204,7 +3204,7 @@ err   : td    =  2.66E+00 | wass  =  1.16E+00 | 1wass =  2.68E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  6.08E-01
 linsys: resell=  1.92E-15
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.11 (s) ; USR:       1.12 (s) 
+Algorithm Time : WCT:       1.15 (s) ; USR:       1.15 (s) 
  time step =          61  nupdate =         121
 ***********************************************************************
  
@@ -3257,7 +3257,7 @@ err   : td    =  2.66E+00 | wass  =  1.16E+00 | 1wass =  2.68E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  6.11E-01
 linsys: resell=  3.96E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.13 (s) ; USR:       1.13 (s) 
+Algorithm Time : WCT:       1.16 (s) ; USR:       1.17 (s) 
  time step =          62  nupdate =         123
 ***********************************************************************
  
@@ -3310,7 +3310,7 @@ err   : td    =  2.66E+00 | wass  =  1.16E+00 | 1wass =  2.68E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.94E-01
 linsys: resell=  6.56E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.14 (s) ; USR:       1.15 (s) 
+Algorithm Time : WCT:       1.18 (s) ; USR:       1.18 (s) 
  time step =          63  nupdate =         125
 ***********************************************************************
  
@@ -3363,7 +3363,7 @@ err   : td    =  2.66E+00 | wass  =  1.16E+00 | 1wass =  2.68E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.68E-01
 linsys: resell=  3.51E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.16 (s) ; USR:       1.16 (s) 
+Algorithm Time : WCT:       1.19 (s) ; USR:       1.20 (s) 
  time step =          64  nupdate =         127
 ***********************************************************************
  
@@ -3416,7 +3416,7 @@ err   : td    =  2.66E+00 | wass  =  1.16E+00 | 1wass =  2.68E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.46E-01
 linsys: resell=  1.66E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.17 (s) ; USR:       1.18 (s) 
+Algorithm Time : WCT:       1.21 (s) ; USR:       1.21 (s) 
  time step =          65  nupdate =         129
 ***********************************************************************
  
@@ -3464,7 +3464,7 @@ err   : td    =  2.67E+00 | wass  =  1.16E+00 | 1wass =  2.68E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.41E-01
 linsys: resell=  6.32E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.19 (s) ; USR:       1.19 (s) 
+Algorithm Time : WCT:       1.22 (s) ; USR:       1.22 (s) 
  time step =          66  nupdate =         131
 ***********************************************************************
  
@@ -3512,7 +3512,7 @@ err   : td    =  2.67E+00 | wass  =  1.16E+00 | 1wass =  2.68E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.50E-01
 linsys: resell=  1.99E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.20 (s) ; USR:       1.20 (s) 
+Algorithm Time : WCT:       1.23 (s) ; USR:       1.24 (s) 
  time step =          67  nupdate =         133
 ***********************************************************************
  
@@ -3560,7 +3560,7 @@ err   : td    =  2.67E+00 | wass  =  1.16E+00 | 1wass =  2.68E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.62E-01
 linsys: resell=  8.88E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.21 (s) ; USR:       1.22 (s) 
+Algorithm Time : WCT:       1.25 (s) ; USR:       1.25 (s) 
  time step =          68  nupdate =         135
 ***********************************************************************
  
@@ -3608,7 +3608,7 @@ err   : td    =  2.68E+00 | wass  =  1.16E+00 | 1wass =  2.68E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.79E-01
 linsys: resell=  4.07E-11
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.23 (s) ; USR:       1.23 (s) 
+Algorithm Time : WCT:       1.26 (s) ; USR:       1.26 (s) 
  time step =          69  nupdate =         137
 ***********************************************************************
  
@@ -3656,7 +3656,7 @@ err   : td    =  2.68E+00 | wass  =  1.16E+00 | 1wass =  2.68E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  6.01E-01
 linsys: resell=  3.90E-11
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.24 (s) ; USR:       1.24 (s) 
+Algorithm Time : WCT:       1.27 (s) ; USR:       1.27 (s) 
  time step =          70  nupdate =         139
 ***********************************************************************
  
@@ -3709,7 +3709,7 @@ err   : td    =  2.69E+00 | wass  =  1.15E+00 | 1wass =  2.68E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  6.25E-01
 linsys: resell=  6.94E-15
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.26 (s) ; USR:       1.26 (s) 
+Algorithm Time : WCT:       1.29 (s) ; USR:       1.29 (s) 
  time step =          71  nupdate =         141
 ***********************************************************************
  
@@ -3762,7 +3762,7 @@ err   : td    =  2.71E+00 | wass  =  1.15E+00 | 1wass =  2.68E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  6.34E-01
 linsys: resell=  1.89E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.28 (s) ; USR:       1.28 (s) 
+Algorithm Time : WCT:       1.31 (s) ; USR:       1.31 (s) 
  time step =          72  nupdate =         143
 ***********************************************************************
  
@@ -3815,7 +3815,7 @@ err   : td    =  2.73E+00 | wass  =  1.15E+00 | 1wass =  2.67E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  6.18E-01
 linsys: resell=  5.61E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.29 (s) ; USR:       1.30 (s) 
+Algorithm Time : WCT:       1.33 (s) ; USR:       1.33 (s) 
  time step =          73  nupdate =         145
 ***********************************************************************
  
@@ -3868,7 +3868,7 @@ err   : td    =  2.75E+00 | wass  =  1.15E+00 | 1wass =  2.67E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.86E-01
 linsys: resell=  8.33E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.31 (s) ; USR:       1.31 (s) 
+Algorithm Time : WCT:       1.34 (s) ; USR:       1.35 (s) 
  time step =          74  nupdate =         147
 ***********************************************************************
  
@@ -3921,7 +3921,7 @@ err   : td    =  2.76E+00 | wass  =  1.15E+00 | 1wass =  2.67E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.55E-01
 linsys: resell=  1.55E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.32 (s) ; USR:       1.33 (s) 
+Algorithm Time : WCT:       1.36 (s) ; USR:       1.36 (s) 
  time step =          75  nupdate =         149
 ***********************************************************************
  
@@ -3974,7 +3974,7 @@ err   : td    =  2.77E+00 | wass  =  1.14E+00 | 1wass =  2.67E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.33E-01
 linsys: resell=  2.06E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.34 (s) ; USR:       1.34 (s) 
+Algorithm Time : WCT:       1.37 (s) ; USR:       1.38 (s) 
  time step =          76  nupdate =         151
 ***********************************************************************
  
@@ -4027,7 +4027,7 @@ err   : td    =  2.77E+00 | wass  =  1.14E+00 | 1wass =  2.67E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.26E-01
 linsys: resell=  3.56E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.36 (s) ; USR:       1.36 (s) 
+Algorithm Time : WCT:       1.39 (s) ; USR:       1.39 (s) 
  time step =          77  nupdate =         153
 ***********************************************************************
  
@@ -4080,7 +4080,7 @@ err   : td    =  2.77E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.28E-01
 linsys: resell=  2.02E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.37 (s) ; USR:       1.37 (s) 
+Algorithm Time : WCT:       1.40 (s) ; USR:       1.41 (s) 
  time step =          78  nupdate =         155
 ***********************************************************************
  
@@ -4128,7 +4128,7 @@ err   : td    =  2.77E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.31E-01
 linsys: resell=  4.85E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.38 (s) ; USR:       1.38 (s) 
+Algorithm Time : WCT:       1.42 (s) ; USR:       1.42 (s) 
  time step =          79  nupdate =         157
 ***********************************************************************
  
@@ -4176,7 +4176,7 @@ err   : td    =  2.77E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.35E-01
 linsys: resell=  6.56E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.40 (s) ; USR:       1.40 (s) 
+Algorithm Time : WCT:       1.43 (s) ; USR:       1.43 (s) 
  time step =          80  nupdate =         159
 ***********************************************************************
  
@@ -4224,7 +4224,7 @@ err   : td    =  2.77E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.42E-01
 linsys: resell=  6.84E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.41 (s) ; USR:       1.41 (s) 
+Algorithm Time : WCT:       1.44 (s) ; USR:       1.45 (s) 
  time step =          81  nupdate =         161
 ***********************************************************************
  
@@ -4272,7 +4272,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.53E-01
 linsys: resell=  1.46E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.42 (s) ; USR:       1.42 (s) 
+Algorithm Time : WCT:       1.45 (s) ; USR:       1.46 (s) 
  time step =          82  nupdate =         163
 ***********************************************************************
  
@@ -4320,7 +4320,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.70E-01
 linsys: resell=  3.76E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.43 (s) ; USR:       1.44 (s) 
+Algorithm Time : WCT:       1.47 (s) ; USR:       1.47 (s) 
  time step =          83  nupdate =         165
 ***********************************************************************
  
@@ -4368,7 +4368,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.92E-01
 linsys: resell=  6.03E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.45 (s) ; USR:       1.45 (s) 
+Algorithm Time : WCT:       1.48 (s) ; USR:       1.48 (s) 
  time step =          84  nupdate =         167
 ***********************************************************************
  
@@ -4421,7 +4421,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  6.08E-01
 linsys: resell=  6.26E-15
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.46 (s) ; USR:       1.46 (s) 
+Algorithm Time : WCT:       1.50 (s) ; USR:       1.50 (s) 
  time step =          85  nupdate =         169
 ***********************************************************************
  
@@ -4474,7 +4474,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  6.03E-01
 linsys: resell=  9.44E-15
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.48 (s) ; USR:       1.48 (s) 
+Algorithm Time : WCT:       1.51 (s) ; USR:       1.52 (s) 
  time step =          86  nupdate =         171
 ***********************************************************************
  
@@ -4527,7 +4527,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.78E-01
 linsys: resell=  7.53E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.49 (s) ; USR:       1.49 (s) 
+Algorithm Time : WCT:       1.53 (s) ; USR:       1.53 (s) 
  time step =          87  nupdate =         173
 ***********************************************************************
  
@@ -4580,7 +4580,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.51E-01
 linsys: resell=  8.36E-15
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.51 (s) ; USR:       1.51 (s) 
+Algorithm Time : WCT:       1.54 (s) ; USR:       1.55 (s) 
  time step =          88  nupdate =         175
 ***********************************************************************
  
@@ -4633,7 +4633,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.29E-01
 linsys: resell=  3.85E-15
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.52 (s) ; USR:       1.52 (s) 
+Algorithm Time : WCT:       1.56 (s) ; USR:       1.56 (s) 
  time step =          89  nupdate =         177
 ***********************************************************************
  
@@ -4681,7 +4681,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.17E-01
 linsys: resell=  1.87E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.54 (s) ; USR:       1.54 (s) 
+Algorithm Time : WCT:       1.57 (s) ; USR:       1.57 (s) 
  time step =          90  nupdate =         179
 ***********************************************************************
  
@@ -4729,7 +4729,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.14E-01
 linsys: resell=  7.63E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.55 (s) ; USR:       1.55 (s) 
+Algorithm Time : WCT:       1.58 (s) ; USR:       1.59 (s) 
  time step =          91  nupdate =         181
 ***********************************************************************
  
@@ -4777,7 +4777,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.11E-01
 linsys: resell=  2.22E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.56 (s) ; USR:       1.56 (s) 
+Algorithm Time : WCT:       1.59 (s) ; USR:       1.60 (s) 
  time step =          92  nupdate =         183
 ***********************************************************************
  
@@ -4820,7 +4820,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.10E-01
 linsys: resell=  9.24E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.57 (s) ; USR:       1.57 (s) 
+Algorithm Time : WCT:       1.60 (s) ; USR:       1.61 (s) 
  time step =          93  nupdate =         185
 ***********************************************************************
  
@@ -4863,7 +4863,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.09E-01
 linsys: resell=  1.32E-11
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.58 (s) ; USR:       1.58 (s) 
+Algorithm Time : WCT:       1.61 (s) ; USR:       1.62 (s) 
  time step =          94  nupdate =         187
 ***********************************************************************
  
@@ -4906,7 +4906,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.09E-01
 linsys: resell=  1.32E-11
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.59 (s) ; USR:       1.59 (s) 
+Algorithm Time : WCT:       1.62 (s) ; USR:       1.63 (s) 
  time step =          95  nupdate =         189
 ***********************************************************************
  
@@ -4949,7 +4949,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.08E-01
 linsys: resell=  1.06E-11
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.61 (s) ; USR:       1.60 (s) 
+Algorithm Time : WCT:       1.64 (s) ; USR:       1.64 (s) 
  time step =          96  nupdate =         191
 ***********************************************************************
  
@@ -4992,7 +4992,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.07E-01
 linsys: resell=  7.97E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.62 (s) ; USR:       1.62 (s) 
+Algorithm Time : WCT:       1.65 (s) ; USR:       1.65 (s) 
  time step =          97  nupdate =         193
 ***********************************************************************
  
@@ -5035,7 +5035,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.07E-01
 linsys: resell=  7.58E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.63 (s) ; USR:       1.63 (s) 
+Algorithm Time : WCT:       1.66 (s) ; USR:       1.66 (s) 
  time step =          98  nupdate =         195
 ***********************************************************************
  
@@ -5078,7 +5078,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.06E-01
 linsys: resell=  6.01E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.64 (s) ; USR:       1.64 (s) 
+Algorithm Time : WCT:       1.67 (s) ; USR:       1.67 (s) 
  time step =          99  nupdate =         197
 ***********************************************************************
  
@@ -5121,7 +5121,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.06E-01
 linsys: resell=  4.94E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.65 (s) ; USR:       1.65 (s) 
+Algorithm Time : WCT:       1.68 (s) ; USR:       1.68 (s) 
  time step =         100  nupdate =         199
 ***********************************************************************
  
@@ -5164,7 +5164,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.05E-01
 linsys: resell=  4.19E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.66 (s) ; USR:       1.66 (s) 
+Algorithm Time : WCT:       1.69 (s) ; USR:       1.70 (s) 
  time step =         101  nupdate =         201
 ***********************************************************************
  
@@ -5207,7 +5207,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.05E-01
 linsys: resell=  3.56E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.67 (s) ; USR:       1.67 (s) 
+Algorithm Time : WCT:       1.70 (s) ; USR:       1.71 (s) 
  time step =         102  nupdate =         203
 ***********************************************************************
  
@@ -5250,7 +5250,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.05E-01
 linsys: resell=  3.04E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.68 (s) ; USR:       1.68 (s) 
+Algorithm Time : WCT:       1.71 (s) ; USR:       1.72 (s) 
  time step =         103  nupdate =         205
 ***********************************************************************
  
@@ -5293,7 +5293,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.04E-01
 linsys: resell=  2.59E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.69 (s) ; USR:       1.69 (s) 
+Algorithm Time : WCT:       1.72 (s) ; USR:       1.73 (s) 
  time step =         104  nupdate =         207
 ***********************************************************************
  
@@ -5336,7 +5336,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.04E-01
 linsys: resell=  2.22E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.70 (s) ; USR:       1.70 (s) 
+Algorithm Time : WCT:       1.73 (s) ; USR:       1.74 (s) 
  time step =         105  nupdate =         209
 ***********************************************************************
  
@@ -5379,7 +5379,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.04E-01
 linsys: resell=  1.87E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.72 (s) ; USR:       1.71 (s) 
+Algorithm Time : WCT:       1.74 (s) ; USR:       1.75 (s) 
  time step =         106  nupdate =         211
 ***********************************************************************
  
@@ -5422,7 +5422,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.03E-01
 linsys: resell=  1.59E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.73 (s) ; USR:       1.72 (s) 
+Algorithm Time : WCT:       1.75 (s) ; USR:       1.76 (s) 
  time step =         107  nupdate =         213
 ***********************************************************************
  
@@ -5465,7 +5465,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.03E-01
 linsys: resell=  1.34E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.74 (s) ; USR:       1.73 (s) 
+Algorithm Time : WCT:       1.76 (s) ; USR:       1.77 (s) 
  time step =         108  nupdate =         215
 ***********************************************************************
  
@@ -5508,7 +5508,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.03E-01
 linsys: resell=  1.14E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.75 (s) ; USR:       1.74 (s) 
+Algorithm Time : WCT:       1.77 (s) ; USR:       1.78 (s) 
  time step =         109  nupdate =         217
 ***********************************************************************
  
@@ -5551,7 +5551,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.02E-01
 linsys: resell=  9.90E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.76 (s) ; USR:       1.75 (s) 
+Algorithm Time : WCT:       1.78 (s) ; USR:       1.79 (s) 
  time step =         110  nupdate =         219
 ***********************************************************************
  
@@ -5594,7 +5594,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.02E-01
 linsys: resell=  8.36E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.77 (s) ; USR:       1.76 (s) 
+Algorithm Time : WCT:       1.79 (s) ; USR:       1.80 (s) 
  time step =         111  nupdate =         221
 ***********************************************************************
  
@@ -5637,7 +5637,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.02E-01
 linsys: resell=  7.04E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.78 (s) ; USR:       1.77 (s) 
+Algorithm Time : WCT:       1.80 (s) ; USR:       1.81 (s) 
  time step =         112  nupdate =         223
 ***********************************************************************
  
@@ -5680,7 +5680,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.02E-01
 linsys: resell=  5.91E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.79 (s) ; USR:       1.78 (s) 
+Algorithm Time : WCT:       1.81 (s) ; USR:       1.82 (s) 
  time step =         113  nupdate =         225
 ***********************************************************************
  
@@ -5723,7 +5723,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.02E-01
 linsys: resell=  4.96E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.80 (s) ; USR:       1.79 (s) 
+Algorithm Time : WCT:       1.82 (s) ; USR:       1.83 (s) 
  time step =         114  nupdate =         227
 ***********************************************************************
  
@@ -5766,7 +5766,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.02E-01
 linsys: resell=  4.15E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.81 (s) ; USR:       1.80 (s) 
+Algorithm Time : WCT:       1.84 (s) ; USR:       1.84 (s) 
  time step =         115  nupdate =         229
 ***********************************************************************
  
@@ -5809,7 +5809,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.01E-01
 linsys: resell=  3.48E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.82 (s) ; USR:       1.82 (s) 
+Algorithm Time : WCT:       1.85 (s) ; USR:       1.85 (s) 
  time step =         116  nupdate =         231
 ***********************************************************************
  
@@ -5852,7 +5852,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.01E-01
 linsys: resell=  2.91E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.83 (s) ; USR:       1.83 (s) 
+Algorithm Time : WCT:       1.86 (s) ; USR:       1.87 (s) 
  time step =         117  nupdate =         233
 ***********************************************************************
  
@@ -5895,7 +5895,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.01E-01
 linsys: resell=  2.43E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.84 (s) ; USR:       1.84 (s) 
+Algorithm Time : WCT:       1.87 (s) ; USR:       1.88 (s) 
  time step =         118  nupdate =         235
 ***********************************************************************
  
@@ -5938,7 +5938,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.01E-01
 linsys: resell=  2.03E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.86 (s) ; USR:       1.85 (s) 
+Algorithm Time : WCT:       1.88 (s) ; USR:       1.89 (s) 
  time step =         119  nupdate =         237
 ***********************************************************************
  
@@ -5981,7 +5981,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.01E-01
 linsys: resell=  1.70E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.87 (s) ; USR:       1.86 (s) 
+Algorithm Time : WCT:       1.89 (s) ; USR:       1.90 (s) 
  time step =         120  nupdate =         239
 ***********************************************************************
  
@@ -6024,7 +6024,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.01E-01
 linsys: resell=  1.41E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.88 (s) ; USR:       1.87 (s) 
+Algorithm Time : WCT:       1.90 (s) ; USR:       1.91 (s) 
  time step =         121  nupdate =         241
 ***********************************************************************
  
@@ -6067,7 +6067,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.01E-01
 linsys: resell=  1.18E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.89 (s) ; USR:       1.88 (s) 
+Algorithm Time : WCT:       1.91 (s) ; USR:       1.92 (s) 
  time step =         122  nupdate =         243
 ***********************************************************************
  
@@ -6110,7 +6110,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.01E-01
 linsys: resell=  9.85E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.90 (s) ; USR:       1.89 (s) 
+Algorithm Time : WCT:       1.92 (s) ; USR:       1.93 (s) 
  time step =         123  nupdate =         245
 ***********************************************************************
  
@@ -6153,7 +6153,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.01E-01
 linsys: resell=  8.09E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.91 (s) ; USR:       1.90 (s) 
+Algorithm Time : WCT:       1.93 (s) ; USR:       1.94 (s) 
  time step =         124  nupdate =         247
 ***********************************************************************
  
@@ -6196,7 +6196,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.01E-01
 linsys: resell=  6.74E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.92 (s) ; USR:       1.91 (s) 
+Algorithm Time : WCT:       1.94 (s) ; USR:       1.95 (s) 
  time step =         125  nupdate =         249
 ***********************************************************************
  
@@ -6239,7 +6239,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.01E-01
 linsys: resell=  5.66E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.93 (s) ; USR:       1.92 (s) 
+Algorithm Time : WCT:       1.96 (s) ; USR:       1.96 (s) 
  time step =         126  nupdate =         251
 ***********************************************************************
  
@@ -6282,7 +6282,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  4.69E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.94 (s) ; USR:       1.93 (s) 
+Algorithm Time : WCT:       1.97 (s) ; USR:       1.97 (s) 
  time step =         127  nupdate =         253
 ***********************************************************************
  
@@ -6325,7 +6325,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  3.92E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.95 (s) ; USR:       1.94 (s) 
+Algorithm Time : WCT:       1.98 (s) ; USR:       1.98 (s) 
  time step =         128  nupdate =         255
 ***********************************************************************
  
@@ -6368,7 +6368,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  3.26E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.96 (s) ; USR:       1.95 (s) 
+Algorithm Time : WCT:       1.99 (s) ; USR:       1.99 (s) 
  time step =         129  nupdate =         257
 ***********************************************************************
  
@@ -6411,7 +6411,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  2.77E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.97 (s) ; USR:       1.96 (s) 
+Algorithm Time : WCT:       2.00 (s) ; USR:       2.00 (s) 
  time step =         130  nupdate =         259
 ***********************************************************************
  
@@ -6454,7 +6454,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  2.33E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.98 (s) ; USR:       1.97 (s) 
+Algorithm Time : WCT:       2.01 (s) ; USR:       2.01 (s) 
  time step =         131  nupdate =         261
 ***********************************************************************
  
@@ -6497,7 +6497,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.91E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       1.99 (s) ; USR:       1.98 (s) 
+Algorithm Time : WCT:       2.02 (s) ; USR:       2.03 (s) 
  time step =         132  nupdate =         263
 ***********************************************************************
  
@@ -6540,7 +6540,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.69E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.00 (s) ; USR:       1.99 (s) 
+Algorithm Time : WCT:       2.03 (s) ; USR:       2.04 (s) 
  time step =         133  nupdate =         265
 ***********************************************************************
  
@@ -6583,7 +6583,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.33E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.01 (s) ; USR:       2.01 (s) 
+Algorithm Time : WCT:       2.04 (s) ; USR:       2.05 (s) 
  time step =         134  nupdate =         267
 ***********************************************************************
  
@@ -6626,7 +6626,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.11E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.02 (s) ; USR:       2.02 (s) 
+Algorithm Time : WCT:       2.05 (s) ; USR:       2.06 (s) 
  time step =         135  nupdate =         269
 ***********************************************************************
  
@@ -6669,7 +6669,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  9.19E-15
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.03 (s) ; USR:       2.03 (s) 
+Algorithm Time : WCT:       2.06 (s) ; USR:       2.07 (s) 
  time step =         136  nupdate =         271
 ***********************************************************************
  
@@ -6712,7 +6712,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  7.76E-15
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.04 (s) ; USR:       2.04 (s) 
+Algorithm Time : WCT:       2.07 (s) ; USR:       2.08 (s) 
  time step =         137  nupdate =         273
 ***********************************************************************
  
@@ -6755,7 +6755,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  6.81E-15
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.06 (s) ; USR:       2.05 (s) 
+Algorithm Time : WCT:       2.08 (s) ; USR:       2.09 (s) 
  time step =         138  nupdate =         275
 ***********************************************************************
  
@@ -6798,7 +6798,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  6.22E-15
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.07 (s) ; USR:       2.06 (s) 
+Algorithm Time : WCT:       2.09 (s) ; USR:       2.10 (s) 
  time step =         139  nupdate =         277
 ***********************************************************************
  
@@ -6841,7 +6841,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  5.47E-15
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.08 (s) ; USR:       2.07 (s) 
+Algorithm Time : WCT:       2.10 (s) ; USR:       2.11 (s) 
  time step =         140  nupdate =         279
 ***********************************************************************
  
@@ -6884,7 +6884,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  3.78E-15
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.09 (s) ; USR:       2.08 (s) 
+Algorithm Time : WCT:       2.11 (s) ; USR:       2.12 (s) 
  time step =         141  nupdate =         281
 ***********************************************************************
  
@@ -6927,7 +6927,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  4.31E-15
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.10 (s) ; USR:       2.09 (s) 
+Algorithm Time : WCT:       2.12 (s) ; USR:       2.13 (s) 
  time step =         142  nupdate =         283
 ***********************************************************************
  
@@ -6965,7 +6965,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  2.29E-11
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.11 (s) ; USR:       2.10 (s) 
+Algorithm Time : WCT:       2.13 (s) ; USR:       2.14 (s) 
  time step =         143  nupdate =         285
 ***********************************************************************
  
@@ -7003,7 +7003,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  2.08E-11
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.11 (s) ; USR:       2.11 (s) 
+Algorithm Time : WCT:       2.14 (s) ; USR:       2.15 (s) 
  time step =         144  nupdate =         287
 ***********************************************************************
  
@@ -7041,7 +7041,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.89E-11
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.12 (s) ; USR:       2.12 (s) 
+Algorithm Time : WCT:       2.15 (s) ; USR:       2.16 (s) 
  time step =         145  nupdate =         289
 ***********************************************************************
  
@@ -7079,7 +7079,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.72E-11
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.13 (s) ; USR:       2.12 (s) 
+Algorithm Time : WCT:       2.16 (s) ; USR:       2.17 (s) 
  time step =         146  nupdate =         291
 ***********************************************************************
  
@@ -7117,7 +7117,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.56E-11
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.14 (s) ; USR:       2.13 (s) 
+Algorithm Time : WCT:       2.16 (s) ; USR:       2.17 (s) 
  time step =         147  nupdate =         293
 ***********************************************************************
  
@@ -7155,7 +7155,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.42E-11
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.15 (s) ; USR:       2.14 (s) 
+Algorithm Time : WCT:       2.17 (s) ; USR:       2.18 (s) 
  time step =         148  nupdate =         295
 ***********************************************************************
  
@@ -7193,7 +7193,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.29E-11
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.15 (s) ; USR:       2.15 (s) 
+Algorithm Time : WCT:       2.18 (s) ; USR:       2.19 (s) 
  time step =         149  nupdate =         297
 ***********************************************************************
  
@@ -7231,7 +7231,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.17E-11
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.16 (s) ; USR:       2.16 (s) 
+Algorithm Time : WCT:       2.19 (s) ; USR:       2.20 (s) 
  time step =         150  nupdate =         299
 ***********************************************************************
  
@@ -7269,7 +7269,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.06E-11
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.17 (s) ; USR:       2.17 (s) 
+Algorithm Time : WCT:       2.20 (s) ; USR:       2.21 (s) 
  time step =         151  nupdate =         301
 ***********************************************************************
  
@@ -7307,7 +7307,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  9.65E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.18 (s) ; USR:       2.17 (s) 
+Algorithm Time : WCT:       2.20 (s) ; USR:       2.22 (s) 
  time step =         152  nupdate =         303
 ***********************************************************************
  
@@ -7345,7 +7345,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  8.77E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.19 (s) ; USR:       2.18 (s) 
+Algorithm Time : WCT:       2.21 (s) ; USR:       2.23 (s) 
  time step =         153  nupdate =         305
 ***********************************************************************
  
@@ -7383,7 +7383,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  7.96E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.19 (s) ; USR:       2.19 (s) 
+Algorithm Time : WCT:       2.22 (s) ; USR:       2.23 (s) 
  time step =         154  nupdate =         307
 ***********************************************************************
  
@@ -7421,7 +7421,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  7.23E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.20 (s) ; USR:       2.20 (s) 
+Algorithm Time : WCT:       2.23 (s) ; USR:       2.24 (s) 
  time step =         155  nupdate =         309
 ***********************************************************************
  
@@ -7459,7 +7459,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  6.57E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.21 (s) ; USR:       2.21 (s) 
+Algorithm Time : WCT:       2.24 (s) ; USR:       2.25 (s) 
  time step =         156  nupdate =         311
 ***********************************************************************
  
@@ -7497,7 +7497,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  5.97E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.22 (s) ; USR:       2.22 (s) 
+Algorithm Time : WCT:       2.25 (s) ; USR:       2.26 (s) 
  time step =         157  nupdate =         313
 ***********************************************************************
  
@@ -7535,7 +7535,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  5.42E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.23 (s) ; USR:       2.23 (s) 
+Algorithm Time : WCT:       2.26 (s) ; USR:       2.27 (s) 
  time step =         158  nupdate =         315
 ***********************************************************************
  
@@ -7573,7 +7573,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  4.92E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.24 (s) ; USR:       2.23 (s) 
+Algorithm Time : WCT:       2.27 (s) ; USR:       2.28 (s) 
  time step =         159  nupdate =         317
 ***********************************************************************
  
@@ -7611,7 +7611,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  4.47E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.24 (s) ; USR:       2.24 (s) 
+Algorithm Time : WCT:       2.27 (s) ; USR:       2.29 (s) 
  time step =         160  nupdate =         319
 ***********************************************************************
  
@@ -7649,7 +7649,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  4.06E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.25 (s) ; USR:       2.25 (s) 
+Algorithm Time : WCT:       2.28 (s) ; USR:       2.29 (s) 
  time step =         161  nupdate =         321
 ***********************************************************************
  
@@ -7687,7 +7687,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  3.69E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.26 (s) ; USR:       2.26 (s) 
+Algorithm Time : WCT:       2.29 (s) ; USR:       2.30 (s) 
  time step =         162  nupdate =         323
 ***********************************************************************
  
@@ -7725,7 +7725,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  3.35E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.27 (s) ; USR:       2.27 (s) 
+Algorithm Time : WCT:       2.30 (s) ; USR:       2.31 (s) 
  time step =         163  nupdate =         325
 ***********************************************************************
  
@@ -7763,7 +7763,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  3.04E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.28 (s) ; USR:       2.28 (s) 
+Algorithm Time : WCT:       2.31 (s) ; USR:       2.32 (s) 
  time step =         164  nupdate =         327
 ***********************************************************************
  
@@ -7801,7 +7801,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  2.76E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.29 (s) ; USR:       2.29 (s) 
+Algorithm Time : WCT:       2.32 (s) ; USR:       2.33 (s) 
  time step =         165  nupdate =         329
 ***********************************************************************
  
@@ -7839,7 +7839,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  2.51E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.30 (s) ; USR:       2.30 (s) 
+Algorithm Time : WCT:       2.33 (s) ; USR:       2.34 (s) 
  time step =         166  nupdate =         331
 ***********************************************************************
  
@@ -7877,7 +7877,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  2.28E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.31 (s) ; USR:       2.30 (s) 
+Algorithm Time : WCT:       2.34 (s) ; USR:       2.35 (s) 
  time step =         167  nupdate =         333
 ***********************************************************************
  
@@ -7915,7 +7915,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  2.07E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.32 (s) ; USR:       2.31 (s) 
+Algorithm Time : WCT:       2.35 (s) ; USR:       2.35 (s) 
  time step =         168  nupdate =         335
 ***********************************************************************
  
@@ -7953,7 +7953,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.88E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.32 (s) ; USR:       2.32 (s) 
+Algorithm Time : WCT:       2.35 (s) ; USR:       2.36 (s) 
  time step =         169  nupdate =         337
 ***********************************************************************
  
@@ -7991,7 +7991,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.71E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.33 (s) ; USR:       2.33 (s) 
+Algorithm Time : WCT:       2.36 (s) ; USR:       2.37 (s) 
  time step =         170  nupdate =         339
 ***********************************************************************
  
@@ -8029,7 +8029,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.55E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.34 (s) ; USR:       2.34 (s) 
+Algorithm Time : WCT:       2.37 (s) ; USR:       2.38 (s) 
  time step =         171  nupdate =         341
 ***********************************************************************
  
@@ -8067,7 +8067,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.41E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.35 (s) ; USR:       2.35 (s) 
+Algorithm Time : WCT:       2.38 (s) ; USR:       2.39 (s) 
  time step =         172  nupdate =         343
 ***********************************************************************
  
@@ -8105,7 +8105,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.28E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.36 (s) ; USR:       2.35 (s) 
+Algorithm Time : WCT:       2.39 (s) ; USR:       2.40 (s) 
  time step =         173  nupdate =         345
 ***********************************************************************
  
@@ -8143,7 +8143,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.16E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.37 (s) ; USR:       2.36 (s) 
+Algorithm Time : WCT:       2.40 (s) ; USR:       2.41 (s) 
  time step =         174  nupdate =         347
 ***********************************************************************
  
@@ -8181,7 +8181,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.05E-12
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.37 (s) ; USR:       2.37 (s) 
+Algorithm Time : WCT:       2.40 (s) ; USR:       2.41 (s) 
  time step =         175  nupdate =         349
 ***********************************************************************
  
@@ -8219,7 +8219,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  9.58E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.38 (s) ; USR:       2.38 (s) 
+Algorithm Time : WCT:       2.41 (s) ; USR:       2.42 (s) 
  time step =         176  nupdate =         351
 ***********************************************************************
  
@@ -8257,7 +8257,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  8.70E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.39 (s) ; USR:       2.39 (s) 
+Algorithm Time : WCT:       2.42 (s) ; USR:       2.43 (s) 
  time step =         177  nupdate =         353
 ***********************************************************************
  
@@ -8295,7 +8295,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  7.90E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.40 (s) ; USR:       2.40 (s) 
+Algorithm Time : WCT:       2.43 (s) ; USR:       2.44 (s) 
  time step =         178  nupdate =         355
 ***********************************************************************
  
@@ -8333,7 +8333,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  7.18E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.41 (s) ; USR:       2.41 (s) 
+Algorithm Time : WCT:       2.44 (s) ; USR:       2.45 (s) 
  time step =         179  nupdate =         357
 ***********************************************************************
  
@@ -8371,7 +8371,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  6.52E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.41 (s) ; USR:       2.41 (s) 
+Algorithm Time : WCT:       2.45 (s) ; USR:       2.46 (s) 
  time step =         180  nupdate =         359
 ***********************************************************************
  
@@ -8409,7 +8409,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  5.92E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.42 (s) ; USR:       2.42 (s) 
+Algorithm Time : WCT:       2.46 (s) ; USR:       2.47 (s) 
  time step =         181  nupdate =         361
 ***********************************************************************
  
@@ -8447,7 +8447,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  5.36E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.43 (s) ; USR:       2.43 (s) 
+Algorithm Time : WCT:       2.47 (s) ; USR:       2.47 (s) 
  time step =         182  nupdate =         363
 ***********************************************************************
  
@@ -8485,7 +8485,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  4.88E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.44 (s) ; USR:       2.44 (s) 
+Algorithm Time : WCT:       2.47 (s) ; USR:       2.48 (s) 
  time step =         183  nupdate =         365
 ***********************************************************************
  
@@ -8523,7 +8523,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  4.43E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.45 (s) ; USR:       2.45 (s) 
+Algorithm Time : WCT:       2.48 (s) ; USR:       2.49 (s) 
  time step =         184  nupdate =         367
 ***********************************************************************
  
@@ -8561,7 +8561,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  4.03E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.46 (s) ; USR:       2.46 (s) 
+Algorithm Time : WCT:       2.49 (s) ; USR:       2.50 (s) 
  time step =         185  nupdate =         369
 ***********************************************************************
  
@@ -8599,7 +8599,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  3.66E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.47 (s) ; USR:       2.46 (s) 
+Algorithm Time : WCT:       2.50 (s) ; USR:       2.51 (s) 
  time step =         186  nupdate =         371
 ***********************************************************************
  
@@ -8637,7 +8637,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  3.32E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.47 (s) ; USR:       2.47 (s) 
+Algorithm Time : WCT:       2.51 (s) ; USR:       2.52 (s) 
  time step =         187  nupdate =         373
 ***********************************************************************
  
@@ -8675,7 +8675,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  3.02E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.48 (s) ; USR:       2.48 (s) 
+Algorithm Time : WCT:       2.51 (s) ; USR:       2.52 (s) 
  time step =         188  nupdate =         375
 ***********************************************************************
  
@@ -8713,7 +8713,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  2.74E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.49 (s) ; USR:       2.49 (s) 
+Algorithm Time : WCT:       2.52 (s) ; USR:       2.53 (s) 
  time step =         189  nupdate =         377
 ***********************************************************************
  
@@ -8751,7 +8751,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  2.49E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.50 (s) ; USR:       2.50 (s) 
+Algorithm Time : WCT:       2.53 (s) ; USR:       2.54 (s) 
  time step =         190  nupdate =         379
 ***********************************************************************
  
@@ -8789,7 +8789,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  2.26E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.51 (s) ; USR:       2.51 (s) 
+Algorithm Time : WCT:       2.54 (s) ; USR:       2.55 (s) 
  time step =         191  nupdate =         381
 ***********************************************************************
  
@@ -8827,7 +8827,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  2.05E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.51 (s) ; USR:       2.52 (s) 
+Algorithm Time : WCT:       2.55 (s) ; USR:       2.56 (s) 
  time step =         192  nupdate =         383
 ***********************************************************************
  
@@ -8865,7 +8865,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.86E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.52 (s) ; USR:       2.52 (s) 
+Algorithm Time : WCT:       2.55 (s) ; USR:       2.57 (s) 
  time step =         193  nupdate =         385
 ***********************************************************************
  
@@ -8903,7 +8903,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.69E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.53 (s) ; USR:       2.53 (s) 
+Algorithm Time : WCT:       2.56 (s) ; USR:       2.58 (s) 
  time step =         194  nupdate =         387
 ***********************************************************************
  
@@ -8941,7 +8941,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.54E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.54 (s) ; USR:       2.54 (s) 
+Algorithm Time : WCT:       2.57 (s) ; USR:       2.58 (s) 
  time step =         195  nupdate =         389
 ***********************************************************************
  
@@ -8979,7 +8979,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.40E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.55 (s) ; USR:       2.55 (s) 
+Algorithm Time : WCT:       2.58 (s) ; USR:       2.59 (s) 
  time step =         196  nupdate =         391
 ***********************************************************************
  
@@ -9017,7 +9017,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.26E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.55 (s) ; USR:       2.56 (s) 
+Algorithm Time : WCT:       2.59 (s) ; USR:       2.60 (s) 
  time step =         197  nupdate =         393
 ***********************************************************************
  
@@ -9055,7 +9055,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.15E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.56 (s) ; USR:       2.57 (s) 
+Algorithm Time : WCT:       2.59 (s) ; USR:       2.61 (s) 
  time step =         198  nupdate =         395
 ***********************************************************************
  
@@ -9093,7 +9093,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  1.05E-13
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.57 (s) ; USR:       2.57 (s) 
+Algorithm Time : WCT:       2.60 (s) ; USR:       2.62 (s) 
  time step =         199  nupdate =         397
 ***********************************************************************
  
@@ -9131,7 +9131,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  9.53E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.58 (s) ; USR:       2.58 (s) 
+Algorithm Time : WCT:       2.61 (s) ; USR:       2.63 (s) 
  time step =         200  nupdate =         399
 ***********************************************************************
  
@@ -9169,7 +9169,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  8.64E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.59 (s) ; USR:       2.59 (s) 
+Algorithm Time : WCT:       2.62 (s) ; USR:       2.64 (s) 
  time step =         201  nupdate =         401
 ***********************************************************************
  
@@ -9207,7 +9207,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  7.82E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.60 (s) ; USR:       2.60 (s) 
+Algorithm Time : WCT:       2.63 (s) ; USR:       2.64 (s) 
  time step =         202  nupdate =         403
 ***********************************************************************
  
@@ -9245,7 +9245,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  7.13E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.61 (s) ; USR:       2.61 (s) 
+Algorithm Time : WCT:       2.64 (s) ; USR:       2.65 (s) 
  time step =         203  nupdate =         405
 ***********************************************************************
  
@@ -9283,7 +9283,7 @@ err   : td    =  2.78E+00 | wass  =  1.14E+00 | 1wass =  2.66E-01
 grad  : abs   =  1.41E+01 | avg   =  9.26E+00 | D3    =  5.00E-01
 linsys: resell=  6.46E-14
 ********** info algoritm **********************************************
-Algorithm Time : WCT:       2.61 (s) ; USR:       2.62 (s) 
+Algorithm Time : WCT:       2.65 (s) ; USR:       2.66 (s) 
  time step =         204  nupdate =         407
 ***********************************************************************
   
@@ -9291,14 +9291,14 @@ Algorithm Time : WCT:       2.61 (s) ; USR:       2.62 (s)
 ********** free memory ************************************************
 
 Global simulation times:
- Total sim. cpu  : WCT:       2.92 (s) 100.%; USR:       2.92 (s) 100.%
+ Total sim. cpu  : WCT:       2.97 (s) 100.%; USR:       2.96 (s) 100.%
  Overhead        : WCT:       0.00 (s)   0.%; USR:       0.00 (s)   0.%
- Saving time     : WCT:       0.16 (s)   6.%; USR:       0.16 (s)   6.%
- Wasted time     : WCT:       2.49 (s)  85.%; USR:       2.50 (s)  86.%
- Algorithm time  : WCT:       2.61 (s)  90.%; USR:       2.62 (s)  90.%
+ Saving time     : WCT:       0.16 (s)   5.%; USR:       0.16 (s)   5.%
+ Wasted time     : WCT:       2.53 (s)  85.%; USR:       2.54 (s)  86.%
+ Algorithm time  : WCT:       2.65 (s)  89.%; USR:       2.66 (s)  90.%
  *****************************************************
- matrix assembly : WCT:       1.19 (s)  41.%; USR:       1.19 (s)  41.%
- prec.  assembly : WCT:       0.95 (s)  33.%; USR:       0.96 (s)  33.%
- Linear solver   : WCT:       0.41 (s)  14.%; USR:       0.40 (s)  14.%
+ matrix assembly : WCT:       1.21 (s)  41.%; USR:       1.23 (s)  41.%
+ prec.  assembly : WCT:       0.96 (s)  32.%; USR:       0.96 (s)  32.%
+ Linear solver   : WCT:       0.43 (s)  14.%; USR:       0.41 (s)  14.%
  Extra comput.   : WCT:       0.00 (s)   0.%; USR:       0.00 (s)   0.%
 /home/dleite/Nextrout/python_scripts/runs/1_b15_15dv_sf15_rect_cnstrect_cnst

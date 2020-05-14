@@ -86,6 +86,9 @@ build_directories = {
     "otp_utilities/muffe_p1p0": ["./setup.sh ../../python_scripts"],
     "otp_utilities/muffe_sparse_optimization/": ["./setup.sh simplifications"],
     "python_scripts": ["cp utilities.py ./python_script",],
+    "python_scripts": [
+        "cp utilities.py ../otp_utilities/muffe_sparse_optimization/simplifications/python_script",
+    ],
 }
 """
         "mv continuous2graph.py ../python_scripts",

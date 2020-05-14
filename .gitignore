@@ -1,7 +1,7 @@
 python_scripts/bash_scripts
 python_scripts/network_analysis
 python_scripts/network_impainting
-python_scripts/python_script
+python_scripts/python_scripts
 python_scripts/runs
 
 python_scripts/simplifications/python_script
@@ -17,7 +17,25 @@ otp_utilities/geometry
 otp_utilities/globals
 otp_utilities/linear_algebra
 otp_utilities/muffe_p1p0
-otp_utilities/muffe_sparse_optimization
 otp_utilities/p1galerkin
 otp_utilities/spectral
 otp_utilities/vtk
+
+otp_utilities/muffe_sparse_optimization/code
+otp_utilities/muffe_sparse_optimization/postprocess
+otp_utilities/muffe_sparse_optimization/preprocess
+otp_utilities/muffe_sparse_optimization/script_controls
+otp_utilities/muffe_sparse_optimization/check_external_programs.sh
+otp_utilities/muffe_sparse_optimization/README.md
+otp_utilities/muffe_sparse_optimization/setup.sh
+otp_utilities/muffe_sparse_optimization/tests.sh
+
+otp_utilities/muffe_sparse_optimization/simplifications/__pycache__
+otp_utilities/muffe_sparse_optimization/simplifications/python_script
+otp_utilities/muffe_sparse_optimization/simplifications/runs
+otp_utilities/muffe_sparse_optimization/simplifications/dmk_folder.py
+otp_utilities/muffe_sparse_optimization/simplifications/folder_run.sh
+otp_utilities/muffe_sparse_optimization/simplifications/location_repository.txt
+otp_utilities/muffe_sparse_optimization/simplifications/muffa.ctrl
+otp_utilities/muffe_sparse_optimization/simplifications/read.txt
+otp_utilities/muffe_sparse_optimization/simplifications/READ.MD
