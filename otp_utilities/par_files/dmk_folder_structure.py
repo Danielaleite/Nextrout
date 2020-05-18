@@ -1,6 +1,5 @@
 import os
 
-# import utilities as util
 
 
 class dmk_folder_structure:
