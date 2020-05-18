@@ -85,11 +85,14 @@ execute(build_commands)
 build_directories = {
     "otp_utilities/muffe_p1p0": ["./setup.sh ../../python_scripts"],
     "otp_utilities/muffe_sparse_optimization/": ["./setup.sh simplifications"],
-    "python_scripts": ["cp utilities.py ./python_script",],
+    "otp_utilities/par_files": [
+        "cp utilities.py ../muffe_sparse_optimization/python_script",
+    ],
     "python_scripts": [
         "cp utilities.py ../otp_utilities/muffe_sparse_optimization/simplifications/python_script",
     ],
 }
+
 """
         "mv continuous2graph.py ../python_scripts",
         "mv debugger.py ../python_scripts",
@@ -118,10 +121,17 @@ build_directories = {
 
 execute(build_directories)
 
-
 make_command = {
     "otp_utilities/muffe_p1p0/code": ["make",],
     "otp_utilities/globals/axpy_timedata": ["make",],
     "otp_utilities/geometry/interpolate_timedata/": ["make",],
 }
 execute(make_command)
+
+
+# print(os.getcwd())
+move_folders = {
+    "otp_utilities/": [" mv par_files ./muffe_sparse_optimization/simplifications/"],
+    "otp_utilities/": ["mv dmk_folder_structure.py ../python_script"],
+}
+execute(move_folders)
