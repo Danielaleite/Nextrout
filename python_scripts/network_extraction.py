@@ -411,6 +411,15 @@ def network_extraction(
                                                             + str(reduction_flag)
                                                             + "\n"
                                                         )
+                        dest = "../results/continuous"
+                        shutil.move("runs/" + folder_name, dest)
+
+                        dest2 = "../results/discrete"
+                        shutil.move(
+                            "../otp_utilities/muffe_sparse_optimization/simplifications/runs/"
+                            + folder_name,
+                            dest2,
+                        )
 
 
 ##############
