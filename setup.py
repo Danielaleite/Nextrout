@@ -164,5 +164,5 @@ move_folders5 = {
 }
 execute(move_folders5)
 
-make_dir = {".": ["mkdir results"]}
+make_dir = {".": ["mkdir results/discrete", "mkdir results/continuous"]}
 execute(make_dir)

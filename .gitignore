@@ -3,15 +3,13 @@ python_scripts/network_analysis
 python_scripts/network_impainting
 python_scripts/python_scripts
 python_scripts/runs
-
-python_scripts/simplifications/python_script
-python_scripts/simplifications/runs
-python_scripts/simplifications/dmk_folder.py
-python_scripts/simplifications/folder_run.sh
-python_scripts/simplifications/location_repository.txt
-python_scripts/simplifications/muffa.ctrl
-python_scripts/simplifications/read.txt
-python_scripts/simplifications/READ.MD
+python_scripts/__pycache__
+python_scripts/outputs_vtk.txt
+python_scripts/outputs_gg.txt
+python_scripts/outputs_dmk_c.txt
+python_scripts/inputs.ctrl
+python_scripts/README.md
+python_scripts/muffa.ctrl
 
 otp_utilities/geometry
 otp_utilities/globals
@@ -21,4 +19,6 @@ otp_utilities/p1galerkin
 otp_utilities/spectral
 otp_utilities/vtk
 otp_utilities/muffe_sparse_optimization
+
+results/
 
