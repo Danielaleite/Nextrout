@@ -128,23 +128,37 @@ make_command = {
 execute(make_command)
 
 
-# print(os.getcwd())
 move_folders = {
-    "otp_utilities/par_files": ["cp dmk_folder_structure.py ../../python_scripts/python_script"],
-    "otp_utilities/par_files": ["cp utilities.py ../../python_scripts/python_script"], 
-
+    "otp_utilities/par_files": [
+        "cp dmk_folder_structure.py ../../python_scripts/python_script"
+    ],
+    "otp_utilities/par_files": ["cp utilities.py ../../python_scripts/python_script"],
 }
 execute(move_folders)
-
-move_folders3 = { 
-    "otp_utilities/par_files": ["cp dmk_folder_structure.py ../muffe_sparse_optimization/simplifications/python_script"], 
-    "otp_utilities/par_files": ["cp muffa.fnames ../muffe_sparse_optimization/simplifications"],
-    "otp_utilities/par_files": ["cp utilities.py ../muffe_sparse_optimization/simplifications/python_script"],
-
-}
-execute(move_folders3)
 
 move_folders2 = {
     "otp_utilities/": [" cp -r par_files ./muffe_sparse_optimization/simplifications/"],
 }
 execute(move_folders2)
+
+move_folders3 = {
+    "otp_utilities/par_files": [
+        " cp muffa.fnames ../muffe_sparse_optimization/simplifications/"
+    ],
+}
+execute(move_folders3)
+
+move_folders4 = {
+    "otp_utilities/par_files": [
+        " cp  dmk_folder_structure.py ../muffe_sparse_optimization/simplifications/python_script"
+    ],
+}
+execute(move_folders4)
+
+
+move_folders5 = {
+    "otp_utilities/par_files": [
+        "cp utilities.py ../muffe_sparse_optimization/simplifications/python_script"
+    ],
+}
+execute(move_folders5)

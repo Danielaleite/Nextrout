@@ -824,7 +824,7 @@ def filtering(
                 ss_label = -1
             else:
                 ss_label = 0
-            G_simplification[i].node[node]["terminal"] = ss_label
+            G_simplification[i].nodes[node]["terminal"] = ss_label
 
     # Assigning opt_pot to the nodes
 
