@@ -92,6 +92,7 @@ build_directories = {
         "cp utilities.py ../otp_utilities/muffe_sparse_optimization/simplifications/python_script",
     ],
 }
+
 """
         "mv continuous2graph.py ../python_scripts",
         "mv debugger.py ../python_scripts",
@@ -162,3 +163,6 @@ move_folders5 = {
     ],
 }
 execute(move_folders5)
+
+make_dir = {".": ["mkdir results"]}
+execute(make_dir)
