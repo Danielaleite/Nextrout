@@ -12,12 +12,15 @@ from PIL import Image
 from matplotlib.patches import Polygon
 from matplotlib.collections import PatchCollection
 import time
-#--------------------------------------------
+
+# --------------------------------------------
 import quality_measure
-#--------------------------------------------
+
+# --------------------------------------------
+
 
 def prod_dict(File1, File2, weights1, weights2):
-	'''
+    """
 	Key-wise multiplication of two dictionaries. Component-wise multiplication of two lists.
 	:param File1:  dictionary.
 	:param File2: dictionary.
@@ -26,88 +29,86 @@ def prod_dict(File1, File2, weights1, weights2):
 	:return:
 		newDict: dictionary with same keys as File1 (or File2) but values equal to the multiplication of File1 and File2.
 		newWeights: list whose entries are the multiplication of weights1 and weights2.
-	'''
+	"""
 
-	newDict = {}
-	newWeights = []
-	if File1.keys() != File2.keys():
-		print("not the same keys!")
-	else:
-		i = 0
-		for key in File1.keys():
-			newDict[key] = File1[key] * File2[key]
-			newWeights.append(weights1[i] * weights2[i])
-			i += 1
-		return newDict, newWeights
+    newDict = {}
+    newWeights = []
+    if File1.keys() != File2.keys():
+        print("not the same keys!")
+    else:
+        i = 0
+        for key in File1.keys():
+            newDict[key] = File1[key] * File2[key]
+            newWeights.append(weights1[i] * weights2[i])
+            i += 1
+        return newDict, newWeights
 
 
 def dict2graph(bar_pos, dict_weights_func):
-	'''
+    """
 	Graph generator from two dictionaries.
 	:param bar_pos: dictionary, s.t., dictionary[key]= position of key in domain.
 	:param dict_weights_func: dictionary, s.t., dictionary[key]= weight of key.
 	:return:
 		X_func: weighted graph whose nodes have two attributes: 'pos' and 'weight'.
 		pos: nx.get_node_attributes(X_func, "pos").
-	'''
-	X_func = nx.Graph()
-	X_func.add_nodes_from(bar_pos.keys())
-	# print(X_func.nodes())
-	for n, p in bar_pos.items():
-		X_func.nodes[n]["pos"] = p
-		X_func.nodes[n]["weight"] = dict_weights_func[int(n)]
-	pos = nx.get_node_attributes(X_func, "pos")
+	"""
+    X_func = nx.Graph()
+    X_func.add_nodes_from(bar_pos.keys())
+    # print(X_func.nodes())
+    for n, p in bar_pos.items():
+        X_func.nodes[n]["pos"] = p
+        X_func.nodes[n]["weight"] = dict_weights_func[int(n)]
+    pos = nx.get_node_attributes(X_func, "pos")
 
-	return X_func, pos
+    return X_func, pos
 
 
 def node_size(dict_weights_func):
-	'''
+    """
 	Defining the size of the nodes. This gives the size to the nodes depending on the weight of each one of them.
 	Plot related.
 	:param dict_weights_func: dictionary, s.t., dictionary[key]= weight of key.
 	:return:
 		size_func: list whose entries are the sizes for the nodes.
-	'''
-	size_func = [
-		dict_weights_func[v] * 10 for v in dict(sorted(dict_weights_func.items()))
-	]
-	return size_func
+	"""
+    size_func = [
+        dict_weights_func[v] * 10 for v in dict(sorted(dict_weights_func.items()))
+    ]
+    return size_func
+
 
 # not sure if used
 def plot_graph(X_func, size_func, file_name):
-	pos_func = nx.get_node_attributes(X_func, "pos")
-	if file_name == "source.dat":
-		color = "b"
-	elif file_name == "sink.dat":
-		color = "g"
-	else:
-		color = "r"
-	nx.draw_networkx(X_func, pos=pos_func, node_color=color, node_size=size_func)
-	# print(folder_name+'/graph_pc'+str(int(min_*100))+'_graph'+graph_type+'.dat')
-	# plt.savefig(folder_name+'/graph_pc'+str(int(min_*100))+'_graph'+graph_type+'.png')
-	plt.axis("on")
-	plt.show(block=False)
-
-
+    pos_func = nx.get_node_attributes(X_func, "pos")
+    if file_name == "source.dat":
+        color = "b"
+    elif file_name == "sink.dat":
+        color = "g"
+    else:
+        color = "r"
+    nx.draw_networkx(X_func, pos=pos_func, node_color=color, node_size=size_func)
+    # print(folder_name+'/graph_pc'+str(int(min_*100))+'_graph'+graph_type+'.dat')
+    # plt.savefig(folder_name+'/graph_pc'+str(int(min_*100))+'_graph'+graph_type+'.png')
+    plt.axis("on")
+    plt.show(block=False)
 
 
 def get_first_neig(node, dict_seq):
-	'''
+    """
 	This returns the vertices that belong to the triangle for which 'node' is the barycenter
 	:param node: node in G_bar.
 	:param dict_seq:  dictionary mapping grid elements into their vertices. Namely, dict_seq for the key-th element of the
 		grid with vertices are n1,n2 and n3 needs to be defined as dict_seq[key]=[n1,n2,n3].  It works with triangular and squared grids.
 	:return:
 		same_triang: all the nodes in the triangle (or element of the grid) s.t., node is its barycenter.
-	'''
-	same_triang = list(dict_seq[node])
-	return same_triang
-
+	"""
+    same_triang = list(dict_seq[node])
+    return same_triang
 
 
 def get_sec_neig(node, dict_seq):
-	'''
+    """
 	This returns all the triangles that share either a vertex or an edge with the triangle in which the 'node'
 	is the barycenter.
 	:param node: target node.
@@ -117,39 +118,38 @@ def get_sec_neig(node, dict_seq):
 	:return:
 		dict_sec_neig: dictionary, s.t., dict_sec_neig[node]= indexes of all the surrounding triangles of 'node'.
 		index_: **check this output. it seems to be removable.**
-	'''
-	same_triang = get_first_neig(
-		node, dict_seq
-	)  # getting the nodes of the triang that has 'node' as barycenter
-	dict_sec_neig = (
-		{}
-	)  # dict that contains all the surrounding triangles for the 'node'
-	dict_sec_neig[node] = []
+	"""
+    same_triang = get_first_neig(
+        node, dict_seq
+    )  # getting the nodes of the triang that has 'node' as barycenter
+    dict_sec_neig = (
+        {}
+    )  # dict that contains all the surrounding triangles for the 'node'
+    dict_sec_neig[node] = []
 
-	# indexes of all the surrounding triangles. This will be useful to call not only the mentioned triangles but also their bar
-	index_ = {}
-	index_[node] = []
-	for key in dict_seq.keys():
-		# if one of the nodes is in the triangle, then ...
-		if (
-				same_triang[0] in dict_seq[key]
-				or same_triang[1] in dict_seq[key]
-				or same_triang[2] in dict_seq[key]
-		):
+    # indexes of all the surrounding triangles. This will be useful to call not only the mentioned triangles but also their bar
+    index_ = {}
+    index_[node] = []
+    for key in dict_seq.keys():
+        # if one of the nodes is in the triangle, then ...
+        if (
+            same_triang[0] in dict_seq[key]
+            or same_triang[1] in dict_seq[key]
+            or same_triang[2] in dict_seq[key]
+        ):
 
-			# (to avoid repeating the triangles)
-			repeated_tr = list(np.array(same_triang) == np.array(dict_seq[key]))
+            # (to avoid repeating the triangles)
+            repeated_tr = list(np.array(same_triang) == np.array(dict_seq[key]))
 
-			if repeated_tr != [True, True, True]:
-				# ... we define the triangle indexes for a particular node
-				dict_sec_neig[node].append(dict_seq[key])
-				index_[node].append(key)
-	return dict_sec_neig, index_
-
+            if repeated_tr != [True, True, True]:
+                # ... we define the triangle indexes for a particular node
+                dict_sec_neig[node].append(dict_seq[key])
+                index_[node].append(key)
+    return dict_sec_neig, index_
 
 
 def get_sec_neig_edges(node, dict_seq):
-	'''
+    """
 	This returns all the triangles that share an edge with the triangle in which the 'node' is the barycenter
 	:param node: target node.
 	:param dict_seq: dictionary mapping grid elements into their vertices. Namely, dict_seq for the key-th element of the
@@ -158,34 +158,44 @@ def get_sec_neig_edges(node, dict_seq):
 	:return:
 		dict_sec_neig: dictionary, s.t., dict_sec_neig[node]= indexes of all the surrounding triangles of 'node'.
 		index_: **check this output. it seems to be removable.**
-	'''
-	same_triang = get_first_neig(
-		node, dict_seq
-	)  # getting the nodes of the triangle that has 'node' as barycenter
-	dict_sec_neig = (
-		{}
-	)  # dict that contains all the surrounding triangles for the 'node'
-	dict_sec_neig[node] = []
-	index_ = (
-		{}
-	)  # indexes of all the surrounding triangles. This will be useful to call not only the mentioned triangles
-	# but also their bar
-	index_[node] = []
-	for key in dict_seq.keys():
-		if (
-				(same_triang[0] in dict_seq[key] and same_triang[1] in dict_seq[key])
-				or (same_triang[1] in dict_seq[key] and same_triang[2] in dict_seq[key])
-				or (same_triang[2] in dict_seq[key] and same_triang[0] in dict_seq[key])
-		):
-			repeated_tr = list(np.array(same_triang) == np.array(dict_seq[key]))
-			if repeated_tr != [True, True, True]:
-				dict_sec_neig[node].append(dict_seq[key])
-				index_[node].append(key)
-	return dict_sec_neig, index_
+	"""
+    same_triang = get_first_neig(
+        node, dict_seq
+    )  # getting the nodes of the triangle that has 'node' as barycenter
+    dict_sec_neig = (
+        {}
+    )  # dict that contains all the surrounding triangles for the 'node'
+    dict_sec_neig[node] = []
+    index_ = (
+        {}
+    )  # indexes of all the surrounding triangles. This will be useful to call not only the mentioned triangles
+    # but also their bar
+    index_[node] = []
+    for key in dict_seq.keys():
+        if (
+            (same_triang[0] in dict_seq[key] and same_triang[1] in dict_seq[key])
+            or (same_triang[1] in dict_seq[key] and same_triang[2] in dict_seq[key])
+            or (same_triang[2] in dict_seq[key] and same_triang[0] in dict_seq[key])
+        ):
+            repeated_tr = list(np.array(same_triang) == np.array(dict_seq[key]))
+            if repeated_tr != [True, True, True]:
+                dict_sec_neig[node].append(dict_seq[key])
+                index_[node].append(key)
+    return dict_sec_neig, index_
 
 
-def connecting_edges(G_bar, node, min_, graph_type, dict_seq, max_, weighting_method, input_flag=None,node2box_index=None):
-	'''
+def connecting_edges(
+    G_bar,
+    node,
+    min_,
+    graph_type,
+    dict_seq,
+    max_,
+    weighting_method,
+    input_flag=None,
+    node2box_index=None,
+):
+    """
 	Testing the condition of the tdens for a single barycenter . If condition is satisfied, add the edge with weight
 	equal to the min. In-place modification of G_bar.
 	:param G_bar: a weighted networkX graph whose nodes are the barycenters of the elements of the grid. No edges.
@@ -200,44 +210,43 @@ def connecting_edges(G_bar, node, min_, graph_type, dict_seq, max_, weighting_me
 	:param node2box_index:  given a node, node2box_index[node] returns the indices of all the elements of the partition s.t.,
 	node is a vertex of these elements
 	:return:
-	'''
-	if graph_type == "1":
-		# If True, then just the 'first neighbors' are taken.
-		if input_flag != 'image':
-			node = str(node)
-			dict_sec_neig, index_ = get_sec_neig(node, dict_seq)
-			index_ = index_[node]
-		else:
-			node=node-1
-			dict_sec_neig, index_ = get_sec_neig_square(node, dict_seq, node2box_index)
+	"""
+    if graph_type == "1":
+        # If True, then just the 'first neighbors' are taken.
+        if input_flag != "image":
+            node = str(node)
+            dict_sec_neig, index_ = get_sec_neig(node, dict_seq)
+            index_ = index_[node]
+        else:
+            node = node - 1
+            dict_sec_neig, index_ = get_sec_neig_square(node, dict_seq, node2box_index)
 
-	elif graph_type == "2":
-		#If True, then just the 'second neighbors' are taken (firsts included).
-		dict_sec_neig, index_ = get_sec_neig_edges(str(node), dict_seq)
-		index_ = index_[node]
+    elif graph_type == "2":
+        # If True, then just the 'second neighbors' are taken (firsts included).
+        dict_sec_neig, index_ = get_sec_neig_edges(str(node), dict_seq)
+        index_ = index_[node]
 
-
-	#print(index_)
-	for bar_ in index_:
-		if graph_type == "1" or graph_type == "2":  # both edges and vertices
-			# Checking if the weights are greater than the threshold x max
-			if (
-					G_bar.nodes[bar_]["weight"] > min_ * max_
-					and G_bar.nodes[node]["weight"] > min_ * max_
-			):
-				if weighting_method == "AVG":
-					# If True, then we assign weights to the edges based on the 'AVG' method
-					w_list = [G_bar.nodes[bar_]["weight"], G_bar.nodes[node]["weight"]]
-					w = sum(w_list) / len(w_list)  # <--- the average
-					# w=w0 #<--- this is the minimum
-					G_bar.add_edge(node, bar_, weight=w)
-				elif weighting_method == "ER":
-					# If True, then we just add the edge. Later on we define the weight.
-					G_bar.add_edge(node, bar_)
+    # print(index_)
+    for bar_ in index_:
+        if graph_type == "1" or graph_type == "2":  # both edges and vertices
+            # Checking if the weights are greater than the threshold x max
+            if (
+                G_bar.nodes[bar_]["weight"] > min_ * max_
+                and G_bar.nodes[node]["weight"] > min_ * max_
+            ):
+                if weighting_method == "AVG":
+                    # If True, then we assign weights to the edges based on the 'AVG' method
+                    w_list = [G_bar.nodes[bar_]["weight"], G_bar.nodes[node]["weight"]]
+                    w = sum(w_list) / len(w_list)  # <--- the average
+                    # w=w0 #<--- this is the minimum
+                    G_bar.add_edge(node, bar_, weight=w)
+                elif weighting_method == "ER":
+                    # If True, then we just add the edge. Later on we define the weight.
+                    G_bar.add_edge(node, bar_)
 
 
 def grid_filter(G_bar, G_triang, min_, dict_seq, max_):
-	'''
+    """
     This script adds the edges of a triangle to the graph type 3 if the weight of its barycenter is greater than the
     threshold (min_) x max_.
 	:param G_bar: a weighted networkX graph whose nodes are the barycenters of the elements of the grid. No edges.
@@ -248,56 +257,65 @@ def grid_filter(G_bar, G_triang, min_, dict_seq, max_):
 	:param max_: maximum weight of nodes in G_bar.
 	:return:
 		 G_filtered: the input graph but with edges generated according to graph_type 3.
-	'''
+	"""
 
-	G_filtered = G_triang.copy()
+    G_filtered = G_triang.copy()
 
-	# Getting the max key (why?)
+    # Getting the max key (why?)
 
-	keys = [int(key) for key in G_filtered.nodes().keys()]
-	max_label = max(keys)
+    keys = [int(key) for key in G_filtered.nodes().keys()]
+    max_label = max(keys)
 
-	# Removing the edges of the triangulation graph. We are left only with the nodes. Also the useless ones.
+    # Removing the edges of the triangulation graph. We are left only with the nodes. Also the useless ones.
 
-	edges_triang = list(G_filtered.edges())
-	G_filtered.remove_edges_from(edges_triang)
+    edges_triang = list(G_filtered.edges())
+    G_filtered.remove_edges_from(edges_triang)
 
-	for bar_ in G_bar.nodes():
+    for bar_ in G_bar.nodes():
 
-		# Getting the edges of the triangle for a given bar 'bar_'
+        # Getting the edges of the triangle for a given bar 'bar_'
 
-		same_triang = get_first_neig(bar_, dict_seq)
-		w = G_bar.nodes[bar_]["weight"]
+        same_triang = get_first_neig(bar_, dict_seq)
+        w = G_bar.nodes[bar_]["weight"]
 
-		if w >= min_ * max_:
-			# If True, we add the edges to the graph
-			edges = list(itertools.combinations(same_triang, 2))
-			membership = [
-				edges[0] in G_filtered.edges(),
-				edges[1] in G_filtered.edges(),
-				edges[2] in G_filtered.edges(),
-			]
+        if w >= min_ * max_:
+            # If True, we add the edges to the graph
+            edges = list(itertools.combinations(same_triang, 2))
+            membership = [
+                edges[0] in G_filtered.edges(),
+                edges[1] in G_filtered.edges(),
+                edges[2] in G_filtered.edges(),
+            ]
 
-			# We iterate over them to define their weights
-			for i in [0, 1, 2]:
-				bool_val = membership[i]
-				# If the edge is in the graph (thanks to another barycenter), we sum the weight of the barycenter 'bar_' to the existing weight
-				if bool_val == True:
-					new_weight = (
-							G_filtered.edges[(edges[i][0], edges[i][1])]["weight"]
-							+ float(w) / 2.0
-					)
-					G_filtered.edges[(edges[i][0], edges[i][1])]["weight"] = new_weight
-				# If the edge is not in the graph, we add half of the weight of the barycenter
-				else:
-					new_weight = float(w) / 2.0
-					G_filtered.add_edge(edges[i][0], edges[i][1], weight=new_weight)
+            # We iterate over them to define their weights
+            for i in [0, 1, 2]:
+                bool_val = membership[i]
+                # If the edge is in the graph (thanks to another barycenter), we sum the weight of the barycenter 'bar_' to the existing weight
+                if bool_val == True:
+                    new_weight = (
+                        G_filtered.edges[(edges[i][0], edges[i][1])]["weight"]
+                        + float(w) / 2.0
+                    )
+                    G_filtered.edges[(edges[i][0], edges[i][1])]["weight"] = new_weight
+                # If the edge is not in the graph, we add half of the weight of the barycenter
+                else:
+                    new_weight = float(w) / 2.0
+                    G_filtered.add_edge(edges[i][0], edges[i][1], weight=new_weight)
 
-	return G_filtered
+    return G_filtered
 
 
-def node_edge_filter(G_bar, min_, graph_type, dict_seq, max_, weighting_method,input_flag=None,node2box_index=None):
-	'''
+def node_edge_filter(
+    G_bar,
+    min_,
+    graph_type,
+    dict_seq,
+    max_,
+    weighting_method,
+    input_flag=None,
+    node2box_index=None,
+):
+    """
 	:param G_bar: a weighted networkX graph whose nodes are the barycenters of the elements of the grid. No edges.
 	:param min_:  threshold for the weights of the edges after pre-extraction.
 	:param graph_type: 1 (to use edges and vertices of the grid), 2 (to use only edges).
@@ -310,36 +328,46 @@ def node_edge_filter(G_bar, min_, graph_type, dict_seq, max_, weighting_method,i
 	node is a vertex of these elements
 	:return:
 		G_bar: the input graph but with edges generated according to graph_type.
-	'''
 	"""
+    """
 	This script generates graph type 1 and 2.
 	"""
 
-	# Iterate over all the numbers (<--> nodes) to test the condition about the threshold:
-	for n in range(len(G_bar.nodes())):
-		connecting_edges(
-			G_bar, n + 1, min_, graph_type, dict_seq, max_, weighting_method,input_flag,node2box_index
-		)
+    # Iterate over all the numbers (<--> nodes) to test the condition about the threshold:
+    for n in range(len(G_bar.nodes())):
+        connecting_edges(
+            G_bar,
+            n + 1,
+            min_,
+            graph_type,
+            dict_seq,
+            max_,
+            weighting_method,
+            input_flag,
+            node2box_index,
+        )
 
-	if weighting_method == "ER":
+    if weighting_method == "ER":
 
-		# Compute degree centrality
+        # Compute degree centrality
 
-		deg = nx.degree_centrality(G_bar)
-		N = len(G_bar.nodes())
+        deg = nx.degree_centrality(G_bar)
+        N = len(G_bar.nodes())
 
-		# If True, then apply 'ER' method
+        # If True, then apply 'ER' method
 
-		for edge in G_bar.edges():
-			G_bar.edges[(edge[0], edge[1])]["weight"] = G_bar.nodes[edge[0]]["weight"] / (
-					deg[edge[0]] * (N - 1)
-			) + G_bar.nodes[edge[1]]["weight"] / (deg[edge[1]] * (N - 1))
-	elif weighting_method == "AVG":
-		pass
-	else:
-		print("weighting_method not defined")
+        for edge in G_bar.edges():
+            G_bar.edges[(edge[0], edge[1])]["weight"] = G_bar.nodes[edge[0]][
+                "weight"
+            ] / (deg[edge[0]] * (N - 1)) + G_bar.nodes[edge[1]]["weight"] / (
+                deg[edge[1]] * (N - 1)
+            )
+    elif weighting_method == "AVG":
+        pass
+    else:
+        print("weighting_method not defined")
 
-	return G_bar
+    return G_bar
 
 
 """
@@ -347,10 +375,8 @@ Filtering triangles
 """
 
 
-def pre_extraction(
-		G_bar, G_triang, dict_seq, graph_type, min_, max_, weighting_method
-):
-	'''
+def pre_extraction(G_bar, G_triang, dict_seq, graph_type, min_, max_, weighting_method):
+    """
 	:param G_bar: a weighted networkX graph whose nodes are the barycenters of the elements of the grid.
 	:param G_triang: the grid graph.
 	:param dict_seq: dictionary mapping grid elements into their vertices. Namely, dict_seq for the key-th element of the
@@ -361,53 +387,53 @@ def pre_extraction(
 	:param weighting_method: 'ER', 'AVG'.
 	:return:
 		G_filtered: pre-extracted graph.
-	'''
+	"""
 
-	if graph_type == "3" and weighting_method == "ER":
-		print("this wm does not apply for graph type 3.")
-	else:
+    if graph_type == "3" and weighting_method == "ER":
+        print("this wm does not apply for graph type 3.")
+    else:
 
-		if graph_type == "1" or graph_type == "2":
-			G_filtered = G_bar.copy()
-			# filtering
-			edges_ = list(G_filtered.edges())
-			G_filtered.remove_edges_from(edges_)
-			G_filtered = node_edge_filter(
-				G_filtered, min_, graph_type, dict_seq, max_, weighting_method
-			)
-		elif graph_type == "3":
-			# filtering
-			# print('here')
-			G_filtered = grid_filter(G_bar, G_triang, min_, dict_seq, max_)
+        if graph_type == "1" or graph_type == "2":
+            G_filtered = G_bar.copy()
+            # filtering
+            edges_ = list(G_filtered.edges())
+            G_filtered.remove_edges_from(edges_)
+            G_filtered = node_edge_filter(
+                G_filtered, min_, graph_type, dict_seq, max_, weighting_method
+            )
+        elif graph_type == "3":
+            # filtering
+            # print('here')
+            G_filtered = grid_filter(G_bar, G_triang, min_, dict_seq, max_)
 
-		"""
+        """
 		Removing the non-useful barycenters
 		"""
 
-		G_filtered.remove_nodes_from(list(nx.isolates(G_filtered)))
+        G_filtered.remove_nodes_from(list(nx.isolates(G_filtered)))
 
-		return G_filtered
+        return G_filtered
 
 
 def coloring(pixel_val, N):
-	'''
+    """
 	This functions assigns a "color" (an integer between 0 and N-1) to a pixel.
 	:param pixel_val: normalized real value of the pixel.
 	:param N: number of colors.
 	:return:
 		color: integer \in \{0,1,...,N-1\}.
 
-	'''
-	intervals = np.linspace(0, 1, N, endpoint=True)
-	interval_bool = [intervals[i] <= pixel_val <= intervals[i + 1] for i in range(len(intervals) - 1)]
-	color = interval_bool.index(True)
-	return color
-
-
+	"""
+    intervals = np.linspace(0, 1, N, endpoint=True)
+    interval_bool = [
+        intervals[i] <= pixel_val <= intervals[i + 1] for i in range(len(intervals) - 1)
+    ]
+    color = interval_bool.index(True)
+    return color
 
 
 def get_sec_neig_square(node, dict_seq, node2box_index):
-	'''
+    """
 	This returns all the squares that share either a vertex or an edge with the square in which the 'node'
 	is the barycenter.
 	:param node: target node.
@@ -417,39 +443,44 @@ def get_sec_neig_square(node, dict_seq, node2box_index):
 	:return:
 		dict_sec_neig: dictionary, s.t., dict_sec_neig[node]= indexes of all the surrounding triangles of 'node'.
 		index_: **check this output. it seems to be removable.**
-	'''
-	same_triang = get_first_neig(node, dict_seq)  # getting the nodes of the triang that has 'node' as barycenter
-	neighboring_boxes = []
-	for vertex in same_triang:
-		neighboring_boxes = neighboring_boxes + node2box_index[vertex]
-	neighboring_boxes = list(set(neighboring_boxes))
-	neighboring_boxes.remove(node)
-	# print(neighboring_boxes)
-	dict_sec_neig = {}  # dict that contains all the surrounding triangles for the 'node'
-	dict_sec_neig[node] = []
+	"""
+    same_triang = get_first_neig(
+        node, dict_seq
+    )  # getting the nodes of the triang that has 'node' as barycenter
+    neighboring_boxes = []
+    for vertex in same_triang:
+        neighboring_boxes = neighboring_boxes + node2box_index[vertex]
+    neighboring_boxes = list(set(neighboring_boxes))
+    neighboring_boxes.remove(node)
+    # print(neighboring_boxes)
+    dict_sec_neig = (
+        {}
+    )  # dict that contains all the surrounding triangles for the 'node'
+    dict_sec_neig[node] = []
 
-	# indexes of all the surrounding triangles. This will be useful to call not only the mentioned triangles but also their bar
-	index_ = neighboring_boxes
+    # indexes of all the surrounding triangles. This will be useful to call not only the mentioned triangles but also their bar
+    index_ = neighboring_boxes
 
-	return dict_sec_neig, index_
+    return dict_sec_neig, index_
+
 
 def bar_square(coord):
-	'''
+    """
 	This returns the coordinates of the barycenter of a square defined by coord.
 	:param coord: list of coordinates of square (len(4)).
 	:return:
 		x_bar: x-coordinate of barycenter.
 		y_bar: y-coordinate of barycenter.
-	'''
-	x1,y1 = coord[0]
-	x2,y2 = coord[3]
-	x_bar = .5*(x1+x2)
-	y_bar = .5*(y1+y2)
-	return x_bar,y_bar
+	"""
+    x1, y1 = coord[0]
+    x2, y2 = coord[3]
+    x_bar = 0.5 * (x1 + x2)
+    y_bar = 0.5 * (y1 + y2)
+    return x_bar, y_bar
 
 
-def resizing_image(image_path, number_of_colors, t,new_size):
-	'''
+def resizing_image(image_path, number_of_colors, t, new_size):
+    """
 	This resizes and repaints an image.
 	:param image_path: string.
 	:param number_of_colors: number of colors for the output image.
@@ -459,99 +490,106 @@ def resizing_image(image_path, number_of_colors, t,new_size):
 		color_dict: dictionary s.t., color_dict[key]= real value for the key-th pixel.
 		key is the index for the pixels in the resized image.
 		saving_path: string, to where the new image is saved.
-	'''
-	#new_size = 100
+	"""
+    # new_size = 100
 
-	last_word = image_path.split('/')[-1]
-	new_folder_name = last_word.split('.')[0]
-	saving_path = './runs/'+new_folder_name
-	print(saving_path)
-	try:
-		os.mkdir(saving_path)
-	except:
-		pass
-	print(saving_path)
+    last_word = image_path.split("/")[-1]
+    new_folder_name = last_word.split(".")[0]
+    saving_path = "./runs/" + new_folder_name
+    print(saving_path)
+    try:
+        os.mkdir(saving_path)
+    except:
+        pass
+    print(saving_path)
+
+    im = Image.open(image_path)
+    width, height, = im.size
+    pixel_values = np.array(list(im.getdata()))
+    im = cv.imread(image_path)
+    print("original dimensions", im.shape)
+    print("the width", width, " and the new size", new_size)
+
+    if width != new_size:
+        # resizing it
+
+        img_rotate_90_clockwise = cv.rotate(im, cv.ROTATE_90_CLOCKWISE)
+
+        img_ratio = new_size / width
+        print("ratio:", img_ratio)
+
+        small_to_large_image_size_ratio = img_ratio
+        small_img = cv.resize(
+            img_rotate_90_clockwise,  # original image
+            (0, 0),  # set fx and fy, not the final size
+            fx=small_to_large_image_size_ratio,
+            fy=small_to_large_image_size_ratio,
+            interpolation=cv.INTER_NEAREST,
+        )
+        print(small_img.shape)
+        cv.imwrite(saving_path + "/resized_" + new_folder_name + ".jpg", small_img)
+
+        res_im = Image.open(saving_path + "/resized_" + new_folder_name + ".jpg", "r")
+        width, height = res_im.size
+        pixel_values = np.array(list(res_im.getdata()))
+        print("here")
+    else:
+        print("new size = current size")
+
+    partition_dict, dict_seq, node2box_index = quality_measure.partition_set(width + 1)
+
+    number_of_colors += 1
+    i = 0
+    color_dict = {}
+    for r, b, g in pixel_values:
+        rgb = ((r & 0x0FF) << 16) | ((g & 0x0FF) << 8) | (b & 0x0FF)
+        # print(rgb)
+        color_dict[i] = int(rgb)
+        i += 1
+    # print(len(color_dict))
+    colors = []
+    max_ = max(color_dict.values())
+    color_flag = 2
+    print(max_)
+    for key in color_dict.keys():
+        color_dict[key] = max(1 - color_dict[key] / max_, t)
+        # print(color_dict[key])
+        color = coloring(color_dict[key], number_of_colors)
+        colors.append(color)
+
+    max_ = max(color_dict.values())
+
+    fig, ax = plt.subplots(1, 1, figsize=(17, 15))
+    patches = []
+    for key in partition_dict:
+        square_edges = np.asarray(
+            [partition_dict[key][0]]
+            + [partition_dict[key][2]]
+            + [partition_dict[key][3]]
+            + [partition_dict[key][1]]
+            + [partition_dict[key][0]]
+        )
+        # print(square_edges)
+        # print(len(square_edges))
+        s1 = Polygon(square_edges)
+        patches.append(s1)
+    p = PatchCollection(patches, alpha=1, linewidth=0.0, edgecolor="b", cmap="YlOrRd")
+
+    p.set_array(np.array(colors))
+    ax.add_collection(p)
+    plt.colorbar(p)
+    folder_path = image_path.replace(image_path.split("/")[-1], "")
+    # print(folder_path)
+    plt.savefig(saving_path + "/repainted_resized_image.png")
+    # plt.show()
+
+    return width, color_dict, saving_path
 
 
-	im = Image.open(image_path)
-	width, height, = im.size
-	pixel_values = np.array(list(im.getdata()))
-	im = cv.imread(image_path)
-	print('original dimensions',im.shape)
-	print('the width',width,' and the new size',new_size)
-
-	if width != new_size:
-		#resizing it
-
-		img_rotate_90_clockwise = cv.rotate(im, cv.ROTATE_90_CLOCKWISE)
-
-		img_ratio = new_size / width
-		print('ratio:', img_ratio)
-
-		small_to_large_image_size_ratio = img_ratio
-		small_img = cv.resize(img_rotate_90_clockwise,  # original image
-							  (0, 0),  # set fx and fy, not the final size
-							  fx=small_to_large_image_size_ratio,
-							  fy=small_to_large_image_size_ratio,
-							  interpolation=cv.INTER_NEAREST)
-		print(small_img.shape)
-		cv.imwrite(saving_path+'/resized_'+new_folder_name+'.jpg', small_img)
-
-		res_im = Image.open(saving_path+'/resized_'+new_folder_name+'.jpg', 'r')
-		width, height = res_im.size
-		pixel_values = np.array(list(res_im.getdata()))
-		print('here')
-	else:
-		print('new size = current size')
-
-
-	partition_dict, dict_seq, node2box_index = quality_measure.partition_set(width + 1)
-
-	number_of_colors += 1
-	i = 0
-	color_dict = {}
-	for r, b, g in pixel_values:
-		rgb = ((r & 0x0ff) << 16) | ((g & 0x0ff) << 8) | (b & 0x0ff)
-		# print(rgb)
-		color_dict[i] = int(rgb)
-		i += 1
-	#print(len(color_dict))
-	colors = []
-	max_ = max(color_dict.values())
-	color_flag = 2
-	print(max_)
-	for key in color_dict.keys():
-		color_dict[key] = max(1 - color_dict[key] / max_, t)
-		# print(color_dict[key])
-		color = coloring(color_dict[key], number_of_colors)
-		colors.append(color)
-
-	max_ = max(color_dict.values())
-
-	fig, ax = plt.subplots(1, 1, figsize=(17, 15))
-	patches = []
-	for key in partition_dict:
-		square_edges = np.asarray([partition_dict[key][0]] + [partition_dict[key][2]] + [partition_dict[key][3]] + [
-			partition_dict[key][1]] + [partition_dict[key][0]])
-		# print(square_edges)
-		# print(len(square_edges))
-		s1 = Polygon(square_edges)
-		patches.append(s1)
-	p = PatchCollection(patches, alpha=1, linewidth=.0, edgecolor='b', cmap='YlOrRd')
-
-	p.set_array(np.array(colors))
-	ax.add_collection(p)
-	plt.colorbar(p)
-	folder_path = image_path.replace(image_path.split('/')[-1],"")
-	#print(folder_path)
-	plt.savefig(saving_path+'/repainted_resized_image.png')
-	#plt.show()
-
-	return width,color_dict,saving_path
-
-
-def pre_extraction_from_image(image_path,new_size,graph_type,t1,t2,number_of_colors,number_of_cc):
-	'''
+def pre_extraction_from_image(
+    image_path, new_size, graph_type, t1, t2, number_of_colors, number_of_cc
+):
+    """
 	This takes an image and return a graph extracted from it according to the pre-extraction rules.
 	:param image_path: string.
 	:param graph_type: 1 (to use edges and vertices of the grid), 2 (to use only edges).
@@ -563,123 +601,147 @@ def pre_extraction_from_image(image_path,new_size,graph_type,t1,t2,number_of_col
 	:return:
 		small_G_filtered: pre-extracted graph.
 
-	'''
+	"""
 
-	print('resizing image ...')
-	width, color_dict, folder_path = resizing_image(image_path, number_of_colors, t1,new_size)
+    print("resizing image ...")
+    width, color_dict, folder_path = resizing_image(
+        image_path, number_of_colors, t1, new_size
+    )
 
-	print('pre_extrac from image')
+    print("pre_extrac from image")
 
-	N = width + 1
-	_, G_triang = quality_measure.partition(N)
-	partition_dict, dict_seq, node2box_index = quality_measure.partition_set(N)
+    N = width + 1
+    _, G_triang = quality_measure.partition(N)
+    partition_dict, dict_seq, node2box_index = quality_measure.partition_set(N)
 
-	G_bar = nx.Graph()
-	for key in partition_dict.keys():
-		G_bar.add_node(key - 1)
-		value = partition_dict[key]
-		G_bar.nodes[key - 1]['pos'] = np.array(bar_square(value))
-		G_bar.nodes[key - 1]['weight'] = 0
+    G_bar = nx.Graph()
+    for key in partition_dict.keys():
+        G_bar.add_node(key - 1)
+        value = partition_dict[key]
+        G_bar.nodes[key - 1]["pos"] = np.array(bar_square(value))
+        G_bar.nodes[key - 1]["weight"] = 0
 
-	tdens_dict = {}
-	for key in partition_dict.keys():
-		##print(key)
-		weight = color_dict[key - 1]
-		tdens_dict[key] = weight
-		G_bar.nodes[key - 1]['weight'] = weight
+    tdens_dict = {}
+    for key in partition_dict.keys():
+        ##print(key)
+        weight = color_dict[key - 1]
+        tdens_dict[key] = weight
+        G_bar.nodes[key - 1]["weight"] = weight
 
-	max_=max(color_dict.values())
+    max_ = max(color_dict.values())
 
-	G_filtered = G_bar.copy()
-	#print(G_bar.nodes(data=True))
-	# filtering
-	edges_ = list(G_filtered.edges())
-	G_filtered.remove_edges_from(edges_)
-	# print('getting graph')
+    G_filtered = G_bar.copy()
+    # print(G_bar.nodes(data=True))
+    # filtering
+    edges_ = list(G_filtered.edges())
+    G_filtered.remove_edges_from(edges_)
+    # print('getting graph')
 
-	G_filtered = node_edge_filter(G_filtered, t2, graph_type, dict_seq, 1, 'ER','image',node2box_index)  # 12
-	#print(G_filtered.edges(data=True))
+    G_filtered = node_edge_filter(
+        G_filtered, t2, graph_type, dict_seq, 1, "ER", "image", node2box_index
+    )  # 12
+    # print(G_filtered.edges(data=True))
 
-	fig, ax = plt.subplots(1, 1, figsize=(15, 15))
-	patches = []
-	for key in partition_dict:
-		square_edges = np.asarray([partition_dict[key][0]] + [partition_dict[key][2]] + [partition_dict[key][3]] + [
-			partition_dict[key][1]] + [partition_dict[key][0]])
-		# print(square_edges)
-		# print(len(square_edges))
-		s1 = Polygon(square_edges)
-		patches.append(s1)
-	p = PatchCollection(patches, alpha=1, cmap='YlOrRd', linewidth=.1, edgecolor='b')
+    fig, ax = plt.subplots(1, 1, figsize=(15, 15))
+    patches = []
+    for key in partition_dict:
+        square_edges = np.asarray(
+            [partition_dict[key][0]]
+            + [partition_dict[key][2]]
+            + [partition_dict[key][3]]
+            + [partition_dict[key][1]]
+            + [partition_dict[key][0]]
+        )
+        # print(square_edges)
+        # print(len(square_edges))
+        s1 = Polygon(square_edges)
+        patches.append(s1)
+    p = PatchCollection(patches, alpha=1, cmap="YlOrRd", linewidth=0.1, edgecolor="b")
 
-	colors = np.array(list(color_dict.values()))
-	p.set_array(colors)
-	ax.add_collection(p)
+    colors = np.array(list(color_dict.values()))
+    p.set_array(colors)
+    ax.add_collection(p)
 
-	# print(len(colors))
+    # print(len(colors))
 
-	small_G_filtered = G_filtered.copy()
-	small_G_filtered.remove_nodes_from(list(nx.isolates(G_filtered)))
-	# print(small_G_filtered.nodes())
+    small_G_filtered = G_filtered.copy()
+    small_G_filtered.remove_nodes_from(list(nx.isolates(G_filtered)))
+    # print(small_G_filtered.nodes())
 
-	pos = nx.get_node_attributes(small_G_filtered, 'pos')
-	nx.draw_networkx(small_G_filtered, pos, node_size=1, width=1, with_labels=False, edge_color='Gray', alpha=0.8,
-					 node_color='black', ax=ax)
+    pos = nx.get_node_attributes(small_G_filtered, "pos")
+    nx.draw_networkx(
+        small_G_filtered,
+        pos,
+        node_size=1,
+        width=1,
+        with_labels=False,
+        edge_color="Gray",
+        alpha=0.8,
+        node_color="black",
+        ax=ax,
+    )
 
-	if number_of_cc in [1,None]: #we assume then there's just one
+    if number_of_cc in [1, None]:  # we assume then there's just one
 
-		plt.savefig(folder_path + '/extracted_graph.png')
+        plt.savefig(folder_path + "/extracted_graph.png")
 
-		cc_large = max(nx.connected_components(small_G_filtered), key=len)
-		small_G_filtered = small_G_filtered.subgraph(cc_large)
+        cc_large = max(nx.connected_components(small_G_filtered), key=len)
+        small_G_filtered = small_G_filtered.subgraph(cc_large)
 
-		pos = nx.get_node_attributes(small_G_filtered, 'pos')
-		nx.draw_networkx(small_G_filtered, pos, node_size=3, width=1.5, with_labels=False, edge_color='black',
-						 alpha=0.8, node_color='black', ax=ax)
+        pos = nx.get_node_attributes(small_G_filtered, "pos")
+        nx.draw_networkx(
+            small_G_filtered,
+            pos,
+            node_size=3,
+            width=1.5,
+            with_labels=False,
+            edge_color="black",
+            alpha=0.8,
+            node_color="black",
+            ax=ax,
+        )
 
-	with open(folder_path + '/extracted_graph.pkl', 'wb') as file:
-		pkl.dump(small_G_filtered, file)
+    with open(folder_path + "/extracted_graph.pkl", "wb") as file:
+        pkl.dump(small_G_filtered, file)
 
-	with open(folder_path+'/real_image.pkl', 'wb') as file:
-		pkl.dump(color_dict, file)
+    with open(folder_path + "/real_image.pkl", "wb") as file:
+        pkl.dump(color_dict, file)
 
-	print(folder_path)
-	plt.savefig(folder_path + '/extracted_graph.png')
-	return small_G_filtered, color_dict
+    print(folder_path)
+    plt.savefig(folder_path + "/extracted_graph.png")
+    return small_G_filtered, color_dict
 
 
 def tree_approximation(Graph):
-	'''
+    """
 	This returns a tree approximation of the input graph. In this case, the graph used is the bfs rooted at the lowest
 	labeled node.
 	:param Graph:  a networkx graph.
 	:return:
 		bfs_Graph: bfs approximation of G.
-	'''
+	"""
 
-	nodes = sorted(list(Graph.nodes))
-	root=nodes[0]
+    nodes = sorted(list(Graph.nodes))
+    root = nodes[0]
 
-	bfs_Graph = nx.bfs_tree(Graph, root)
-	bfs_Graph = bfs_Graph.to_undirected()
+    bfs_Graph = nx.bfs_tree(Graph, root)
+    bfs_Graph = bfs_Graph.to_undirected()
 
-	for node in bfs_Graph.nodes():
-		for word in ['pos', 'weight']:
-			bfs_Graph.nodes[node][word] = Graph.nodes[node][word]
+    for node in bfs_Graph.nodes():
+        for word in ["pos", "weight"]:
+            bfs_Graph.nodes[node][word] = Graph.nodes[node][word]
 
-	for edge in bfs_Graph.edges():
-		for word in ['weight']:
-			bfs_Graph.edges[edge][word] = Graph.edges[edge][word]
+    for edge in bfs_Graph.edges():
+        for word in ["weight"]:
+            bfs_Graph.edges[edge][word] = Graph.edges[edge][word]
 
-
-	return bfs_Graph
-
+    return bfs_Graph
 
 
-
-
-
-def bfs_preprocess(image_path, new_size,number_of_colors, t1,t2, number_of_cc,graph_type ):
-	'''
+def bfs_preprocess(
+    image_path, new_size, number_of_colors, t1, t2, number_of_cc, graph_type
+):
+    """
 	This is the combination of pre_extraction_from_image and tree_approximation.
 	:param image_path: string.
 	:param number_of_colors: number of colors for the output image.
@@ -690,76 +752,77 @@ def bfs_preprocess(image_path, new_size,number_of_colors, t1,t2, number_of_cc,gr
 	:param graph_type: 1 (to use edges and vertices of the grid), 2 (to use only edges).
 	:return:
 		bfs_Graph: bfs approximation of G.
-	'''
+	"""
 
-	print('bfs_preprocessing...')
+    print("bfs_preprocessing...")
 
-	width, color_dict, folder_path = resizing_image(image_path, number_of_colors, t1, new_size)
+    width, color_dict, folder_path = resizing_image(
+        image_path, number_of_colors, t1, new_size
+    )
 
-	Graph,_ = pre_extraction_from_image(image_path,new_size, graph_type,t1,t2,number_of_colors,number_of_cc)
+    Graph, _ = pre_extraction_from_image(
+        image_path, new_size, graph_type, t1, t2, number_of_colors, number_of_cc
+    )
 
-	bfs_Graph = tree_approximation(Graph)
+    bfs_Graph = tree_approximation(Graph)
 
-	partition_dict, _, _ = quality_measure.partition_set(width + 1)
+    partition_dict, _, _ = quality_measure.partition_set(width + 1)
 
-	with open(folder_path+'/bfs_extracted_graph.pkl', 'wb') as file:
-		pkl.dump(bfs_Graph, file)
+    with open(folder_path + "/bfs_extracted_graph.pkl", "wb") as file:
+        pkl.dump(bfs_Graph, file)
 
-	with open(folder_path+'/real_part_dict.pkl', 'wb') as file:
-		pkl.dump(partition_dict, file)
+    with open(folder_path + "/real_part_dict.pkl", "wb") as file:
+        pkl.dump(partition_dict, file)
 
-	return bfs_Graph
-
+    return bfs_Graph
 
 
 """
 Test
 """
-#--------------------------- test 1 --------------------------------
+# --------------------------- test 1 --------------------------------
 
-new_size=100
-ratio=new_size/1200
-#print('ratio:',ratio)
-t1=0.05
-t2=.12
+new_size = 100
+ratio = new_size / 1200
+# print('ratio:',ratio)
+t1 = 0.05
+t2 = 0.12
 image_path = "./runs/graph_from_image/crop.png"
-number_of_cc=1
-number_of_colors=100
-graph_type='1'
+number_of_cc = 1
+number_of_colors = 100
+graph_type = "1"
 
-#Graph,_ = pre_extraction_from_image(image_path,graph_type,t1,t2,number_of_colors,number_of_cc)
+# Graph,_ = pre_extraction_from_image(image_path,graph_type,t1,t2,number_of_colors,number_of_cc)
 
-#bfs_preprocess(image_path,new_size, number_of_colors, t1,t2, number_of_cc,graph_type )
+# bfs_preprocess(image_path,new_size, number_of_colors, t1,t2, number_of_cc,graph_type )
 
-#--------------------------- test 2 --------------------------------
+# --------------------------- test 2 --------------------------------
 
-new_size=100
-ratio=new_size/1200
-#print('ratio:',ratio)
-t1=0.05
-t2=.12
+new_size = 100
+ratio = new_size / 1200
+# print('ratio:',ratio)
+t1 = 0.05
+t2 = 0.12
 image_path = "./runs/graph_from_image/resized_crop.jpg"
-number_of_cc=1
-number_of_colors=100
-graph_type='1'
+number_of_cc = 1
+number_of_colors = 100
+graph_type = "1"
 
-#Graph,_ = pre_extraction_from_image(image_path,graph_type,t1,t2,number_of_colors,number_of_cc)
+# Graph,_ = pre_extraction_from_image(image_path,graph_type,t1,t2,number_of_colors,number_of_cc)
 
-#bfs_preprocess(image_path, new_size,number_of_colors, t1,t2, number_of_cc,graph_type )
+# bfs_preprocess(image_path, new_size,number_of_colors, t1,t2, number_of_cc,graph_type )
 
-#----------------------------test 3---------------------------------------------------
-new_size=100
-ratio=new_size/1200
-#print('ratio:',ratio)
-t1=0.05
-t2=.12
+# ----------------------------test 3---------------------------------------------------
+new_size = 100
+ratio = new_size / 1200
+# print('ratio:',ratio)
+t1 = 0.05
+t2 = 0.12
 image_path = "./runs/graph_from_image/image_2.jpg"
-number_of_cc=1
-number_of_colors=100
-graph_type='1'
+number_of_cc = 1
+number_of_colors = 100
+graph_type = "1"
 
-#Graph,_ = pre_extraction_from_image(image_path,new_size,graph_type,t1,t2,number_of_colors,number_of_cc)
+# Graph,_ = pre_extraction_from_image(image_path,new_size,graph_type,t1,t2,number_of_colors,number_of_cc)
 
-#bfs_preprocess(image_path,new_size, number_of_colors, t1,t2, number_of_cc,graph_type )
-
-
+# bfs_preprocess(image_path,new_size, number_of_colors, t1,t2, number_of_cc,graph_type )

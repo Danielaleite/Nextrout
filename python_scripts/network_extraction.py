@@ -29,7 +29,7 @@ click.echo("Define the parameters for the network extraction routine.")
 @click.command()
 @click.option(
     "--flag_list",
-    prompt="What is the tdens0 flag?",
+    prompt="What is the input flag?",
     help="This is where you should put the name of the tdens0 flag.",
 )
 @click.option(
@@ -287,6 +287,7 @@ def network_extraction(
                                                 graph_type,
                                                 funct,
                                             )
+
                                             G = graph_extraction_from_dat_files(
                                                 subfolder,
                                                 t,

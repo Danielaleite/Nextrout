@@ -2,7 +2,7 @@
 
 NextRout (Network Extraction from Routing Optimization) is a tool that allows you to extract Network topologies from dynamical equations related to Routing Optimization problems. It is divided into three steps: extraction of an optimal trajectory from a dynamical system of equations in a continuous framework, pre-extraction of the network, and filtering of possible redundancies.
 
-You can use inputs such as images, giving a cleaning that allows you to have a less redundant network. You can choose whether only have a graph from a continuous framework on routing optimization, or go beyond and apply a similar dynamics that allows you to execute a filtering without losing important information stored on your network. 
+You can use in input pre-build functions, graphs or images.  The filtering allows you to have a less redundant network. You can choose whether only have a graph from a continuous framework on routing optimization, or go beyond and apply a similar dynamics that allows to execute a filtering without losing important information stored on the network. 
 
 ## Getting Started
 
@@ -18,63 +18,113 @@ The required dependencies are
 4 - Meshpy;
 5 - PyVTK;
 
-** You should have Python 3 installed in order to perform the following steps.
+** You should have Python 3 installed in order to perform the next steps.
 
 ### Installation
 
-(In this section, you have a step by step series of examples that tell you how to run a simulation).
---------------------------------------------------------------------------------------------------------------------------
 Linux
 
 ** First, clone this repository by executing the following commands:
 
 ```
-$ git clone https://github.com/Danielaleite/Nextrout
+git clone https://github.com/Danielaleite/Nextrout
 cd Nextrout
 python setup.py
 ```
 
-This is going to download the "DMK-solver" and the required python scripts, and prepare the setup for you to be able to run a simulation.
-The other files inside this folder are being already executed by the following scripts (so you don't have to touch them): "init_otp_muffe.sh" takes all the repositories at https://gitlab.com/opt-muffe/otp_utilities, while "init_py_scripts.sh" takes the required scripts at https://github.com/Danielaleite/python_scripts.  
+This is going to download the "DMK-solver" and the required python modules and prepare the setup for running a simulation. The execution of "setup.py" takes around 8 minutes to be finished (so dont't panic if you notice it's taking a while). In the end, you should have the following folders:
 
+* otp_utilities
+* python_scripts
+* results
 
-The execution of such scripts takes around 8 minutes to finish (so dont't panic if it's taking a while to be done). In the end, you should have the following folders:
+Inside otp_utilities you will find "init_otp_muffe.sh". This is a piece previously executed in "setup.py" that takes all the repositories at https://gitlab.com/opt-muffe/otp_utilities, so you shouldn't worry about it. After executing setup, you will be able to see the following respositories:
 
-- globals
--linear algebra
-- geometry
-- muffe_p1p0
-- muffe_sparse_optimization
-- p1galerkin
-- python_scripts
-- spectral
-- Tests
+* globals
+*linear algebra
+* geometry
+* muffe_p1p0
+* muffe_sparse_optimization
+* p1galerkin
+* python_scripts
+* spectral
+* Tests
 - vtk
+
+In "python_scripts" you should have the following content:
+
+* PVM_data
+* runs
+* network_impainting
+* network_analysis
+* bash_scripts
+* python_script
+* jobs
+* images
+* graph_cell_folder
+
+
+* build_run_getgraph.py
+* continuous2graph.py
+* debugger.py
+* discrete2graph.py
+* dmk_folder.py
+* filtering.py
+* fort.555
+* get_graph.py
+* Getting_sources_and_sinks.py
+* graph2plotly.py
+* inputs.ctrl
+* Instructions.md
+* location_repository.txt
+* main.py
+* muffa.ctrl
+* network_extraction.py
+* new_muffa.ctrl
+* outputs_dmk_c.txt
+* outputs_gg.txt
+* outputs_vtk.txt
+* pre_extraction.py
+* quality_measure.py
+* README.md
+* setup.py
+* source_sink_generator.py
+* steiner_simplification.py
+* terminal_computation.py
+* transport_networks.py
+* utilities.py
+* utils.py
+
+Inside "results" you will find two subfolders that are going to be filled with the results of the experiments. 
+
+* discrete
+* continuous
 ------------------------------------------------------------
 
-## Running the tests
+## How to perform a simulation?
 
-To be able to run an experiment, go to the folder "Tests" and run the script "build_run_get_graph.py".
+Inside "python_scripts" you should run "network_extraction.py". So,
 
 ```
-cd network_extraction
+cd python_scripts
 python network_extraction.py
 ```
 
-The following questions are going to appear:
+You will see the following questions:
 
-* What is your flag?
-(add answer to this question)
-* What is the number of divisions for the Mesh?
-* What is the value for beta?
-* What is(are) the flag(s) for source?
-* What is(are) the flag(s) for sink?
-* What is the val for the discrete beta?: 
-* continuous DMK solver?: 
-* graph extraction?
-* graph simplification, reduction?
+* What is the tdens0 flag?
+This is where you give the initial transport density. You have three options: predefined funcions for DMK-continuous, images or your own graph;
+* What is the number of divisions of the mesh?
 
-If everything goes well, you are going to have the results located inside the folder "muffe_sparse_optimization/simplifications/runs/"
+* What is the value for beta to be used in the DMK-solver?
+* What is are) the flag(s) for source function?
+* What is(are) the flag(s) for sink function?
+* What is the value for beta to be used in the filtering part?
+* Should the DMK-solver step be executed?
+* Should the graph pre-extraction be done?
+* Should the graph filtering/reduction be done? 
+
+
  
 
 ### Break down into end to end tests
@@ -113,129 +163,3 @@ See also the list of [contributors](https://github.com/your/project/contributors
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
-
-
-
-
-
-
-""""""""""""""""""""""""OLD""""""""""""""""""""""""""""""""""""
-
-# Network extraction by routing optimization
-
-NextRout (Network Extraction from Routing Optimization) is a tool that allows you to extract Networks from different inputs, such as images, giving a cleaning that allows you to have a less redundant network. You can choose whether only have a graph from a continuous framework on routing optimization, or go beyond and apply a similar dynamics that allows you to execute a filtering without losing important information stored on your network. 
-
-## Getting Started
-
-### Prerequisites
-
-The required dependencies are
-
----For the DMK-Continuous ---
-
-1 - A Fortran compiler (any gfortran version>4 but version 5);
-2 - Blas and Lapach libraries;
-3 - Python 3;
-4 - Meshpy;
-5 - PyVTK;
-
-** You should have Python 3 installed in order to perform the following steps.
-
-### Installation
-
-(In this section, you have a step by step series of examples that tell you how to run a simulation).
---------------------------------------------------------------------------------------------------------------------------
-Linux
-
-** First, clone this repository by executing the following commands:
-
-```
-$ git clone https://github.com/Danielaleite/Netwok_extraction_from_continuous
-cd Netwok_extraction_from_continuous
-python setup.py
-```
-
-This is going to download the "DMK-solver" and python scripts, and prepare the setup for you to be able to run a simulation.
-The other files inside this folder are being already executed by the following scripts (so you don't have to touch them): "init_otp_muffe.sh" takes all the repositories at https://gitlab.com/opt-muffe/otp_utilities, while "init_py_scripts.sh" takes the required scripts at https://github.com/Danielaleite/python_scripts.  
-
-
-The execution of such scripts takes around 8 minutes to finish (so dont't panic if it's taking a while to be done). In the end, you should have the following folders:
-
--------- Give a description for each folder ---------------
-
-- globals
--linear algebra
-- geometry
-- muffe_p1p0
-- muffe_sparse_optimization
-- p1galerkin
-- python_scripts
-- spectral
-- Tests
-- vtk
-------------------------------------------------------------
-
-## Running the tests
-
-To be able to run an experiment, go to the folder "Tests" and run the script "build_run_get_graph.py".
-
-```
-cd Tests
-python build_run_get_graph.py
-```
-
-The following questions are going to appear:
-
-* What is your flag?
-(add answer to this question)
-* What is the number of divisions for the Mesh?
-* What is the value for beta?
-* What is(are) the flag(s) for source?
-* What is(are) the flag(s) for sink?
-* What is the val for the discrete beta?: 
-* continuous DMK solver?: 
-* graph extraction?
-* graph simplification, reduction?
-
-If everything goes well, you are going to have the results located inside the folder "muffe_sparse_optimization/simplifications/runs/"
- 
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-
-## Built With
-
-
-## Contributing
-
-## Versioning
-
-
-## Authors
-
-* **Daniela Leite** **Diego Theuerkauf** 
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-
-"""

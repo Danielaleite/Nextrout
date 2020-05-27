@@ -1,7 +1,7 @@
 python_scripts/bash_scripts
 python_scripts/network_analysis
 python_scripts/network_impainting
-python_scripts/python_scripts
+python_scripts/python_script
 python_scripts/runs
 python_scripts/__pycache__
 python_scripts/outputs_vtk.txt
