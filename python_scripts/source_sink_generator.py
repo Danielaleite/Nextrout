@@ -6,39 +6,26 @@ import itertools
 from scipy.spatial import distance
 import matplotlib.pyplot as plt
 
+# --------------------
+import utils
 
-def bar2dict(graph_coordinates):
-    """
-    From coordinates list to dictionary.
-    :param graph_coordinates: list containing coordinates of barycenters.
-    :return:
-        bar_pos: dictionary, s.t., bar_pos[key]=(x,y) where key is the label for the key-th node and (x,y) is
-        its location.
-    """
+# --------------------
 
-    # Saving the positions of the barycenters in a dict
 
-    bar_pos = {}
-    n = 1
-    bar_pos_list = [line[:-1].split(" ") for line in graph_coordinates]
-    # print(bar_pos_list)
-    for line_ in bar_pos_list:
-        # print(line_)
-        bar_pos[str(n)] = []
-        line_ = list(dict.fromkeys(line_))
-        line_.remove("")
-        # print(line_)
-        if len(line_) < 3:
-            line_.pop(1)
-            line_.append(line_[0])
-        else:
-            line_.pop(2)
-        for i in line_:
-            bar_pos[str(n)].append(float(i))
-        n += 1
-    for key_ in bar_pos.keys():
-        bar_pos[key_] = np.array(bar_pos[key_])
-    return bar_pos
+def source_rect_cnst_test(x, y):
+    x1, y1, x2, y2 = 1.0 / 8.0, 1 / 4, 3 / 8, 3 / 4
+    if x > x1 and x < x2 and y > y1 and y < y2:
+        return True
+    else:
+        return False
+
+
+def sink_rect_cnst_test(x, y):
+    x3, y3, x4, y4 = 5.0 / 8.0, 1 / 4, 7 / 8, 3 / 4
+    if x > x3 and x < x4 and y > y3 and y < y4:
+        return True
+    else:
+        return False
 
 
 def fsource(x, y, flag):
@@ -564,7 +551,7 @@ def source_sink_generator(folder_name, ndiv, flag_source, flag_sink):
     n_nodes = int(graph_coord_triang[0][:12])
     graph_coordinates = graph_coord_triang[2 : 2 + n_nodes]
     # Getting the positions of the nodes
-    bar_pos = bar2dict(graph_coordinates)
+    bar_pos = utils.bar2dict(graph_coordinates)
     # Defining the positions of the nodes
     X_bar = nx.Graph()
     X_bar.add_nodes_from(bar_pos.keys())

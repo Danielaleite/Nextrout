@@ -5,17 +5,18 @@ import shutil
 import matplotlib.pyplot as plt
 import pickle as pkl
 import os
-from Getting_sources_and_sinks import *
 import time
 import decimal
-from source_sink_generator import *
-from utils import *
 import cv2 as cv
 from PIL import Image
-from quality_measure import *
 from matplotlib.patches import Polygon
 from matplotlib.collections import PatchCollection
 import time
+
+# --------------------------------------------
+import quality_measure
+
+# --------------------------------------------
 
 
 def prod_dict(File1, File2, weights1, weights2):
@@ -414,9 +415,6 @@ def pre_extraction(G_bar, G_triang, dict_seq, graph_type, min_, max_, weighting_
         return G_filtered
 
 
-# todo: add graph3 to images
-
-
 def coloring(pixel_val, N):
     """
 	This functions assigns a "color" (an integer between 0 and N-1) to a pixel.
@@ -432,48 +430,6 @@ def coloring(pixel_val, N):
     ]
     color = interval_bool.index(True)
     return color
-
-
-def partition_set(N):
-    """
-	Generates a regular partition of the set [0,1]^2.
-	:param N: number of divisions of the interval [0,1] (endpoints count as divisions).
-	:return:
-		part_dict: dictionary, s.t., part_dict[key]=[(x1,y1),...,(x4,y4)].
-		 dict_seq: dictionary mapping grid elements into their vertices. Namely, dict_seq for the key-th element of the
-		grid with vertices are n1,n2,n3 and n4 needs to be defined as dict_seq[key]=[n1,n2,n3,n4].
-		node2box_index:  given a node, node2box_index[node] returns the indices of all the elements of the partition s.t.,
-		node is a vertex of these elements.
-	"""
-    x_y_coord, _ = partition(N)
-    part_dict = {}
-    dict_seq = {}
-    node2box_index = {}
-
-    number_of_elements_in_partition = (N - 1) * (N - 1)
-    for node in range(N ** 2):
-        # print(node)
-        node2box_index[node] = []
-    # print('n',number_of_elements_in_partition)
-    nbox = 1
-    i = 0
-    while nbox <= number_of_elements_in_partition:
-        # print('congr',i % N)
-        if i % N != (N - 1):
-            # print(i)
-            part_dict[nbox] = [
-                x_y_coord[i],
-                x_y_coord[i + 1],
-                x_y_coord[i + int(N)],
-                x_y_coord[i + 1 + int(N)],
-            ]
-            dict_seq[nbox - 1] = [i, i + 1, i + int(N), i + 1 + int(N)]
-            # print(dict_seq)
-            for k in dict_seq[nbox - 1]:
-                node2box_index[k].append(nbox - 1)
-            nbox += 1
-        i += 1
-    return part_dict, dict_seq, node2box_index
 
 
 def get_sec_neig_square(node, dict_seq, node2box_index):
@@ -546,7 +502,6 @@ def resizing_image(image_path, number_of_colors, t, new_size):
     except:
         pass
     print(saving_path)
-    # todo: add file to folder (img)
 
     im = Image.open(image_path)
     width, height, = im.size
@@ -581,7 +536,7 @@ def resizing_image(image_path, number_of_colors, t, new_size):
     else:
         print("new size = current size")
 
-    partition_dict, dict_seq, node2box_index = partition_set(width + 1)
+    partition_dict, dict_seq, node2box_index = quality_measure.partition_set(width + 1)
 
     number_of_colors += 1
     i = 0
@@ -656,8 +611,8 @@ def pre_extraction_from_image(
     print("pre_extrac from image")
 
     N = width + 1
-    _, G_triang = partition(N)
-    partition_dict, dict_seq, node2box_index = partition_set(N)
+    _, G_triang = quality_measure.partition(N)
+    partition_dict, dict_seq, node2box_index = quality_measure.partition_set(N)
 
     G_bar = nx.Graph()
     for key in partition_dict.keys():
@@ -811,7 +766,7 @@ def bfs_preprocess(
 
     bfs_Graph = tree_approximation(Graph)
 
-    partition_dict, _, _ = partition_set(width + 1)
+    partition_dict, _, _ = quality_measure.partition_set(width + 1)
 
     with open(folder_path + "/bfs_extracted_graph.pkl", "wb") as file:
         pkl.dump(bfs_Graph, file)
@@ -859,8 +814,8 @@ graph_type = "1"
 
 # ----------------------------test 3---------------------------------------------------
 new_size = 100
-# ratio=new_size/1200
-print("ratio:", ratio)
+ratio = new_size / 1200
+# print('ratio:',ratio)
 t1 = 0.05
 t2 = 0.12
 image_path = "./runs/graph_from_image/image_2.jpg"
@@ -868,6 +823,6 @@ number_of_cc = 1
 number_of_colors = 100
 graph_type = "1"
 
-# Graph,_ = pre_extraction_from_image(image_path,graph_type,t1,t2,number_of_colors,number_of_cc)
+# Graph,_ = pre_extraction_from_image(image_path,new_size,graph_type,t1,t2,number_of_colors,number_of_cc)
 
 # bfs_preprocess(image_path,new_size, number_of_colors, t1,t2, number_of_cc,graph_type )

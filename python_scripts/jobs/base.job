@@ -1,0 +1,42 @@
+#!/bin/sh
+
+### job name
+#PBS -N jobname
+
+### Programma non-rerunable
+#PBS -r n
+
+#DATE=` date +%Y%m%d-%H:%M`
+
+### Redirezione dello standard output e standard error del programma
+#PBS -e localhost:local_folder/jobs/errout/jobname.err
+#PBS -o localhost:local_folder/jobs/errout/jobname.out
+
+### Scelta della coda "cluster_type"
+#PBS -q cluster_type
+
+### Numero di host (nodes) occupati dal Job e numero di processi da allocare per nodo (ppn)
+#PBS -l nodes=1:ppn=1:cluster_maths
+
+### Memoria che ci si aspetta che il programma utilizzi
+#PBS -l mem=9g
+
+### Limite di tempo che vogliamo assegnare al nostro job
+#PBS -l walltime=maxtime
+
+###
+### Mi sposto nella directory di lavoro
+cd local_folder
+
+### Alcuni comandi di shell che ci spostano nella nostra directory e stampano lo stato 
+### del sistema prima dell'esecuzione
+echo Host di esecuzione: `hostname`
+echo Data: `date`
+echo Directory: `pwd`
+#echo Questo job viene eseguito sui seguenti nodi:
+#echo `cat $PBS_NODEFILE`
+echo PBS_WORKDIR=$PBS_WORKDIR
+
+### Esecuzione del nostro programma
+./folder_run.sh path_folder > path_folder/stderr.txt 2>path_folder/stdout.txt
+

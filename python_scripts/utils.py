@@ -6,48 +6,13 @@ import matplotlib.pyplot as plt
 import pickle as pkl
 import contextlib
 import os
-from Getting_sources_and_sinks import *
 import time
 import decimal
-from source_sink_generator import *
 
+# ---------------------------------------
+import source_sink_generator
 
-""" 
-Changes to the current working folder.
-"""
-
-'''
-@contextlib.contextmanager
-def change_into(dir):
-    """goes into dir and go back to the original directory afterwards."""
-    current_dir = os.getcwd()
-
-    try:
-        os.chdir(dir)
-        yield
-    except Exception as e:
-        raise e
-    finally:
-        os.chdir(current_dir)
-
-
-def execute(operations_in_dir):
-    """
-    Executes commands in a directory.
-    Keys are directories, values are lists of commands.
-    """
-
-    def execute_in_dir(dir, commands):
-        with change_into(dir):
-            for cmd in commands:
-                os.system(cmd)
-
-    for dir, commands in operations_in_dir.items():
-        execute_in_dir(dir, commands)
-'''
-
-""" ________________________________________________________________________________________________________________
-"""
+# ---------------------------------------
 
 
 def get_baryc(folder_name):
@@ -55,7 +20,9 @@ def get_baryc(folder_name):
     This script imports the graph structure. Its takes only the barycenter positions out of the graph_cell; no edges.
     """
     if os.getcwd().split("/")[-1] == "simplifications":
-        file1_ = open("../" + folder_name[2:] + "input/graph_cell.dat", "r")
+        file1_ = open(
+            "../../python_scripts/" + folder_name[2:] + "input/graph_cell.dat", "r"
+        )
     else:
         file1_ = open(folder_name + "input/graph_cell.dat", "r")
 
@@ -66,36 +33,6 @@ def get_baryc(folder_name):
     return graph_coord_triang, graph_coordinates, n_nodes
 
 
-"""
-def bar2dict(graph_coordinates, n_nodes):
-    
-    Saving the positions of the barycenters in a dict(to plot!)
-    
-    bar_pos = {}
-    n = 1
-    bar_pos_list = [line[:-1].split(' ') for line in graph_coordinates]
-    # print(bar_pos_list)
-    for line_ in bar_pos_list:
-        # print(line_)
-        bar_pos[str(n)] = []
-        line_ = list(dict.fromkeys(line_))
-        line_.remove('')
-        # print(line_)
-        if len(line_) < 3:
-            line_.pop(1)
-            line_.append(line_[0])
-        else:
-            line_.pop(2)
-        for i in line_:
-            bar_pos[str(n)].append(float(i))
-        n += 1
-    for key_ in bar_pos.keys():
-        bar_pos[key_] = np.array(bar_pos[key_])
-    return bar_pos
-    # print(bar_pos.keys())
-"""
-
-# utils!
 def extracting_weights(folder_name, file):
     """
     Extracting the weights (tdens)
@@ -110,7 +47,6 @@ def extracting_weights(folder_name, file):
     return file_weights
 
 
-# utils!
 def weight2dict(file_weights, file_name):
     """
     Saving the weights in a dict
@@ -153,7 +89,7 @@ def weight2dict(file_weights, file_name):
     return dict_weights_func, weights
 
 
-def completing_with_zeros(dict_weights_func, weights, bar_pos):
+def completing_with_zeros(dict_weights_func, bar_pos):
     """
     Completing with zeros
     """
@@ -291,7 +227,9 @@ def dat2pygraph(Graph, folder_name, edge_mapping, min_, BP_weights):
     """
     # Defining the type of weights for the output python graph: opt_tdens or opt_flux
 
-    folder_name = "./simplifications/" + folder_name[2:]
+    folder_name = (
+        "../otp_utilities/muffe_sparse_optimization/simplifications/" + folder_name[2:]
+    )
     print("we are at", folder_name, "when executing dat2pygraph")
     if BP_weights == "BPtdens":
         opt_tdens = extracting_weights(folder_name, "output/result/opt_tdens.dat")
@@ -325,9 +263,6 @@ def dat2pygraph(Graph, folder_name, edge_mapping, min_, BP_weights):
     return G_simplification
 
 
-print("Now here", os.getcwd())
-
-
 def pygraph2dat(
     G, sources, sinks, component_index, folder_name, mapping, input_flag=None
 ):
@@ -346,10 +281,9 @@ def pygraph2dat(
     - inv_mapping_list, -- f:V(Graph(cc) ----> [1,..., len(Graph(cc))]
     """
     # Creating component_indx/input folder to store the inputs for the discrete DMK
-    os.chdir("./simplifications/")
-    print("You are here: %s" % os.getcwd())
+
     new_dir0 = (
-        "./runs/"
+        "../otp_utilities/muffe_sparse_optimization/simplifications/runs/"
         + folder_name[2:].split("/")[-2]
         + "/"
         + folder_name[2:].split("/")[-1]
@@ -370,7 +304,6 @@ def pygraph2dat(
 
     ##############################################################
     print("Creating the .dat files for this component")
-
     f = open(new_dirn + "/graph.dat", "w+")
     f2 = open(new_dirn + "/tdens0.dat", "w+")
     f3 = open(new_dirn + "/weight.dat", "w+")
@@ -563,13 +496,14 @@ def using_graph2incidence_matrix(folder_name, index, weight_flag=None):
     """
 
     # main script for the generation of the files
-
-    program = "../geometry/graph2incidence_matrix/graph2incidence_matrix.out"
+    program = (
+        "../otp_utilities/geometry/graph2incidence_matrix/graph2incidence_matrix.out"
+    )
 
     # folder path
 
     folder_name_here = (
-        "./simplifications/runs/"
+        "../otp_utilities/muffe_sparse_optimization/simplifications/runs/"
         + folder_name[2:].split("/")[-2]
         + "/"
         + folder_name[2:].split("/")[-1]
@@ -618,10 +552,115 @@ def updating_beta_discrete(beta):
 
     # Writing the file
 
-    f = open("./simplifications/par_files/pflux.dat", "w+")
+    f = open(
+        "../otp_utilities/muffe_sparse_optimization/simplifications/par_files/pflux.dat",
+        "w+",
+    )
     f.write("1  1 \n")
     f.write("time  0.0 \n")
     f.write("1 !ninputs \n")
     beta_str = str(beta)
     f.write("1 " + beta_str + "\n")
     f.write("time 1.e30 \n")
+
+
+def bar2dict(graph_coordinates):
+    """
+    From coordinates list to dictionary.
+    :param graph_coordinates: list containing coordinates of barycenters.
+    :return:
+        bar_pos: dictionary, s.t., bar_pos[key]=(x,y) where key is the label for the key-th node and (x,y) is
+        its location.
+    """
+
+    # Saving the positions of the barycenters in a dict
+
+    bar_pos = {}
+    n = 1
+    bar_pos_list = [line[:-1].split(" ") for line in graph_coordinates]
+    # print(bar_pos_list)
+    for line_ in bar_pos_list:
+        # print(line_)
+        bar_pos[str(n)] = []
+        line_ = list(dict.fromkeys(line_))
+        line_.remove("")
+        # print(line_)
+        if len(line_) < 3:
+            line_.pop(1)
+            line_.append(line_[0])
+        else:
+            line_.pop(2)
+        for i in line_:
+            bar_pos[str(n)].append(float(i))
+        n += 1
+    for key_ in bar_pos.keys():
+        bar_pos[key_] = np.array(bar_pos[key_])
+    return bar_pos
+
+
+"""
+def bar2dict(graph_coordinates, n_nodes):
+
+    Saving the positions of the barycenters in a dict(to plot!)
+
+    bar_pos = {}
+    n = 1
+    bar_pos_list = [line[:-1].split(' ') for line in graph_coordinates]
+    # print(bar_pos_list)
+    for line_ in bar_pos_list:
+        # print(line_)
+        bar_pos[str(n)] = []
+        line_ = list(dict.fromkeys(line_))
+        line_.remove('')
+        # print(line_)
+        if len(line_) < 3:
+            line_.pop(1)
+            line_.append(line_[0])
+        else:
+            line_.pop(2)
+        for i in line_:
+            bar_pos[str(n)].append(float(i))
+        n += 1
+    for key_ in bar_pos.keys():
+        bar_pos[key_] = np.array(bar_pos[key_])
+    return bar_pos
+    # print(bar_pos.keys())
+"""
+
+
+""" 
+Changes to the current working folder.
+"""
+
+'''
+@contextlib.contextmanager
+def change_into(dir):
+    """goes into dir and go back to the original directory afterwards."""
+    current_dir = os.getcwd()
+
+    try:
+        os.chdir(dir)
+        yield
+    except Exception as e:
+        raise e
+    finally:
+        os.chdir(current_dir)
+
+
+def execute(operations_in_dir):
+    """
+    Executes commands in a directory.
+    Keys are directories, values are lists of commands.
+    """
+
+    def execute_in_dir(dir, commands):
+        with change_into(dir):
+            for cmd in commands:
+                os.system(cmd)
+
+    for dir, commands in operations_in_dir.items():
+        execute_in_dir(dir, commands)
+'''
+
+""" ________________________________________________________________________________________________________________
+"""

@@ -7,17 +7,20 @@ import subprocess
 from decimal import Decimal
 import networkx as nx
 from shutil import copyfile
-
-# from shutil import copy
 from scipy.spatial import ConvexHull, convex_hull_plot_2d
-from Getting_sources_and_sinks import *
-from source_sink_generator import *
-from filtering import *
 from matplotlib.patches import Polygon
 from matplotlib.collections import PatchCollection
-from terminal_computation import *
-from pre_extraction import *
-from utils import *
+import matplotlib.pyplot as plt
+import time
+
+# --------------------------------------------------
+import source_sink_generator
+import filtering
+import terminal_computation
+import pre_extraction
+import utils
+
+# -------------------------------------------------
 
 """
 Scripts
@@ -75,7 +78,7 @@ def graph_filtering_from_dat_files(
     """
 
     # No simplification for the case below:
-    print(os.getcwd())
+
     if graph_type == "3" and weighting_method == "ER":
         print("this wms does not apply for graph type 3.")
     else:
@@ -103,8 +106,9 @@ def graph_filtering_from_dat_files(
                 + ".dat"
             )
         else:
+
             path_ = (
-                "./"
+                "../otp_utilities/muffe_sparse_optimization/simplifications/"
                 + folder_name[2:]
                 + "/"
                 + funct
@@ -133,7 +137,7 @@ def graph_filtering_from_dat_files(
             possible_terminals_source,
             possible_terminals_sink,
             mapping,
-        ) = filtering(
+        ) = filtering.filtering(
             Graph,
             folder_name + "/" + funct,
             beta_d,
@@ -208,7 +212,7 @@ def graph_filtering_from_dat_files(
             ):
                 original_label_terminals_list.append(mapping[i][int(node)])
                 terminals.add_node(node_label)
-                x, y = newGraph[i].node[node]["pos"]
+                x, y = newGraph[i].nodes[node]["pos"]
                 pos_terminals[node_label] = (x, y)
                 node_label += 1
         print("len", len(terminals.nodes()))
@@ -222,13 +226,13 @@ def graph_filtering_from_dat_files(
             "2_obstacles",
             "center",
         ]:
-            ax = source_plot(source_flag, ax)
+            ax = source_sink_generator.source_plot(source_flag, ax)
         else:
-            source_plot(source_flag)
+            source_sink_generator.source_plot(source_flag)
         if sink_flag in ["1_rect", "circle"]:
-            ax = sink_plot(sink_flag, ax)
+            ax = source_sink_generator.sink_plot(sink_flag, ax)
         else:
-            sink_plot(sink_flag)
+            source_sink_generator.sink_plot(sink_flag)
 
         nx.draw_networkx_nodes(
             terminals,
@@ -241,7 +245,7 @@ def graph_filtering_from_dat_files(
 
         plt.title("Original graph (blue) / simplification (red)")
         path_fig = (
-            "./simplifications/"
+            "../otp_utilities/muffe_sparse_optimization/simplifications/"
             + folder_name[2:]
             + "/"
             + funct
@@ -303,13 +307,13 @@ def graph_filtering_from_dat_files(
             "2_obstacles",
             "center",
         ]:
-            ax = source_plot(source_flag, ax)
+            ax = source_sink_generator.source_plot(source_flag, ax)
         else:
-            source_plot(source_flag)
+            source_sink_generator.source_plot(source_flag)
         if sink_flag in ["1_rect", "circle"]:
-            ax = sink_plot(sink_flag, ax)
+            ax = source_sink_generator.sink_plot(sink_flag, ax)
         else:
-            sink_plot(sink_flag)
+            source_sink_generator.sink_plot(sink_flag)
 
         nx.draw(
             frame,
@@ -334,7 +338,7 @@ def graph_filtering_from_dat_files(
         plt.axis("on")
 
         path_ = (
-            "./simplifications/"
+            "../otp_utilities/muffe_sparse_optimization/simplifications/"
             + folder_name[2:]
             + "/"
             + funct
@@ -438,13 +442,13 @@ def graph_filtering_from_dat_files(
                 "2_obstacles",
                 "center",
             ]:
-                ax = source_plot(source_flag, ax)
+                ax = source_sink_generator.source_plot(source_flag, ax)
             else:
-                source_plot(source_flag)
+                source_sink_generator.source_plot(source_flag)
             if sink_flag in ["1_rect", "circle"]:
-                ax = sink_plot(sink_flag, ax)
+                ax = source_sink_generator.sink_plot(sink_flag, ax)
             else:
-                sink_plot(sink_flag)
+                source_sink_generator.sink_plot(sink_flag)
 
             nx.draw_networkx_nodes(
                 terminals,
@@ -454,10 +458,10 @@ def graph_filtering_from_dat_files(
                 node_color="g",
                 ax=ax,
             )
-            print(os.getcwd())
+
             plt.title("Original graph (blue) / simplification (red)")
             path_fig = (
-                "./simplifications/"
+                "../otp_utilities/muffe_sparse_optimization/simplifications/"
                 + folder_name[2:]
                 + "/"
                 + funct

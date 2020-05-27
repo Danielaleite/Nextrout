@@ -7,15 +7,20 @@ import subprocess
 from decimal import Decimal
 import networkx as nx
 from shutil import copyfile
-
-# from shutil import copy
 from scipy.spatial import ConvexHull, convex_hull_plot_2d
-from Getting_sources_and_sinks import *
-from quality_measure import *
-from source_sink_generator import *
-from terminal_computation import *
-from pre_extraction import *
-from utils import *
+from matplotlib.patches import Polygon
+from matplotlib.collections import PatchCollection
+import matplotlib.pyplot as plt
+import numpy as np
+
+# ----------------------------------------------------------
+import quality_measure
+import source_sink_generator
+import terminal_computation
+import pre_extraction
+import utils
+
+# ---------------------------------------------------------
 
 
 def concatenate(lists):
@@ -63,8 +68,8 @@ def terminals_from_cont(
         nodes_in_source = [
             node
             for node in Graph.nodes()
-            if Source(
-                x1, y1, x2, y2, Graph.nodes[node]["pos"][0], Graph.nodes[node]["pos"][1]
+            if source_sink_generator.source_rect_cnst_test(
+                Graph.nodes[node]["pos"][0], Graph.nodes[node]["pos"][1]
             )
         ]
     else:
@@ -80,8 +85,8 @@ def terminals_from_cont(
         nodes_in_sink = [
             node
             for node in Graph.nodes()
-            if Sink(
-                x3, y3, x4, y4, Graph.nodes[node]["pos"][0], Graph.nodes[node]["pos"][1]
+            if source_sink_generator.sink_rect_cnst_test(
+                Graph.nodes[node]["pos"][0], Graph.nodes[node]["pos"][1]
             )
         ]
     else:
@@ -273,7 +278,11 @@ def BP_solver(folder_name, index):
 
         try:
             os.mkdir(
-                "../simplifications/" + folder_name + "/component" + str(index) + "/"
+                "../otp_utilities/muffe_sparse_optimization/simplifications/"
+                + folder_name
+                + "/component"
+                + str(index)
+                + "/"
             )
         except OSError:
             print(
@@ -283,7 +292,7 @@ def BP_solver(folder_name, index):
 
         try:
             os.mkdir(
-                "../simplifications/"
+                "../otp_utilities/muffe_sparse_optimization/simplifications/"
                 + folder_name
                 + "/component"
                 + str(index)
@@ -296,8 +305,8 @@ def BP_solver(folder_name, index):
                 % (folder_name + "/component" + str(index) + "/" + folder)
             )
     os.system(
-        "cp ../simplifications/muffa.fnames  "
-        + "../simplifications/"
+        "cp ../otp_utilities/muffe_sparse_optimization/simplifications/muffa.fnames  "
+        + "../otp_utilities/muffe_sparse_optimization/simplifications/"
         + folder_name
         + "/component"
         + str(index)
@@ -307,10 +316,10 @@ def BP_solver(folder_name, index):
     # Copying the par_files
     for file in ["decay", "pflux", "pmass"]:
         os.system(
-            "cp  ../simplifications/par_files/"
+            "cp  ../otp_utilities/muffe_sparse_optimization/simplifications/par_files/"
             + file
             + ".dat "
-            + "../simplifications/"
+            + "../otp_utilities/muffe_sparse_optimization/simplifications/"
             + folder_name
             + "/component"
             + str(index)
@@ -319,7 +328,7 @@ def BP_solver(folder_name, index):
 
     # Executing the dmk_folder.py run
     continuous_path = os.path.abspath("./")
-    discrete_path = "../simplifications/"
+    discrete_path = "../otp_utilities/muffe_sparse_optimization/simplifications/"
 
     os.chdir(discrete_path)
     command = (
@@ -328,7 +337,7 @@ def BP_solver(folder_name, index):
         + "/component"
         + str(index)
         + "  "
-        + "/muffa.ctrl "
+        + "muffa.ctrl "
     )  # "> outputs_dmk_d.txt"
 
     print(command)
@@ -374,7 +383,10 @@ def filtering_from_image(
     print(folder_name)
     try:
         print("Creating folder", folder_name.split("/")[-1])
-        os.mkdir("../simplifications/runs/" + folder_name.split("/")[-1])
+        os.mkdir(
+            "../otp_utilities/muffe_sparse_optimization/simplifications/runs/"
+            + folder_name.split("/")[-1]
+        )
     except:
         pass
 
@@ -397,8 +409,6 @@ def filtering_from_image(
         terminal_info,
         input_flag,
     )
-
-    # todo: min_ automatic selection (for this task is better if we can save the full graph (min_=0) before cutting down edges)
 
     # Plotting
     ## Filtering on image
@@ -574,14 +584,14 @@ def img_pre_extr2filtering(
         terminal_list,
         nodes_for_correction,
         filter_number,
-    ) = terminal_finder(filter_size, partition_dict, Graph)
+    ) = terminal_computation.terminal_finder(filter_size, partition_dict, Graph)
     l = []
     for value in nodes_for_correction.values():
         l += value
 
     fig, ax = plt.subplots(1, 1, figsize=(15, 15))
 
-    partition_dict_mask, _, _ = partition_set(filter_number + 1)
+    partition_dict_mask, _, _ = quality_measure.partition_set(filter_number + 1)
     patches = []
     for key in partition_dict_mask:
         square_edges = np.asarray(
@@ -741,12 +751,15 @@ def filtering(
 
     # defining the beta_d for the simulations
 
-    updating_beta_discrete(beta_d)
+    utils.updating_beta_discrete(beta_d)
 
     # Generating the cc-based graphs and the corresponding mappings
-    newGraphList, mappingList, inv_mappingList, [components_list] = pickle2pygraph(
-        Graph, graph_type
-    )
+    (
+        newGraphList,
+        mappingList,
+        inv_mappingList,
+        [components_list],
+    ) = utils.pickle2pygraph(Graph, graph_type)
 
     # Iterating over the subgraphs
     ncc = len(newGraphList)
@@ -778,7 +791,7 @@ def filtering(
                 btns_factor_sink,
             )
 
-        edge_mapping[i] = pygraph2dat(
+        edge_mapping[i] = utils.pygraph2dat(
             newGraph[i],
             possible_terminals_source[i],
             possible_terminals_sink[i],
@@ -789,27 +802,29 @@ def filtering(
         )
 
         print("executing graph2incidence_matrix for the component %s" % i)
-        using_graph2incidence_matrix(folder_name, i, weight_flag)
+        utils.using_graph2incidence_matrix(folder_name, i, weight_flag)
         print(
             "_____________________________EXECUTING BP solver___________________________________________"
         )
         BP_solver(folder_name, i)
         data_folder_name = folder_name + "/component" + str(i)
-        G_simplification[i] = dat2pygraph(
+        G_simplification[i] = utils.dat2pygraph(
             newGraph[i], data_folder_name, edge_mapping[i], min_, BP_weights
         )
 
         # Defining terminal labels for sources and sinks
 
         for node in G_simplification[i].nodes():
-            node_in_original, _ = old_label(node, newGraph[i], G_simplification[i])
+            node_in_original, _ = quality_measure.old_label(
+                node, newGraph[i], G_simplification[i]
+            )
             if node_in_original in possible_terminals_source[i]:
                 ss_label = 1
             elif node_in_original in possible_terminals_sink[i]:
                 ss_label = -1
             else:
                 ss_label = 0
-            G_simplification[i].node[node]["terminal"] = ss_label
+            G_simplification[i].nodes[node]["terminal"] = ss_label
 
     # Assigning opt_pot to the nodes
 
@@ -873,7 +888,7 @@ def filtering(
 
 
 def img2filtering(
-    image_path, number_of_colors, t1, t2, number_of_cc, graph_type, beta_d
+    image_path, new_size, number_of_colors, t1, t2, number_of_cc, graph_type, beta_d
 ):
     """
     This takes as input an image and outputs the filtered graph.
@@ -890,7 +905,9 @@ def img2filtering(
     """
 
     # reading the image, doing pre extraction, getting bfs approx
-    bfs_preprocess(image_path, number_of_colors, t1, t2, number_of_cc, graph_type)
+    pre_extraction.bfs_preprocess(
+        image_path, new_size, number_of_colors, t1, t2, number_of_cc, graph_type
+    )
     # filtering the bfs graph
     G_final_simplification = img_pre_extr2filtering(
         image_path, filter_size, weighting_method_simplification, beta_d
@@ -899,13 +916,12 @@ def img2filtering(
     return G_final_simplification
 
 
-# todo: add first step to img processing: from crop to downsampled img
-
 # -------------------------test1------------------------------------------------------
 
 filter_size = 0.045
 image_path = "./runs/graph_from_image/image.jpg"
 weighting_method_simplification = "ER"
+beta_d = 1.0
 
 # img_pre_extr2filtering(image_path, filter_size, weighting_method_simplification, beta_d)
 
@@ -921,4 +937,4 @@ number_of_cc = 1
 number_of_colors = 50
 graph_type = "1"
 
-# img2filtering(image_path, number_of_colors, t1, t2, number_of_cc, graph_type, beta_d)
+# img2filtering(image_path, new_size, number_of_colors, t1, t2, number_of_cc, graph_type, beta_d)

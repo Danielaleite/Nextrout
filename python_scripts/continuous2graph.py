@@ -4,12 +4,15 @@ import itertools
 import matplotlib.pyplot as plt
 import pickle as pkl
 import os
-from Getting_sources_and_sinks import *
 import time
 import decimal
-from source_sink_generator import *
-from utils import *
-from pre_extraction import *
+
+# ---------------------------------------
+import source_sink_generator
+import utils
+import pre_extraction
+
+# ---------------------------------------
 
 
 def preprocessing_cont(folder_name, min_, funct):
@@ -31,14 +34,14 @@ def preprocessing_cont(folder_name, min_, funct):
 
     print("get_baryc")
     start_time = time.time()
-    graph_coord_triang, graph_coordinates, n_nodes = get_baryc(folder_name)
+    graph_coord_triang, graph_coordinates, n_nodes = utils.get_baryc(folder_name)
     print("--- %s seconds ---" % (time.time() - start_time))
 
     # Saving the positions of the barycenters in a dict(to plot!)
 
     print("bar2dict")
     start_time = time.time()
-    bar_pos = bar2dict(graph_coordinates)
+    bar_pos = utils.bar2dict(graph_coordinates)
     print("--- %s seconds ---" % (time.time() - start_time))
 
     # Extracting the weights (opt_tdens, opt_pot, opt_flux)
@@ -49,18 +52,21 @@ def preprocessing_cont(folder_name, min_, funct):
     if os.getcwd().split("/")[-1] == "simplifications":
         if funct == "tdens":
             opt_tdens = extracting_weights(
-                "../" + folder_name[2:], "output/result/opt_tdens.dat"
+                "../../python_scripts/" + folder_name[2:], "output/result/opt_tdens.dat"
             )
         if funct == "flux":
             opt_tdens = extracting_weights(
-                "../" + folder_name[2:], "output/result/opt_tdens.dat"
+                "../../python_scripts/" + folder_name[2:], "output/result/opt_tdens.dat"
             )
             opt_pot = extracting_weights(
-                "../" + folder_name[2:], "output/result/opt_nrm_grad_avg.dat"
+                "../../python_scripts/" + folder_name[2:],
+                "output/result/opt_nrm_grad_avg.dat",
             )
     else:
         if funct == "tdens":
-            opt_tdens = extracting_weights(folder_name, "output/result/opt_tdens.dat")
+            opt_tdens = utils.extracting_weights(
+                folder_name, "output/result/opt_tdens.dat"
+            )
         if funct == "flux":
             opt_tdens = extracting_weights(folder_name, "output/result/opt_tdens.dat")
             opt_pot = extracting_weights(
@@ -74,7 +80,7 @@ def preprocessing_cont(folder_name, min_, funct):
     print("weight2dict")
     start_time = time.time()
     if funct == "tdens":
-        dict_weights_tdens, weights_tdens = weight2dict(
+        dict_weights_tdens, weights_tdens = utils.weight2dict(
             opt_tdens, "output/result/opt_tdens.dat"
         )
     if funct == "flux":
@@ -107,14 +113,14 @@ def preprocessing_cont(folder_name, min_, funct):
 
     print("completing_with_zeros")
     start_time = time.time()
-    dict_weights = completing_with_zeros(dict_weights, weights, bar_pos)
+    dict_weights = utils.completing_with_zeros(dict_weights, bar_pos)
     print("--- %s seconds ---" % (time.time() - start_time))
 
     # Defining the graph with the attributes (pos and tdens)
 
     print("dict2graph")
     start_time = time.time()
-    G_bar, pos = dict2graph(bar_pos, dict_weights)
+    G_bar, pos = pre_extraction.dict2graph(bar_pos, dict_weights)
     print("--- %s seconds ---" % (time.time() - start_time))
 
     # Getting the grid
@@ -122,7 +128,9 @@ def preprocessing_cont(folder_name, min_, funct):
     print("getting_grid")
     start_time = time.time()
     if os.getcwd().split("/")[-1] == "simplifications":
-        file3_ = open("../" + folder_name[2:] + "/input/grid.dat", "r")
+        file3_ = open(
+            "../../python_scripts/" + folder_name[2:] + "/input/grid.dat", "r"
+        )
     else:
         file3_ = open(folder_name + "/input/grid.dat", "r")
 
@@ -209,13 +217,20 @@ def graph_extraction_from_dat_files(
     :return:
         Graph: pre-extracted graph.
     """
-    new_dir = "../simplifications/" + folder_path[2:]
+    new_dir = (
+        "../otp_utilities/muffe_sparse_optimization/simplifications/" + folder_path[2:]
+    )
     try:
         os.mkdir(new_dir)
     except OSError:
         print("Creation of the directory %s failed." % new_dir)
 
-    new_dir = "../simplifications/" + folder_path[2:] + "/" + funct
+    new_dir = (
+        "../otp_utilities/muffe_sparse_optimization/simplifications/"
+        + folder_path[2:]
+        + "/"
+        + funct
+    )
     try:
         os.mkdir(new_dir)
     except OSError:
@@ -223,7 +238,7 @@ def graph_extraction_from_dat_files(
 
     G_bar, G_triang, dict_seq, max_ = preprocessing_cont(folder_path + "/", min_, funct)
 
-    Graph = pre_extraction(
+    Graph = pre_extraction.pre_extraction(
         G_bar, G_triang, dict_seq, graph_type, min_, max_, weighting_method
     )
 
@@ -233,9 +248,21 @@ def graph_extraction_from_dat_files(
     if os.getcwd().split("/")[-1] == "simplifications":
         path_ = "./" + folder_path[2:] + "/" + funct + "/"
     elif "runs/" + os.getcwd().split("/")[-1] == folder_path[2:]:
-        path_ = "./" + folder_path[2:] + "/" + funct + "/"
+        path_ = (
+            "../otp_utilities/muffe_sparse_optimization/simplifications/"
+            + folder_path[2:]
+            + "/"
+            + funct
+            + "/"
+        )
     else:
-        path_ = "./" + folder_path[2:] + "/" + funct + "/"
+        path_ = (
+            "../otp_utilities/muffe_sparse_optimization/simplifications/"
+            + folder_path[2:]
+            + "/"
+            + funct
+            + "/"
+        )
 
     file_name = (
         funct
@@ -286,13 +313,13 @@ def graph_extraction_from_dat_files(
         "2_obstacles",
         "center",
     ]:
-        ax = source_plot(source_flag, ax)
+        ax = source_sink_generator.source_plot(source_flag, ax)
     else:
-        source_plot(source_flag)
+        source_sink_generator.source_plot(source_flag)
     if sink_flag in ["1_rect", "circle"]:
-        ax = sink_plot(sink_flag, ax)
+        ax = source_sink_generator.sink_plot(sink_flag, ax)
     else:
-        sink_plot(sink_flag)
+        source_sink_generator.sink_plot(sink_flag)
     # Plotting the simplification
     pos = nx.get_node_attributes(Graph, "pos")
     nx.draw_networkx(
@@ -362,13 +389,13 @@ def graph_extraction_from_dat_files(
         "2_obstacles",
         "center",
     ]:
-        ax = source_plot(source_flag, ax)
+        ax = source_sink_generator.source_plot(source_flag, ax)
     else:
-        source_plot(source_flag)
+        source_sink_generator.source_plot(source_flag)
     if sink_flag in ["1_rect", "circle"]:
-        ax = sink_plot(sink_flag, ax)
+        ax = source_sink_generator.sink_plot(sink_flag, ax)
     else:
-        sink_plot(sink_flag)
+        source_sink_generator.sink_plot(sink_flag)
 
     plt.colorbar(nc)
     plt.axis("on")
@@ -413,13 +440,13 @@ def graph_extraction_from_dat_files(
         "2_obstacles",
         "center",
     ]:
-        ax = source_plot(source_flag, ax)
+        ax = source_sink_generator.source_plot(source_flag, ax)
     else:
-        source_plot(source_flag)
+        source_sink_generator.source_plot(source_flag)
     if sink_flag in ["1_rect", "circle"]:
-        ax = sink_plot(sink_flag, ax)
+        ax = source_sink_generator.sink_plot(sink_flag, ax)
     else:
-        sink_plot(sink_flag)
+        source_sink_generator.sink_plot(sink_flag)
 
     plt.colorbar(ec2)
     plt.axis("on")
