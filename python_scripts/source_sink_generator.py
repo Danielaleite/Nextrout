@@ -606,7 +606,7 @@ def source_sink_preprocess(folder_name):
     source = folder_name + "/input/source.dat"
     new_forcing = folder_name + "/input/new_forcing.dat"
     command = (
-        "../globals/axpy_timedata/axpy.out -1.0 "
+        "../otp_utilities/globals/axpy_timedata/axpy.out -1.0 "
         + sink
         + "  "
         + source
@@ -619,7 +619,7 @@ def source_sink_preprocess(folder_name):
     parent = folder_name + "/input/parent.dat"
     new_forcing_subgrid = folder_name + "/input/new_forcing_subgrid.dat"
     command = (
-        "../geometry/interpolate_timedata/interpolate_timedata.out"
+        "../otp_utilities/geometry/interpolate_timedata/interpolate_timedata.out"
         + "  "
         + subgrid
         + "  "
@@ -634,7 +634,7 @@ def source_sink_preprocess(folder_name):
     rhs = folder_name + "/input/rhs.dat"
     print("Generating the right hand side (rhs).")
     command = (
-        "../p1galerkin/makerhs/makerhs.out"
+        "../otp_utilities/p1galerkin/makerhs/makerhs.out"
         + " "
         + subgrid
         + " "
@@ -646,7 +646,7 @@ def source_sink_preprocess(folder_name):
     rhs_integrated = folder_name + "/input/rhs_integrated.dat"
     print("Checking balance of the rhs.")
     command = (
-        "python ../globals/python_timedata/balance.py"
+        "python ../otp_utilities/globals/python_timedata/balance.py"
         + " "
         + rhs
         + "  "
@@ -658,7 +658,7 @@ def source_sink_preprocess(folder_name):
     sink_vtk = folder_name + "/input/sink.vtk"
     print("Generating source.vtk and sink.vtk.")
     command = (
-        "../geometry/timedata2vtk/timedata2vtk.out"
+        "../otp_utilities/geometry/timedata2vtk/timedata2vtk.out"
         + " "
         + grid
         + "  "
@@ -668,7 +668,7 @@ def source_sink_preprocess(folder_name):
     )
     os.system(command)
     command = (
-        "../geometry/timedata2vtk/timedata2vtk.out"
+        "../otp_utilities/geometry/timedata2vtk/timedata2vtk.out"
         + " "
         + grid
         + "  "

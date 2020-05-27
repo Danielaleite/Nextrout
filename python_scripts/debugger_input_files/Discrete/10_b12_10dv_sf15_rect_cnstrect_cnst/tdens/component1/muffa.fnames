@@ -1,0 +1,22 @@
+.                               ! ppp                   flag_directory
+input/                          ! general input folder  flag_input
+input/muffa.ctrl                ! ctrl files directory	flag_control
+input/matrix.dat                ! matrix file           flag_matrix
+input/pflux.dat                 ! power for flux        flag_pflux
+input/pmass.dat                 ! power for mass        flag_pmass
+input/decay.dat                 ! time decay            flag_decay
+input/tdens0.dat                ! initial tdens         flag_tdens0
+input/kappa.dat                 ! spatial decay		flag_kappa
+input/rhs.dat                   ! rhs linear system     flag_rhs
+output/                         ! general output folder flag_output
+output/statistic.dat            ! general summarazing file  flag_statistic
+output/result/                  ! result                flag_result
+output/result/tdens.dat         ! tdens evolution       flag_tdens
+output/result/pot.dat           ! pot evolution         flag_pot
+output/result/grad.dat          ! pot evolution         flag_grad
+output/timefun/                 ! directory timefun     flag_timefun
+output/linear_sys/              ! directory with linear system data flag_linear_sys
+output/debug.dat                ! debug file            flag_debug
+input/optflux.dat               ! optimal flux      (optional)  flag_optflux
+input/weight.dat                ! weight      (optional)  flag_weight
+input/kernel.dat                ! known kernel      (optional)  flag_kernel
