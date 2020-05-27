@@ -1,0 +1,12 @@
+
+Global simulation times:
+ Total sim. cpu  : WCT:       1.31 (s) 100.%; USR:       1.31 (s) 100.%
+ Overhead        : WCT:       0.00 (s)   0.%; USR:       0.00 (s)   0.%
+ Saving time     : WCT:       0.09 (s)   7.%; USR:       0.09 (s)   7.%
+ Wasted time     : WCT:       1.07 (s)  81.%; USR:       1.07 (s)  81.%
+ Algorithm time  : WCT:       1.13 (s)  86.%; USR:       1.13 (s)  86.%
+ *****************************************************
+ matrix assembly : WCT:       0.44 (s)  33.%; USR:       0.43 (s)  33.%
+ prec.  assembly : WCT:       0.34 (s)  26.%; USR:       0.34 (s)  26.%
+ Linear solver   : WCT:       0.29 (s)  22.%; USR:       0.29 (s)  22.%
+ Extra comput.   : WCT:       0.00 (s)   0.%; USR:       0.00 (s)   0.%
