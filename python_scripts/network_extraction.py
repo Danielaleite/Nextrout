@@ -62,6 +62,12 @@ click.echo("Define the parameters for the network extraction routine.")
     prompt="Should the DMK-solver step be executed?",
     help="Execute the DMK-solver.",
 )
+
+# if click.confirm('Do you want to continue?'):
+#    click.echo('Well done!')
+#@click.option("--password", prompt=True, hide_input=True, confirmation_prompt=True)
+
+# @click.confirm("Do you want to continue?", abort=True)
 @click.option(
     "--ge_input",
     prompt="Should the graph pre-extraction be done?",
