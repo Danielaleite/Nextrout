@@ -9,6 +9,7 @@ python_scripts/outputs_gg.txt
 python_scripts/outputs_dmk_c.txt
 python_scripts/inputs.ctrl
 python_scripts/muffa.ctrl
+python_scripts/jobs
 
 otp_utilities/geometry
 otp_utilities/globals
