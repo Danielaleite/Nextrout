@@ -8,7 +8,6 @@ python_scripts/outputs_vtk.txt
 python_scripts/outputs_gg.txt
 python_scripts/outputs_dmk_c.txt
 python_scripts/inputs.ctrl
-python_scripts/README.md
 python_scripts/muffa.ctrl
 
 otp_utilities/geometry
