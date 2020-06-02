@@ -243,7 +243,7 @@ def BP_solver(folder_name, index):
 
     os.chdir(discrete_path)
     command = "./dmk_folder.py run  " + folder_name[2:] + "/component" + str(
-        index) + "  " + " muffa.ctrl  " #> outputs_dmk_d.txt"
+        index) + "  " + " muffa.ctrl  > outputs_dmk_d.txt"
 
     print(command)
     os.system(command)
@@ -292,7 +292,7 @@ def filtering_from_image(small_G_filtered, beta_d, terminals, color_dict, partit
         pass
 
 
-    G_filtered, newGraph, ncc, possible_terminals_source, possible_terminals_sink, mapping, _ = filtering(Graph,
+    G_filtered, newGraph, ncc, possible_terminals_source, possible_terminals_sink, mapping, conv_report = filtering(Graph,
               beta_d,
                 min_,
                 folder_name+"/",
@@ -390,11 +390,11 @@ def filtering_from_image(small_G_filtered, beta_d, terminals, color_dict, partit
     with open(folder_name + '/filtered_graph.pkl', 'wb') as file:
         pkl.dump(G_filtered, file)
 
-    return G_filtered
+    return G_filtered, conv_report
 
 
 
-def img_pre_extr2filtering(image_path, filter_size,weighting_method_simplification, beta_d, entries):
+def img_pre_extr2filtering(image_path, filter_size,beta_d,weighting_method_simplification='ER',entries=[0]):
     '''
     This takes as input a path containing the bfs approximation of the pre-extracted graph. This pre-extracted graph has
      been obtained from an image. The output is the filtered graph.
@@ -670,7 +670,7 @@ def filtering(Graph,
     # ------------ end of filtering -----------------------------------------
 
 
-def img2filtering(image_path, new_size, number_of_colors, t1, t2, number_of_cc, graph_type, beta_d):
+def img2filtering(image_path, new_size, number_of_colors, t1, t2, number_of_cc, graph_type, beta_d,weighting_method_simplification='ER',entries=[0]):
     '''
     This takes as input an image and outputs the filtered graph.
     :param image_path: string.
@@ -688,7 +688,7 @@ def img2filtering(image_path, new_size, number_of_colors, t1, t2, number_of_cc, 
     # reading the image, doing pre extraction, getting bfs approx
     pre_extraction.bfs_preprocess(image_path,new_size, number_of_colors, t1, t2, number_of_cc, graph_type)
     #filtering the bfs graph
-    G_filtered = img_pre_extr2filtering(image_path, filter_size, weighting_method_simplification, beta_d, entries=[0])
+    G_filtered = img_pre_extr2filtering(image_path, filter_size, beta_d,weighting_method_simplification,entries)
 
 
     return G_filtered
@@ -702,7 +702,7 @@ weighting_method_simplification = 'ER'
 beta_d=1.0
 new_size = 100
 
-#img_pre_extr2filtering(image_path, filter_size, weighting_method_simplification, beta_d, entries=[0])
+#img_pre_extr2filtering(image_path, filter_size, beta_d,weighting_method_simplification,entries)
 
 #--------------------------test2----------------------------------------------------
 
