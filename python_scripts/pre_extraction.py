@@ -455,7 +455,7 @@ def bar_square(coord):
 	return x_bar,y_bar
 
 
-def resizing_image(image_path, number_of_colors, new_size,t=0):
+def resizing_image(image_path, number_of_colors, new_size,t=0,reversed_colors = True):
 	'''
 	This resizes and repaints an image.
 	:param image_path: string.
@@ -478,7 +478,7 @@ def resizing_image(image_path, number_of_colors, new_size,t=0):
 	except:
 		pass
 	print(saving_path)
-
+	print(os.getcwd())
 
 	im = Image.open(image_path)
 	width, height, = im.size
@@ -528,7 +528,10 @@ def resizing_image(image_path, number_of_colors, new_size,t=0):
 	color_flag = 2
 	print(max_)
 	for key in color_dict.keys():
-		color_dict[key] = max(1 - color_dict[key] / max_, t)
+		if reversed_colors == True:
+			color_dict[key] = max(1 - color_dict[key] / max_, t)
+		else:
+			color_dict[key] = max(color_dict[key] / max_, t)
 		# print(color_dict[key])
 		color = coloring(color_dict[key], number_of_colors)
 		colors.append(color)
@@ -576,7 +579,7 @@ def weighted_partition2bar_graph(partition_dict, color_dict):
 
 
 
-def pre_extraction_from_image(image_path,new_size,t2,number_of_colors=50,number_of_cc=1,graph_type='1',t1=0):
+def pre_extraction_from_image(image_path,new_size,t2,number_of_colors=50,number_of_cc=1,graph_type='1',t1=0, reversed_colors = True):
 	'''
 	This takes an image and return a graph extracted from it according to the pre-extraction rules.
 	:param image_path: string.
@@ -592,7 +595,7 @@ def pre_extraction_from_image(image_path,new_size,t2,number_of_colors=50,number_
 	'''
 
 	print('resizing image ...')
-	width, color_dict, folder_path = resizing_image(image_path, number_of_colors,new_size, t1)
+	width, color_dict, folder_path = resizing_image(image_path, number_of_colors,new_size, t1, reversed_colors)
 
 	print('pre_extrac from image')
 
@@ -676,17 +679,21 @@ def pre_extraction_from_image(image_path,new_size,t2,number_of_colors=50,number_
 	return small_G_pre_extracted, color_dict
 
 
-def tree_approximation(Graph):
+def tree_approximation(Graph, root = None):
 	'''
 	This returns a tree approximation of the input graph. In this case, the graph used is the bfs rooted at the lowest
 	labeled node.
 	:param Graph:  a networkx graph.
+	:param root: node label to used as root for bfs.
 	:return:
 		bfs_Graph: bfs approximation of G.
 	'''
 
 	nodes = sorted(list(Graph.nodes))
-	root=nodes[0]
+	if root == None:
+		root=nodes[0]
+	else:
+		pass
 
 	bfs_Graph = nx.bfs_tree(Graph, root)
 	bfs_Graph = bfs_Graph.to_undirected()
@@ -707,7 +714,7 @@ def tree_approximation(Graph):
 
 
 
-def bfs_preprocess(image_path, new_size,number_of_colors, t1,t2, number_of_cc,graph_type ):
+def bfs_preprocess(image_path, new_size,number_of_colors, t1,t2, number_of_cc,graph_type,reversed_colors=True):
 	'''
 	This is the combination of pre_extraction_from_image and tree_approximation.
 	:param image_path: string.
@@ -723,9 +730,9 @@ def bfs_preprocess(image_path, new_size,number_of_colors, t1,t2, number_of_cc,gr
 
 	print('bfs_preprocessing...')
 
-	width, color_dict, folder_path = resizing_image(image_path, number_of_colors, new_size, t1)
+	width, color_dict, folder_path = resizing_image(image_path, number_of_colors, new_size, t1, reversed_colors)
 
-	Graph,_ = pre_extraction_from_image(image_path,new_size,t2,number_of_colors,number_of_cc,graph_type, t1)
+	Graph,_ = pre_extraction_from_image(image_path,new_size,t2,number_of_colors,number_of_cc,graph_type, t1, reversed_colors)
 
 	bfs_Graph = tree_approximation(Graph)
 
