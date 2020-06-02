@@ -21,7 +21,7 @@ import source_sink_generator
 
 network_extraction_script = False
 extraction_from_image_script = True
-quality_measure_script = True
+quality_measure_script = False
 
 what_to_test = [network_extraction_script, extraction_from_image_script, quality_measure_script]
 

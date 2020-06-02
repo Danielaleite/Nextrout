@@ -21,10 +21,8 @@ def get_baryc(folder_name):
         graph_coordinates: coordinates of the barycenters;
         n_nodes: number of nodes.
     '''
-    if os.getcwd().split('/')[-1] == 'simplifications':
-        file1_ = open("../../Tests/" + folder_name[2:] + "input/graph_cell.dat", "r")
-    else:
-        file1_ = open(folder_name + "input/graph_cell.dat", "r")
+
+    file1_ = open(folder_name + "input/graph_cell.dat", "r")
 
     graph_coord_triang = file1_.readlines()
     file1_.close()
@@ -472,7 +470,10 @@ def updating_beta_discrete(beta):
 
     '''
     print('defining pflux.dat for beta=', beta)
-    print(os.getcwd())
+    # Getting the root path
+
+    #root = get_root_path('.')
+
     # Writing the file
 
     f = open("../otp_utilities/muffe_sparse_optimization/simplifications/par_files/pflux.dat", "w+")
@@ -544,6 +545,20 @@ def horizontal_line(N):
 
 #folder_name = './runs/13_b15_12dv_sf16_rect_cnstrect_cnst/'
 #convergence_tester(folder_name)
+
+def get_root_path(path):
+    current_path = os.path.abspath(path)
+    path_parts = current_path.split('/')
+    root = '/'
+    for word in path_parts:
+        if word != 'Nextrout':
+            root =root+word+'/'
+        else:
+            root=root+word+'/'
+            break
+    return root
+
+
 
 '''
 def bar2dict(graph_coordinates, n_nodes):

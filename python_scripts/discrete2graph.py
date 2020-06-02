@@ -74,12 +74,7 @@ def graph_filtering_from_dat_files(folder_name, t, graph_type, beta_d, funct, mi
         # Loading the Graph
 
         t_string = '%.0E' % decimal.Decimal(str(t))
-        if os.getcwd().split('/')[-1] == 'simplifications':
-            path_ = './' + folder_name[2:] + '/' + funct + '/' + funct + '_t' + t_string + '_graph' + str(
-                graph_type) + '_wm' + str(weighting_method) + '.dat'
-        else:
-
-            path_ = '../otp_utilities/muffe_sparse_optimization/simplifications/' + folder_name[
+        path_ = '../otp_utilities/muffe_sparse_optimization/simplifications/' + folder_name[
                                                                       2:] + '/' + funct + '/' + funct + '_t' + t_string + '_graph' + str(
                 graph_type) + '_wm' + str(weighting_method) + '.dat'
         with open(path_, 'rb') as file:

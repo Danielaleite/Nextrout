@@ -48,18 +48,14 @@ def preprocessing_cont(
 	print('extracting_weights')
 	start_time = time.time()
 
-	if os.getcwd().split('/')[-1]=='simplifications':
-		if funct=='tdens':
-			opt_tdens=extracting_weights("../../Tests/"+folder_name[2:],'output/result/opt_tdens.dat')
-		if funct=='flux':
-			opt_tdens=extracting_weights("../../Tests/"+folder_name[2:],'output/result/opt_tdens.dat')
-			opt_pot=extracting_weights("../../Tests/"+folder_name[2:],"output/result/opt_nrm_grad_avg.dat")
+
+	if funct=='tdens':
+		opt_tdens = utils.extracting_weights(folder_name,'output/result/opt_tdens.dat')
+	elif funct=='flux':
+		opt_tdens=extracting_weights(folder_name,'output/result/opt_tdens.dat')
+		opt_pot=extracting_weights(folder_name,"output/result/opt_nrm_grad_avg.dat")
 	else:
-		if funct=='tdens':
-			opt_tdens = utils.extracting_weights(folder_name,'output/result/opt_tdens.dat')
-		if funct=='flux':
-			opt_tdens=extracting_weights(folder_name,'output/result/opt_tdens.dat')
-			opt_pot=extracting_weights(folder_name,"output/result/opt_nrm_grad_avg.dat")
+		print('wrong parameter funct:',funct)
 
 	print("--- %s seconds ---" % (time.time() - start_time))
 
@@ -99,10 +95,8 @@ def preprocessing_cont(
 
 	print('getting_grid')
 	start_time = time.time()
-	if os.getcwd().split('/')[-1]=='simplifications':
-		file3_ = open("../../Tests/"+folder_name[2:]+"/input/grid.dat", "r")
-	else:
-		file3_ = open(folder_name+"/input/grid.dat", "r")
+
+	file3_ = open(folder_name+"/input/grid.dat", "r")
 
 	grid_ = file3_.readlines()
 	file3_.close()
@@ -211,12 +205,8 @@ def graph_extraction_from_dat_files(
 	t_string= '%.0E' % decimal.Decimal( str(min_) )
 
 	print('last part of the path',os.getcwd().split('/')[-1],'=?',folder_path[2:])
-	if os.getcwd().split('/')[-1]=='simplifications':
-		path_='./'+folder_path[2:]+'/'+funct+'/'
-	elif 'runs/'+os.getcwd().split('/')[-1]==folder_path[2:]:
-		path_ = '../../../muffe_sparse_optimization/simplifications/' + folder_path[2:] + '/' + funct + '/'
-	else:
-		path_='../otp_utilities/muffe_sparse_optimization/simplifications/'+folder_path[2:]+'/'+funct+'/'
+
+	path_='../otp_utilities/muffe_sparse_optimization/simplifications/'+folder_path[2:]+'/'+funct+'/'
 
 	file_name = funct+'_t'+t_string+'_graph'+str(graph_type)+'_wm'+str(weighting_method)+'.dat'
 	print(os.getcwd())
