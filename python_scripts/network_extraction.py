@@ -8,10 +8,6 @@ import numpy as np
 import shutil
 import distutils
 from threading import Thread
-from continuous2graph import *
-from discrete2graph import *
-from filtering import *
-from source_sink_generator import *
 import re
 import networkx as nx
 import pickle as pkl
@@ -22,6 +18,13 @@ import shutil
 import glob
 import subprocess
 from shutil import copytree, ignore_patterns
+
+#---------------------------------------
+import source_sink_generator
+import utils
+import discrete2graph
+import continuous2graph
+#---------------------------------------
 
 click.echo("Define the parameters for the network extraction routine.")
 
@@ -145,7 +148,7 @@ def network_extraction(
                             file.write("rect_cnst path/grid.dat ! flag_grid" + "\n")
                             file.write("%s" % ndiv + " ! ndiv" + "\n")
                             file.write(
-                                "0 " + " ! nref" + "\n"
+                                "1 " + " ! nref" + "\n"
                             )  # --------------------------- !!!!!!!!!!
 
                             file.write(
@@ -204,7 +207,8 @@ def network_extraction(
                             )
                             os.system(command)
 
-                            source_sink_generator(
+                            # why this?
+                            source_sink_generator.source_sink_generator(
                                 "./runs/" + folder_name,
                                 ndiv,
                                 source_sink[0],
@@ -214,7 +218,7 @@ def network_extraction(
                                 source_sink[0] != "rect_cnst"
                                 and source_sink[1] != "rect_cnst"
                             ):
-                                source_sink_preprocess("./runs/" + folder_name)
+                                source_sink_generator.source_sink_preprocess("./runs/" + folder_name)
 
                             command = (
                                 "./dmk_folder.py run "
@@ -288,7 +292,7 @@ def network_extraction(
                                                 funct,
                                             )
 
-                                            G = graph_extraction_from_dat_files(
+                                            G = continuous2graph.graph_extraction_from_dat_files(
                                                 subfolder,
                                                 t,
                                                 graph_type,
@@ -369,7 +373,7 @@ def network_extraction(
                                                         beta_discr = float(beta_discr)
                                                         i += 1
 
-                                                        graph_filtering_from_dat_files(
+                                                        discrete2graph.graph_filtering_from_dat_files(
                                                             subfolder,
                                                             t,
                                                             graph_type,
