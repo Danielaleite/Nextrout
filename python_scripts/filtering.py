@@ -1,10 +1,5 @@
 import os
 import pickle as pkl
-import decimal
-import click
-import sys
-import subprocess
-from decimal import Decimal
 import networkx as nx
 from shutil import copyfile
 from scipy.spatial import ConvexHull, convex_hull_plot_2d

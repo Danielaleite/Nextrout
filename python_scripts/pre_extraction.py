@@ -371,7 +371,7 @@ def pre_extraction(
 
 
 	if graph_type == "3" and weighting_method == "ER":
-		print("this wm does not apply for graph type 3.")
+		print("this wm does not apply for graph type 3. Try with 'AVG'.")
 	else:
 
 		if graph_type == "1" or graph_type == "2":

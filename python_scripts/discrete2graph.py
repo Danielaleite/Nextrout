@@ -15,6 +15,7 @@ import time
 #--------------------------------------------------
 import source_sink_generator
 import filtering
+import quality_measure
 import terminal_computation
 import pre_extraction
 import utils
@@ -199,9 +200,9 @@ def graph_filtering_from_dat_files(folder_name, t, graph_type, beta_d, funct, mi
 
         # Last simplification
         if reduction_flag == 'yes':
-            G_final_simplification = relabeling(G_final_simplification, Graph)
+            G_final_simplification = quality_measure.relabeling(G_final_simplification, Graph)
             posGsimpl = nx.get_node_attributes(G_final_simplification, 'pos')
-            G_final_simplification_reduction = bifurcation_paths(G_final_simplification, original_label_terminals_list)
+            G_final_simplification_reduction = filtering.bifurcation_paths(G_final_simplification, original_label_terminals_list)
             deg = nx.degree_centrality(G_final_simplification_reduction)
             posGsimplred = nx.get_node_attributes(G_final_simplification_reduction, 'pos')
 
@@ -219,44 +220,33 @@ def graph_filtering_from_dat_files(folder_name, t, graph_type, beta_d, funct, mi
                              edge_color='blue', alpha=0.4, node_color='blue', ax=ax)
             nx.draw_networkx(G_final_simplification_reduction, posGsimplred, node_size=150, width=4, with_labels=False,
                              edge_color='red', node_color='red', ax=ax)
-        '''
-        terminals=nx.Graph()
-        pos_terminals={}
-        node_label=1
-        for i in range(1,len(newGraphList)+1):
-            for node in list(possible_terminals_source[i].union(possible_terminals_sink[i])):
-                terminals.add_node(node_label)
-                x, y = newGraph[i].node[node]['pos']
-                pos_terminals[node_label]=(x,y)
-                node_label += 1
-        print('len',len(terminals.nodes()))
 
-        '''
 
-        if source_flag in ['1_rect', '3_rect', '1_obstacles', '3_obstacles', '2_rect', '2_obstacles', 'center']:
-            ax = source_sink_generator.source_plot(source_flag, ax)
-        else:
-            source_sink_generator.source_plot(source_flag)
-        if sink_flag in ['1_rect', 'circle']:
-            ax = source_sink_generator.sink_plot(sink_flag, ax)
-        else:
-            source_sink_generator.sink_plot(sink_flag)
+            if source_flag in ['1_rect', '3_rect', '1_obstacles', '3_obstacles', '2_rect', '2_obstacles', 'center']:
+                ax = source_sink_generator.source_plot(source_flag, ax)
+            else:
+                source_sink_generator.source_plot(source_flag)
+            if sink_flag in ['1_rect', 'circle']:
+                ax = source_sink_generator.sink_plot(sink_flag, ax)
+            else:
+                source_sink_generator.sink_plot(sink_flag)
 
-        nx.draw_networkx_nodes(terminals, pos_terminals, node_size=200, edge_color='g', node_color='g', ax=ax)
+            nx.draw_networkx_nodes(terminals, pos_terminals, node_size=200, edge_color='g', node_color='g', ax=ax)
 
-        plt.title('Original graph (blue) / simplification (red)')
-        path_fig = '../otp_utilities/muffe_sparse_optimization/simplifications/' + folder_name[
-                                                                  2:] + '/' + funct + '/BP_orig_2nd_simspl_' + funct + '_t' + t_string + '_graph' + str(
-            graph_type) + '_min' + min_string + '_btns_so_' + btns_factor_source_string + '_btns_si_' + btns_factor_sink_string + '_wm' + str(
-            weighting_method) + '_wms' + str(weighting_method_simplification)
-        plt.axis('on')
-        fig.savefig(path_fig + '.png')
-        plt.show(block=False)
-        time.sleep(.5)
-        plt.close('all')
+            plt.title('Original graph (blue) / simplification (red)')
+            path_fig = '../otp_utilities/muffe_sparse_optimization/simplifications/' + folder_name[
+                                                                      2:] + '/' + funct + '/BP_orig_2nd_simspl_' + funct + '_t' + t_string + '_graph' + str(
+                graph_type) + '_min' + min_string + '_btns_so_' + btns_factor_source_string + '_btns_si_' + btns_factor_sink_string + '_wm' + str(
+                weighting_method) + '_wms' + str(weighting_method_simplification)
+            plt.axis('on')
+            fig.savefig(path_fig + '.png')
+            plt.show(block=False)
+            time.sleep(.5)
+            plt.close('all')
+
         with open(path_ + '.dat', 'wb') as file:
             pkl.dump(G_final_simplification, file)
-
+        print(conv_report)
         return G_final_simplification, conv_report
 
 

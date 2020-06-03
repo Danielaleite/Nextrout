@@ -19,19 +19,20 @@ import utils
 import source_sink_generator
 #------------------------------------
 
-network_extraction_script = False
-extraction_from_image_script = True
+network_extraction_script = True
+extraction_from_image_script = False
 quality_measure_script = False
 
 what_to_test = [network_extraction_script, extraction_from_image_script, quality_measure_script]
 
 if network_extraction_script:
 
-    data_flags = ['10_b12_10dv_sf15_rect_cnstrect_cnst']#,
-                  #'parabola_1_b10_20dv_sf15_5rch5rch' ]#'delta_1_b12_18dv_sf15_rect_cnstrect_cnst']#,                           ]
+    data_flags = ['10_b12_10dv_sf15_rect_cnstrect_cnst',
+                  'parabola_1_b10_20dv_sf15_5rch5rch' ]#'delta_1_b12_18dv_sf15_rect_cnstrect_cnst']#,                           ]
     cont_data={}
     disc_data={}
     differences={}
+    conv_report = {}
     G_={}
     G_['new']={}
     G_['known']={}
@@ -46,10 +47,7 @@ if network_extraction_script:
     'yes',
     'yes',
     'yes,no'
-    ]}
-
-    '''
-    ,
+    ],
         data_flags[1]: [
         'parabola_1',
     '1.0',
@@ -59,10 +57,10 @@ if network_extraction_script:
     '1.5',
     'yes',
     'yes',
-    'yes,no'
+    'yes,yes'
     ]
     }
-    '''
+
 
 
     for folder in data_flags:
@@ -70,6 +68,7 @@ if network_extraction_script:
         cont_data[folder]={}
         disc_data[folder]={}
         differences[folder]={}
+        conv_report[folder]={}
 
         flag_list = flags[folder][0]
         beta_list = flags[folder][1]
@@ -201,7 +200,7 @@ if network_extraction_script:
 
                                 source_sink_generator.source_sink_generator('./runs/' + folder_name, ndiv, source_sink[0], source_sink[1])
                                 if source_sink[0] != 'rect_cnst' and source_sink[1] != 'rect_cnst':
-                                    source_sink_preprocess('./runs/' + folder_name)
+                                    source_sink_generator.source_sink_preprocess('./runs/' + folder_name)
 
                                 command = "./dmk_folder.py run " + './runs/' + folder_name + " new_muffa.ctrl > outputs_dmk_c.txt"
                                 os.system(command)
@@ -272,7 +271,7 @@ if network_extraction_script:
                                                             i += 1
                                                             #updating_beta_discrete(beta_discr)
                                                             # try:
-                                                            Simp, conv_report = discrete2graph.graph_filtering_from_dat_files(subfolder, t, graph_type,
+                                                            Simp, conv_report[folder] = discrete2graph.graph_filtering_from_dat_files(subfolder, t, graph_type,
                                                                                                   beta_discr,
                                                                                                   funct, min_,
                                                                                      btns_factor_source, btns_factor_sink,
@@ -358,16 +357,17 @@ if network_extraction_script:
         #node attributes
         pos=np.array([g_known.nodes[node]['pos'] for node in g_known.nodes()])-np.array([g_new.nodes[node]['pos'] for node in g_new.nodes()])
         print('Sum of the difference in the POSITIONS (node-wise) in known graph and the new one:',sum(pos) )
-        w_node = np.array([g_known.nodes[node]['weight'] for node in g_known.nodes()]) - np.array([g_new.nodes[node]['weight'] for node in g_new.nodes()])
-        print('Sum of the difference in the WEIGHTS (node-wise) in known graph and the new one:', sum(w_node))
-        pot = np.array([g_known.nodes[node]['op_pot'] for node in g_known.nodes()]) - np.array([g_new.nodes[node]['op_pot'] for node in g_new.nodes()])
-        print('Sum of the difference in the OPT_POT (node-wise) in known graph and the new one:', sum(pot))
-        terminal = np.array([g_known.nodes[node]['terminal'] for node in g_known.nodes()]) - np.array([g_new.nodes[node]['terminal'] for node in g_new.nodes()])
-        print('Sum of the difference in the TERMINAL PROPERTY (S+,S-) (node-wise) in known graph and the new one:', sum(terminal))
-        #edge attributes
-        w_edge=np.array([g_known.edges[edge]['weight'] for edge in g_known.edges()])-np.array([g_new.edges[edge]['weight'] for edge in g_new.edges()])
-        print('Sum of the difference in the WEIGHTS (edge-wise) in known graph and the new one:',sum(w_edge) )
-        print('Convergence_report:',conv_report)
+        if flags[folder][8]!='yes,yes':
+            w_node = np.array([g_known.nodes[node]['weight'] for node in g_known.nodes()]) - np.array([g_new.nodes[node]['weight'] for node in g_new.nodes()])
+            print('Sum of the difference in the WEIGHTS (node-wise) in known graph and the new one:', sum(w_node))
+            pot = np.array([g_known.nodes[node]['op_pot'] for node in g_known.nodes()]) - np.array([g_new.nodes[node]['op_pot'] for node in g_new.nodes()])
+            print('Sum of the difference in the OPT_POT (node-wise) in known graph and the new one:', sum(pot))
+            terminal = np.array([g_known.nodes[node]['terminal'] for node in g_known.nodes()]) - np.array([g_new.nodes[node]['terminal'] for node in g_new.nodes()])
+            print('Sum of the difference in the TERMINAL PROPERTY (S+,S-) (node-wise) in known graph and the new one:', sum(terminal))
+            #edge attributes
+            w_edge=np.array([g_known.edges[edge]['weight'] for edge in g_known.edges()])-np.array([g_new.edges[edge]['weight'] for edge in g_new.edges()])
+            print('Sum of the difference in the WEIGHTS (edge-wise) in known graph and the new one:',sum(w_edge) )
+        print('Convergence_report:',conv_report[folder])
 
 
 if extraction_from_image_script:
@@ -378,7 +378,8 @@ if extraction_from_image_script:
 
     new_size=100
     ratio=new_size/1200
-    #print('ratio:',ratio)
+    #print('ratio:',ratio)exit
+
     t1 = 0.1
     t2 = .5
     image_path = "./runs/graph_from_image/image.jpg"
