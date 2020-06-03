@@ -183,6 +183,44 @@ def get_sec_neig_edges(node, dict_seq):
 				index_[node].append(key)
 	return dict_sec_neig, index_
 
+def get_sec_neig_edges_square(node, dict_seq, node2box_index):
+	'''
+	This returns all the triangles that share an edge with the triangle in which the 'node' is the barycenter
+	:param node: target node.
+	:param dict_seq: dictionary mapping grid elements into their vertices. Namely, dict_seq for the key-th element of the
+		grid with vertices are n1,n2 and n3 needs to be defined as dict_seq[key]=[n1,n2,n3].  It works with triangular
+		and squared grids.
+	:return:
+		dict_sec_neig: dictionary, s.t., dict_sec_neig[node]= indexes of all the surrounding triangles of 'node'.
+		index_: **check this output. it seems to be removable.**
+	'''
+	same_triang = get_first_neig(node, dict_seq)  # getting the nodes of the triang that has 'node' as barycenter
+	neighboring_boxes = []
+	pair_of_vertices_same_triang = list(itertools.combinations(same_triang, 2))
+	for pair in pair_of_vertices_same_triang:
+		node1=pair[0]
+		node2=pair[1]
+		indexes_node1 = node2box_index[node1]
+		indexes_node2 = node2box_index[node2]
+		print(indexes_node1,indexes_node2)
+		intersect = [index for index in indexes_node1 if index in indexes_node2]
+		neighboring_boxes = neighboring_boxes + intersect
+	neighboring_boxes = list(set(neighboring_boxes))
+	neighboring_boxes.remove(node)
+	# print(neighboring_boxes)
+	dict_sec_neig = {}  # dict that contains all the surrounding triangles for the 'node'
+	dict_sec_neig[node] = []
+
+	# indexes of all the surrounding triangles. This will be useful to call not only the mentioned triangles but also their bar
+	index_ = neighboring_boxes
+
+	return dict_sec_neig, index_
+
+
+
+
+
+
 
 def connecting_edges(G_bar, node, min_, graph_type, dict_seq, max_, weighting_method, input_flag=None,node2box_index=None):
 	'''
@@ -212,10 +250,14 @@ def connecting_edges(G_bar, node, min_, graph_type, dict_seq, max_, weighting_me
 			dict_sec_neig, index_ = get_sec_neig_square(node, dict_seq, node2box_index)
 
 	elif graph_type == "2":
-		#If True, then just the 'second neighbors' are taken (firsts included).
-		node = str(node)
-		dict_sec_neig, index_ = get_sec_neig_edges(node, dict_seq)
-		index_ = index_[node]
+		# If True, then just the 'second neighbors' are taken (firsts included).
+		if input_flag != 'image':
+			node = str(node)
+			dict_sec_neig, index_ = get_sec_neig_edges(node, dict_seq)
+			index_ = index_[node]
+		else:
+			node = node - 1
+			dict_sec_neig, index_ = get_sec_neig_edges_square(node, dict_seq, node2box_index)
 
 
 	#print(index_)
@@ -320,6 +362,7 @@ def node_edge_filter(G_bar, min_, graph_type, dict_seq, weighting_method,input_f
 	"""
 	nodes_dict = G_bar.nodes(data='weight')
 	max_ = max([entry[1] for entry in nodes_dict])
+	print('gt',graph_type)
 
 	# Iterate over all the numbers (<--> nodes) to test the condition about the threshold:
 	for n in range(len(G_bar.nodes())):
