@@ -209,13 +209,14 @@ def BP_solver(folder_name, index):
     '''
 
     # Generating the output folders
+    try:
+        os.mkdir('../otp_utilities/muffe_sparse_optimization/simplifications/' + folder_name + "/component" + str(
+            index) + '/')
+    except OSError:
+        print("Creation of the directory %s failed." % (folder_name + "/component" + str(index) + '/'))
+
+
     for folder in ["output", "output/result", "output/vtk", "output/linear_sys", "output/timefun"]:
-
-        try:
-            os.mkdir('../otp_utilities/muffe_sparse_optimization/simplifications/' + folder_name + "/component" + str(index) + '/')
-        except OSError:
-            print("Creation of the directory %s failed." % (folder_name + "/component" + str(index) + '/'))
-
         try:
             os.mkdir('../otp_utilities/muffe_sparse_optimization/simplifications/' + folder_name + "/component" + str(
                 index) + '/' + folder)

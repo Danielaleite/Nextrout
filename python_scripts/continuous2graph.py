@@ -49,11 +49,12 @@ def preprocessing_cont(
 	start_time = time.time()
 
 
-	if funct=='tdens':
+	if 'tdens' in funct :
+		print(funct)
+		opt_tdens = utils.extracting_weights(folder_name,'output/result/'+funct) #<----------------new!
+	elif funct == 'flux':
 		opt_tdens = utils.extracting_weights(folder_name,'output/result/opt_tdens.dat')
-	elif funct=='flux':
-		opt_tdens=extracting_weights(folder_name,'output/result/opt_tdens.dat')
-		opt_pot=extracting_weights(folder_name,"output/result/opt_nrm_grad_avg.dat")
+		opt_pot = utils.extracting_weights(folder_name,"output/result/opt_nrm_grad_avg.dat")
 	else:
 		print('wrong parameter funct:',funct)
 
@@ -63,12 +64,12 @@ def preprocessing_cont(
 
 	print('weight2dict')
 	start_time = time.time()
-	if funct=='tdens':
+	if 'tdens' in funct:
 		dict_weights_tdens,weights_tdens = utils.weight2dict(opt_tdens,'output/result/opt_tdens.dat')
 	if funct=='flux':
-		dict_weights_tdens,weights_tdens=weight2dict(opt_tdens,'output/result/opt_tdens.dat')
-		dict_weights_pot,weights_pot=weight2dict(opt_pot,"output/result/opt_nrm_grad_avg.dat")
-		dict_weights,weights=prod_dict(dict_weights_tdens,dict_weights_pot,weights_tdens,weights_pot)
+		dict_weights_tdens,weights_tdens= utils.weight2dict(opt_tdens,'output/result/opt_tdens.dat')
+		dict_weights_pot,weights_pot= utils.weight2dict(opt_pot,"output/result/opt_nrm_grad_avg.dat")
+		dict_weights,weights=utils.prod_dict(dict_weights_tdens,dict_weights_pot,weights_tdens,weights_pot)
 	else:
 		dict_weights=dict_weights_tdens
 		weights=weights_tdens
@@ -181,13 +182,14 @@ def graph_extraction_from_dat_files(
 	:return:
 		Graph: pre-extracted graph.
 	'''
+	funct_without_dot = funct.split('.')[0]
 	new_dir = '../otp_utilities/muffe_sparse_optimization/simplifications/'+folder_path[2:]
 	try:
 		os.mkdir(new_dir)
 	except OSError:
 		print ("Creation of the directory %s failed." % new_dir)
 
-	new_dir = '../otp_utilities/muffe_sparse_optimization/simplifications/'+folder_path[2:]+'/'+funct
+	new_dir = '../otp_utilities/muffe_sparse_optimization/simplifications/'+folder_path[2:]+'/'+funct_without_dot
 	try:
 		os.mkdir(new_dir)
 	except OSError:
@@ -206,9 +208,9 @@ def graph_extraction_from_dat_files(
 
 	print('last part of the path',os.getcwd().split('/')[-1],'=?',folder_path[2:])
 
-	path_='../otp_utilities/muffe_sparse_optimization/simplifications/'+folder_path[2:]+'/'+funct+'/'
+	path_='../otp_utilities/muffe_sparse_optimization/simplifications/'+folder_path[2:]+'/'+funct_without_dot+'/'
 
-	file_name = funct+'_t'+t_string+'_graph'+str(graph_type)+'_wm'+str(weighting_method)+'.dat'
+	file_name = funct_without_dot+'_t'+t_string+'_graph'+str(graph_type)+'_wm'+str(weighting_method)+'.dat'
 	print(os.getcwd())
 	print('bfore exporting',len(list(nx.connected_components(Graph))))
 	with open(path_+file_name, 'wb') as file:
@@ -269,7 +271,7 @@ def graph_extraction_from_dat_files(
 	)
 	# Saving the plots
 	t_string = "%.0E" % decimal.Decimal(str(min_))
-	file_name = funct+'_t'+t_string+'_graph'+str(graph_type)+'_wm'+str(weighting_method)+'.png'
+	file_name = funct_without_dot+'_t'+t_string+'_graph'+str(graph_type)+'_wm'+str(weighting_method)+'.png'
 
 	plt.savefig(path_+file_name)
 	plt.show(block=False)
@@ -326,7 +328,7 @@ def graph_extraction_from_dat_files(
 
 	plt.colorbar(nc)
 	plt.axis("on")
-	file_name='btns_centr_'+funct+'_t'+t_string+'_graph'+str(graph_type)+'_wm'+str(weighting_method)+'.png'
+	file_name='btns_centr_'+funct_without_dot+'_t'+t_string+'_graph'+str(graph_type)+'_wm'+str(weighting_method)+'.png'
 	plt.savefig(path_+file_name)
 	plt.show(block=False)
 	time.sleep(0.01)
@@ -374,7 +376,7 @@ def graph_extraction_from_dat_files(
 
 	plt.colorbar(ec2)
 	plt.axis("on")
-	file_name = funct+'_distr_t'+t_string+'_graph'+str(graph_type)+'_wm'+str(weighting_method)+'.png'
+	file_name = funct_without_dot+'_distr_t'+t_string+'_graph'+str(graph_type)+'_wm'+str(weighting_method)+'.png'
 	plt.savefig(path_+file_name)
 	plt.show(block=False)
 	time.sleep(0.01)

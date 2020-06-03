@@ -251,7 +251,7 @@ def network_extraction(
                         ############## GRAPH PRE-EXTRACTION######################
 
                         errors = []
-                        for funct in ["tdens"]:
+                        for funct in ["opt_tdens.dat"]:
                             print("Now we are running: ", funct)
 
                             for graph_type in ["1"]:  # ,'2','3']:
@@ -272,7 +272,7 @@ def network_extraction(
                                     for threshold in t_list:
                                         subfolder = "./runs/" + folder_name
                                         t = float(threshold)
-
+                                        '''
                                         new_dir = subfolder + "/" + funct
 
                                         try:
@@ -282,6 +282,7 @@ def network_extraction(
                                                 "Creation of the directory %s failed."
                                                 % new_dir
                                             )
+                                        '''
 
                                         if ge_input == "yes":
                                             print(
