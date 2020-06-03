@@ -1,14 +1,7 @@
 import os
 import pickle as pkl
-import shutil
-import distutils
 import numpy as np
 import shutil
-import distutils
-from threading import Thread
-import re
-import networkx as nx
-import matplotlib.pyplot as plt
 #------------------------------------
 import continuous2graph
 import discrete2graph
@@ -20,8 +13,8 @@ import source_sink_generator
 #------------------------------------
 
 network_extraction_script = True
-extraction_from_image_script = False
-quality_measure_script = False
+extraction_from_image_script = True
+quality_measure_script = True
 
 what_to_test = [network_extraction_script, extraction_from_image_script, quality_measure_script]
 
@@ -60,7 +53,6 @@ if network_extraction_script:
     'yes,yes'
     ]
     }
-
 
 
     for folder in data_flags:
@@ -217,7 +209,7 @@ if network_extraction_script:
                             ############## GRAPH EXTRACTION######################
 
                             errors = []
-                            for funct in ['tdens']:
+                            for funct in ['opt_tdens.dat']:
                                 print('Now we are running: ', funct)
 
                                 for graph_type in ['1']:  # ,'2','3']:
@@ -238,13 +230,14 @@ if network_extraction_script:
                                         for threshold in t_list:
                                             subfolder = './runs/' + folder_name
                                             t = float(threshold)
-
+                                            '''
                                             new_dir = subfolder + '/' + funct
 
                                             try:
                                                 os.mkdir(new_dir)
                                             except OSError:
                                                 print("Creation of the directory %s failed." % new_dir)
+                                            '''
 
                                             if ge_input == 'yes':
                                                 print('Flag and tolerance:', subfolder, t, graph_type, funct)

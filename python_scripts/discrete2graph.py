@@ -45,7 +45,6 @@ def graph_filtering_from_dat_files(folder_name, t, graph_type, beta_d, funct, mi
     :param sink_flag: flag used to define the sink region in the continuous problem.
     :param BP_weights: 'BPtdens' to use optimal transport density as weights for edges, 'BPflux' to use optimal flux.
     :param reduction_flag: If 'yes', then the filtered graph is reduced using bifurcation_paths().
-    :return:
         G_final_simplification: filtered graph (networkx graph).
     '''
     '''
@@ -75,8 +74,9 @@ def graph_filtering_from_dat_files(folder_name, t, graph_type, beta_d, funct, mi
         # Loading the Graph
 
         t_string = '%.0E' % decimal.Decimal(str(t))
+        funct_without_dot = funct.split('.')[0]
         path_ = '../otp_utilities/muffe_sparse_optimization/simplifications/' + folder_name[
-                                                                      2:] + '/' + funct + '/' + funct + '_t' + t_string + '_graph' + str(
+                                                                      2:] + '/' + funct_without_dot + '/' + funct_without_dot + '_t' + t_string + '_graph' + str(
                 graph_type) + '_wm' + str(weighting_method) + '.dat'
         with open(path_, 'rb') as file:
             Graph = pkl.load(file)
@@ -89,7 +89,7 @@ def graph_filtering_from_dat_files(folder_name, t, graph_type, beta_d, funct, mi
         G_final_simplification, newGraph, ncc, possible_terminals_source, possible_terminals_sink, mapping, conv_report = filtering.filtering(Graph,
                                                                                                                                  beta_d,
                                                                                                                           min_,
-                                                                                                                          folder_name + '/' + funct,
+                                                                                                                          folder_name + '/' + funct_without_dot,
                                                                                                                           terminal_info,
                                                                                                                        weighting_method_simplification,
                                                                                                                           BP_weights,
@@ -148,7 +148,7 @@ def graph_filtering_from_dat_files(folder_name, t, graph_type, beta_d, funct, mi
 
         plt.title('Original graph (blue) / simplification (red)')
         path_fig = '../otp_utilities/muffe_sparse_optimization/simplifications/' + folder_name[
-                                                                      2:] + '/' + funct + '/BP_orig_simpl_' + funct + '_t' + t_string + '_graph' + str(
+                                                                      2:] + '/' + funct_without_dot + '/BP_orig_simpl_' + funct_without_dot + '_t' + t_string + '_graph' + str(
             graph_type) + '_min' + min_string + '_btns_so_' + btns_factor_source_string + '_btns_si_' + btns_factor_sink_string + '_wm' + str(
             weighting_method) + '_wms' + str(weighting_method_simplification)
         plt.axis('on')
@@ -188,7 +188,7 @@ def graph_filtering_from_dat_files(folder_name, t, graph_type, beta_d, funct, mi
         plt.axis('on')
 
         path_ = '../otp_utilities/muffe_sparse_optimization/simplifications/' + folder_name[
-                                                                      2:] + '/' + funct + '/BP_simpl_' + funct + '_t' + t_string + '_graph' + str(
+                                                                      2:] + '/' + funct_without_dot + '/BP_simpl_' + funct_without_dot + '_t' + t_string + '_graph' + str(
             graph_type) + '_min' + min_string + '_btns_so_' + btns_factor_source_string + '_btns_si_' + btns_factor_sink_string + '_wm' + str(
             weighting_method) + '_wms' + str(weighting_method_simplification)
         plt.savefig(path_ + '.png')
@@ -235,7 +235,7 @@ def graph_filtering_from_dat_files(folder_name, t, graph_type, beta_d, funct, mi
 
             plt.title('Original graph (blue) / simplification (red)')
             path_fig = '../otp_utilities/muffe_sparse_optimization/simplifications/' + folder_name[
-                                                                      2:] + '/' + funct + '/BP_orig_2nd_simspl_' + funct + '_t' + t_string + '_graph' + str(
+                                                                      2:] + '/' + funct_without_dot + '/BP_orig_2nd_simspl_' + funct_without_dot + '_t' + t_string + '_graph' + str(
                 graph_type) + '_min' + min_string + '_btns_so_' + btns_factor_source_string + '_btns_si_' + btns_factor_sink_string + '_wm' + str(
                 weighting_method) + '_wms' + str(weighting_method_simplification)
             plt.axis('on')
