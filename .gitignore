@@ -20,5 +20,5 @@ otp_utilities/spectral
 otp_utilities/vtk
 otp_utilities/muffe_sparse_optimization
 
-results/
-
+results/discrete
+results/continuous
