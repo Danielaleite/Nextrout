@@ -24,16 +24,16 @@ import glob
 import subprocess
 from shutil import copytree, ignore_patterns
 
-
-click.echo("------------------    Welcome to Nextrout!    ----------------------")
-click.echo()
-click.echo("To continue, you need to define your input parameters. ")
-click.echo()
+click.echo("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+click.echo("Welcome to Nextrout: Network Extraction by Routing Optimization.")
+click.echo("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+click.echo("To continue, you need to define the required inputs. ")
 click.echo(
-    "If you need help with this step, check https://github.com/Danielaleite/Nextrout/blob/master/python_scripts/default_inputs.md."
+    "If you need help witht his step, visit https://github.com/Danielaleite/Nextrout/blob/master/python_scripts/default_inputs.md."
 )
 
-click.pause()
+click.echo()
+# click.pause()
 
 parameters = []
 flag_list = []
@@ -66,6 +66,7 @@ else:
     )
     pass
 
+dmk_input = click.prompt("Should the DMK-solver step be executed?")
 ge_input = click.prompt("Should the graph pre-extraction be done?")
 gs_input = click.prompt("Should the graph filtering/reduction be done?")
 
@@ -96,7 +97,6 @@ gs_input = click.prompt("Should the graph filtering/reduction be done?")
     prompt="What is(are) the flag(s) for sink function?",
     help="Sink information.",
 )
-
 
 
 @click.option(
@@ -241,6 +241,7 @@ def network_extraction(
                             )
                             file.write("0.0 ! tzero" + "\n")
                             file.write("5.0e2 ! tmax (stop while loop)")
+                            file.write("%s" % beta_discr + "  ! beta_discrete_stored")
                             # list = file.readlines()
                             file.close()
 
