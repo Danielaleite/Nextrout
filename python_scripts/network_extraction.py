@@ -13,6 +13,7 @@ import networkx as nx
 import pickle as pkl
 import matplotlib.pyplot as plt
 
+
 import os, os.path
 import shutil
 import glob
@@ -26,9 +27,54 @@ import discrete2graph
 import continuous2graph
 #---------------------------------------
 
-click.echo("Define the parameters for the network extraction routine.")
 
+click.echo("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+click.echo("Welcome to Nextrout: Network Extraction by Routing Optimization.")
+click.echo("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+click.echo("To continue, you need to define the required inputs. ")
+click.echo(
+    "If you need help witht his step, visit https://github.com/Danielaleite/Nextrout/blob/master/python_scripts/default_inputs.md."
+)
 
+click.echo()
+# click.pause()
+
+parameters = []
+flag_list = []
+beta_list = []
+ndiv_list = []
+source_list = []
+sink_list = []
+
+if click.confirm("Do you have an input.ctrl file?"):
+    click.echo("Well done!")
+    file_ = open("inputs.ctrl", "r")
+    parameters_ = file_.readlines()
+    file_.close()
+    flag_list = parameters_[14].split(" ")[0]
+    beta_list = parameters_[7].split(" ")[0]
+    ndiv_list = parameters_[4].split(" ")[0]
+    source_list = parameters_[11].split(" ")[0]
+    sink_list = parameters_[12].split(" ")[0]
+    bd_list = parameters_[19].split(" ")[0]
+    pass
+
+else:
+    flag_list = click.prompt("What is the input flag?")
+    ndiv_list = click.prompt("What is the number of divisions of the mesh?")
+    beta_list = click.prompt("What is the value for beta to be used in the DMK-solver?")
+    source_list = click.prompt("What is(are) the flag(s) for source function?")
+    sink_list = click.prompt("What is(are) the flag(s) for sink function?")
+    bd_list = click.prompt(
+        "What is the value for beta to be used in the filtering part?"
+    )
+    pass
+
+dmk_input = click.prompt("Should the DMK-solver step be executed?")
+ge_input = click.prompt("Should the graph pre-extraction be done?")
+gs_input = click.prompt("Should the graph filtering/reduction be done?")
+
+"""
 @click.command()
 @click.option(
     "--flag_list",
@@ -55,15 +101,19 @@ click.echo("Define the parameters for the network extraction routine.")
     prompt="What is(are) the flag(s) for sink function?",
     help="Sink information.",
 )
+
+
 @click.option(
     "--bd_list",
     prompt="What is the value for beta to be used in the filtering part?",
     help="Beta discrete information.",
 )
+
 @click.option(
     "--dmk_input",
     prompt="Should the DMK-solver step be executed?",
     help="Execute the DMK-solver.",
+    required=True,
 )
 @click.option(
     "--ge_input",
@@ -75,6 +125,20 @@ click.echo("Define the parameters for the network extraction routine.")
     prompt="Should the graph filtering/reduction be done?",
     help="Filtering the graph using discrete DMK solver. Graph reduction.",
 )
+"""
+print(
+    flag_list,
+    beta_list,
+    ndiv_list,
+    source_list,
+    sink_list,
+    bd_list,
+    dmk_input,
+    ge_input,
+    gs_input,
+)
+
+
 def network_extraction(
     flag_list,
     beta_list,
@@ -180,7 +244,8 @@ def network_extraction(
                                 + "\n"
                             )
                             file.write("0.0 ! tzero" + "\n")
-                            file.write("5.0e2 ! tmax (stop while loop)")
+                            file.write("5.0e2 ! tmax (stop while loop)" + "\n")
+                            file.write("%s" % beta_discr + "  ! beta_discrete_stored")
                             # list = file.readlines()
                             file.close()
 
@@ -426,9 +491,22 @@ def network_extraction(
                             + folder_name,
                             dest2+folder_name,
                         )
+                        shutil.move(
+                            os.path.join("runs/" + folder_name), os.path.join(dest)
+                        )
 
 
 ##############
 
 if __name__ == "__main__":
-    network_extraction()
+    network_extraction(
+        flag_list,
+        beta_list,
+        ndiv_list,
+        source_list,
+        sink_list,
+        bd_list,
+        dmk_input,
+        ge_input,
+        gs_input,
+    )
