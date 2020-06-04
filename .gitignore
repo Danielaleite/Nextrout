@@ -10,6 +10,7 @@ python_scripts/outputs_dmk_c.txt
 python_scripts/inputs.ctrl
 python_scripts/muffa.ctrl
 python_scripts/jobs
+python_scripts/location_repository.txt
 
 otp_utilities/geometry
 otp_utilities/globals
