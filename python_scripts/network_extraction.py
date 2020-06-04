@@ -240,7 +240,7 @@ def network_extraction(
                                 + "\n"
                             )
                             file.write("0.0 ! tzero" + "\n")
-                            file.write("5.0e2 ! tmax (stop while loop)")
+                            file.write("5.0e2 ! tmax (stop while loop)" + "\n")
                             file.write("%s" % beta_discr + "  ! beta_discrete_stored")
                             # list = file.readlines()
                             file.close()
@@ -477,13 +477,16 @@ def network_extraction(
                                                             + "\n"
                                                         )
                         dest = "../results/continuous"
-                        shutil.move("runs/" + folder_name, dest)
+                        # shutil.move("runs/" + folder_name, dest)
 
                         dest2 = "../results/discrete"
                         shutil.move(
                             "../otp_utilities/muffe_sparse_optimization/simplifications/runs/"
                             + folder_name,
                             dest2,
+                        )
+                        shutil.move(
+                            os.path.join("runs/" + folder_name), os.path.join(dest)
                         )
 
 
