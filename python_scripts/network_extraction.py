@@ -483,16 +483,25 @@ def network_extraction(
                                                             + "\n"
                                                         )
                         dest = "../results/continuous/"
-                        shutil.move("runs/" + folder_name, dest+folder_name)
+                        # shutil.move("runs/" + folder_name, dest)
 
                         dest2 = "../results/discrete/"
+                        
+                        isdir = os.path.isdir(dest + folder_name)  
+
+                        isdir2 = os.path.isdir(dest2 + folder_name)
+
+                        if isdir or isdir2:  
+                            os.system('rm -r '+ dest + folder_name)
+                            os.system('rm -r '+ dest2 + folder_name)
+                        
                         shutil.move(
-                            "../otp_utilities/muffe_sparse_optimization/simplifications/runs/"
-                            + folder_name,
-                            dest2+folder_name,
+                        "../otp_utilities/muffe_sparse_optimization/simplifications/runs/"
+                        + folder_name,
+                        dest2,
                         )
                         shutil.move(
-                            os.path.join("runs/" + folder_name), os.path.join(dest)
+                        os.path.join("runs/" + folder_name), os.path.join(dest)
                         )
 
 
