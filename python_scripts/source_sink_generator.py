@@ -354,10 +354,10 @@ def source_graph(X_bar,flag):
     nnzero=0
     source_values=[]
     for node in X_bar.nodes():
-        x,y = X_bar.node[node]['pos']
+        x,y = X_bar.nodes[node]['pos']
         #print(x,y)
         z=fsource(x,y,flag)
-        X_bar.node[node]['source']=z
+        X_bar.nodes[node]['source']=z
         if z!=0:
             nnzero+=1
         source_values.append(z)
@@ -367,10 +367,10 @@ def sink_graph(X_bar,flag):
     nnzero=0
     sink_values=[]
     for node in X_bar.nodes():
-        x,y = X_bar.node[node]['pos']
+        x,y = X_bar.nodes[node]['pos']
         #print(x,y)
         z=fsink(x,y,flag)
-        X_bar.node[node]['sink']=z
+        X_bar.nodes[node]['sink']=z
         if z!=0:
             nnzero+=1
         sink_values.append(z)
@@ -392,7 +392,7 @@ def source_sink_generator(folder_name, ndiv, flag_source, flag_sink):
     X_bar=nx.Graph()
     X_bar.add_nodes_from(bar_pos.keys())
     for n, p in bar_pos.items():
-        X_bar.node[n]['pos'] = p
+        X_bar.nodes[n]['pos'] = p
     pos=nx.get_node_attributes(X_bar,'pos')
     
     if flag_source != 'rect_cnst':
@@ -409,7 +409,7 @@ def source_sink_generator(folder_name, ndiv, flag_source, flag_sink):
         f.write("time    0.0"+"\n")
         f.write(str(nnzero_source)+"\n")
         for node in X_source.nodes():
-            z=X_source.node[node]['source']
+            z=X_source.nodes[node]['source']
             if z!=0:
                 f.write("  "+node+" "+str(float(z))+"\n")
         f.write("time 1e30")
@@ -428,7 +428,7 @@ def source_sink_generator(folder_name, ndiv, flag_source, flag_sink):
         f.write("time    0.0"+"\n")
         f.write(str(nnzero_sink)+"\n")
         for node in X_sink.nodes():
-            z=X_sink.node[node]['sink']
+            z=X_sink.nodes[node]['sink']
             if z!=0:
                 f.write("  "+node+" "+str(float(z))+"\n")
         f.write("time 1e30")

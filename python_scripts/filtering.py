@@ -603,7 +603,7 @@ def filtering(Graph,
                 ss_label = -1
             else:
                 ss_label = 0
-            G_simplification[i].node[node]['terminal'] = ss_label
+            G_simplification[i].nodes[node]['terminal'] = ss_label
 
         isolated_nodes = len([node for node in G_simplification[i].nodes() if G_simplification[i].degree(node)==0])
 

@@ -56,7 +56,6 @@ def weight2dict(file_weights, file_name):
     # Cleaning the data, extracting the WEIGHTS and storing them in a dict, converting them into floats
     dict_weights_func = {}
     weights = []
-    print('FILE_NAME', file_name)
     n = 1
     firstIndex = 0
     if file_name == 'output/result/opt_tdens.dat' or file_name == 'output/result/opt_tdens.dat' or file_name == "output/result/opt_nrm_grad_avg.dat" or file_name == 'output/result/opt_pot.dat':
@@ -148,7 +147,6 @@ def pickle2pygraph(Graph):
 
     components = list(nx.connected_components(Graph))
     components.sort(key=len, reverse=True)
-    print('len(comp)',len(components))
 
     # Creating a graph (dict) to store the different components
     Graph_ = {}
@@ -180,8 +178,8 @@ def pickle2pygraph(Graph):
             # init weights of the nodes to be 0
             #weight = 0.0
             #if graph_type != '3' and graph_type != '4':
-            weight = Graph_[i].node[node]['weight']
-            pos = Graph_[i].node[node]['pos']
+            weight = Graph_[i].nodes[node]['weight']
+            pos = Graph_[i].nodes[node]['pos']
             # adding the 'node' in Graph with a new label given by inv_mapping to newGraph. Thus, V(newGraph)C[1,...,K].
             newGraph[i].add_node(str(inv_mapping[i][node]), weight=weight, pos=pos)
         # adding the edge in Graph to newGraph with a the labels defined for the nodes
@@ -195,7 +193,6 @@ def pickle2pygraph(Graph):
     mapping_list = [mapping[i] for i in mapping.keys()]
     inv_mapping_list = [inv_mapping[i] for i in inv_mapping.keys()]
 
-    print('number of cc:',len(newGraph_list))
     return newGraph_list, mapping_list, inv_mapping_list, components
 
 def dat2pygraph(Graph, folder_name, edge_mapping, min_, BP_weights):
@@ -213,7 +210,7 @@ def dat2pygraph(Graph, folder_name, edge_mapping, min_, BP_weights):
     # Defining the type of weights for the output python graph: opt_tdens or opt_flux
 
     folder_name = "../otp_utilities/muffe_sparse_optimization/simplifications/" + folder_name[2:]
-    print('we are at', folder_name, 'when executing dat2pygraph')
+    
     if BP_weights == 'BPtdens':
         opt_tdens = extracting_weights(folder_name, "output/result/opt_tdens.dat")
         dict_weights, _ = weight2dict(opt_tdens, 'output/result/opt_tdens.dat')
@@ -237,9 +234,9 @@ def dat2pygraph(Graph, folder_name, edge_mapping, min_, BP_weights):
         if weight > min_ * max_:
             G_simplification.add_edge(edge_mapping[key][0], edge_mapping[key][1], weight=weight)
             potential = dict_weights_pot[float(edge_mapping[key][0])]
-            G_simplification.node[edge_mapping[key][0]]['op_pot'] = potential
+            G_simplification.nodes[edge_mapping[key][0]]['op_pot'] = potential
             potential = dict_weights_pot[float(edge_mapping[key][1])]
-            G_simplification.node[edge_mapping[key][1]]['op_pot'] = potential
+            G_simplification.nodes[edge_mapping[key][1]]['op_pot'] = potential
 
     return G_simplification
 
@@ -290,9 +287,7 @@ def pygraph2dat(G, sources, sinks, component_index, folder_name, mapping, input_
 
     if input_flag == None:
         # Moving the graph_cell.dat to the folder component_index/input
-        print('cp  ./' + folder_name.split("/")[1] + '/' + folder_name.split("/")[
-            -2] + '/input/graph_cell.dat')
-        print(new_dirn + '/' + 'graph_cell.dat')
+        
         os.system('cp  ./' + folder_name.split("/")[1] + '/' + folder_name.split("/")[
             -2] + '/input/graph_cell.dat' + '  ' + new_dirn + '/graph_cell.dat')
         file1_ = open(new_dirn + "/graph_cell.dat", "r")
@@ -380,8 +375,7 @@ def pygraph2dat(G, sources, sinks, component_index, folder_name, mapping, input_
     str0 = 11 * " "
     f = open(new_dirn + "/rhs.dat", "w+")
     num_sources_sinks = str(len(sources) + len(sinks))
-    print('G', len(G.nodes()))
-    print('num ss', num_sources_sinks)
+    
     f.write(str0 + "1" + str0[:8] + str(len(G.nodes())) + "\n")
     f.write(" time -1e30 \n")
     f.write((12 - len(num_sources_sinks)) * " " + num_sources_sinks + "\n")

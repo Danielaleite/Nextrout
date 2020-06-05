@@ -130,7 +130,7 @@ def graph_filtering_from_dat_files(folder_name, t, graph_type, beta_d, funct, mi
             for node in list(possible_terminals_source[i].union(possible_terminals_sink[i])):
                 original_label_terminals_list.append(mapping[i][int(node)])
                 terminals.add_node(node_label)
-                x, y = newGraph[i].node[node]['pos']
+                x, y = newGraph[i].nodes[node]['pos']
                 pos_terminals[node_label] = (x, y)
                 node_label += 1
         print('len', len(terminals.nodes()))

@@ -373,7 +373,8 @@ def graph_extraction_from_dat_files(
 		ax = source_sink_generator.sink_plot(sink_flag, ax)
 	else:
 		source_sink_generator.sink_plot(sink_flag)
-
+	#print(ec2)
+	#ec2 = ec2.set_array([])
 	plt.colorbar(ec2)
 	plt.axis("on")
 	file_name = funct_without_dot+'_distr_t'+t_string+'_graph'+str(graph_type)+'_wm'+str(weighting_method)+'.png'
