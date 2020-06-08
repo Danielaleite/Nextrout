@@ -8,9 +8,8 @@ python_scripts/outputs_vtk.txt
 python_scripts/outputs_gg.txt
 python_scripts/outputs_dmk_c.txt
 python_scripts/inputs.ctrl
+python_scripts/README.md
 python_scripts/muffa.ctrl
-python_scripts/jobs
-python_scripts/location_repository.txt
 
 otp_utilities/geometry
 otp_utilities/globals
@@ -21,5 +20,5 @@ otp_utilities/spectral
 otp_utilities/vtk
 otp_utilities/muffe_sparse_optimization
 
-results/discrete
-results/continuous
+results/
+

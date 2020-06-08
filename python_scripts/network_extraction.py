@@ -8,10 +8,6 @@ import numpy as np
 import shutil
 import distutils
 from threading import Thread
-from continuous2graph import *
-from discrete2graph import *
-from filtering import *
-from source_sink_generator import *
 import re
 import networkx as nx
 import pickle as pkl
@@ -23,6 +19,14 @@ import shutil
 import glob
 import subprocess
 from shutil import copytree, ignore_patterns
+
+#---------------------------------------
+import source_sink_generator
+import utils
+import discrete2graph
+import continuous2graph
+#---------------------------------------
+
 
 click.echo("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 click.echo("Welcome to Nextrout: Network Extraction by Routing Optimization.")
@@ -208,7 +212,7 @@ def network_extraction(
                             file.write("rect_cnst path/grid.dat ! flag_grid" + "\n")
                             file.write("%s" % ndiv + " ! ndiv" + "\n")
                             file.write(
-                                "0 " + " ! nref" + "\n"
+                                "1 " + " ! nref" + "\n"
                             )  # --------------------------- !!!!!!!!!!
 
                             file.write(
@@ -268,7 +272,8 @@ def network_extraction(
                             )
                             os.system(command)
 
-                            source_sink_generator(
+                            # why this?
+                            source_sink_generator.source_sink_generator(
                                 "./runs/" + folder_name,
                                 ndiv,
                                 source_sink[0],
@@ -278,7 +283,7 @@ def network_extraction(
                                 source_sink[0] != "rect_cnst"
                                 and source_sink[1] != "rect_cnst"
                             ):
-                                source_sink_preprocess("./runs/" + folder_name)
+                                source_sink_generator.source_sink_preprocess("./runs/" + folder_name)
 
                             command = (
                                 "./dmk_folder.py run "
@@ -311,7 +316,7 @@ def network_extraction(
                         ############## GRAPH PRE-EXTRACTION######################
 
                         errors = []
-                        for funct in ["tdens"]:
+                        for funct in ["opt_tdens.dat"]:
                             print("Now we are running: ", funct)
 
                             for graph_type in ["1"]:  # ,'2','3']:
@@ -332,7 +337,7 @@ def network_extraction(
                                     for threshold in t_list:
                                         subfolder = "./runs/" + folder_name
                                         t = float(threshold)
-
+                                        '''
                                         new_dir = subfolder + "/" + funct
 
                                         try:
@@ -342,6 +347,7 @@ def network_extraction(
                                                 "Creation of the directory %s failed."
                                                 % new_dir
                                             )
+                                        '''
 
                                         if ge_input == "yes":
                                             print(
@@ -352,7 +358,7 @@ def network_extraction(
                                                 funct,
                                             )
 
-                                            G = graph_extraction_from_dat_files(
+                                            G = continuous2graph.graph_extraction_from_dat_files(
                                                 subfolder,
                                                 t,
                                                 graph_type,
@@ -433,7 +439,7 @@ def network_extraction(
                                                         beta_discr = float(beta_discr)
                                                         i += 1
 
-                                                        graph_filtering_from_dat_files(
+                                                        discrete2graph.graph_filtering_from_dat_files(
                                                             subfolder,
                                                             t,
                                                             graph_type,
@@ -476,17 +482,26 @@ def network_extraction(
                                                             + str(reduction_flag)
                                                             + "\n"
                                                         )
-                        dest = "../results/continuous"
+                        dest = "../results/continuous/"
                         # shutil.move("runs/" + folder_name, dest)
 
-                        dest2 = "../results/discrete"
+                        dest2 = "../results/discrete/"
+                        
+                        isdir = os.path.isdir(dest + folder_name)  
+
+                        isdir2 = os.path.isdir(dest2 + folder_name)
+
+                        if isdir or isdir2:  
+                            os.system('rm -r '+ dest + folder_name)
+                            os.system('rm -r '+ dest2 + folder_name)
+                        
                         shutil.move(
-                            "../otp_utilities/muffe_sparse_optimization/simplifications/runs/"
-                            + folder_name,
-                            dest2,
+                        "../otp_utilities/muffe_sparse_optimization/simplifications/runs/"
+                        + folder_name,
+                        dest2,
                         )
                         shutil.move(
-                            os.path.join("runs/" + folder_name), os.path.join(dest)
+                        os.path.join("runs/" + folder_name), os.path.join(dest)
                         )
 
 

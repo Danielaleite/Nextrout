@@ -1,0 +1,100 @@
+0           ! debug          (0 no debug, >0 full debug)       
+1           ! meshout        (0 print mesh & stops, 1 go on )
+I6          ! iformat        (integer format for data file)
+1e18.10     ! rformat        (real    format for data file)
+I9          ! iformat_info   (integer format for stdout and statistic)
+1pe9.2      ! rformat_info   (real    format for stdout and statistic)
+!************************************************************************
+! global controls
+!************************************************************************
+1	    ! id_subgrid      (0=no subgrid 1=subgrid  )
+2 	    ! id_ode          (1=PP   2=GF ) 
+1e-15         ! min_tdens       (lower bound for tdens)
+0.0         ! threshold_tdens (threshold for removing rows)
+!************************************************************************
+! time controls 
+!************************************************************************
+2          ! id_time_discr  (1=ee 2=ei newton 3=ei newton for GF   )   
+100         ! max_time_it    (time iterations, 0=solve ell. PDE         )
+10         ! max_nolinear_it(max numbe of fix point iteratons          )
+!>-----------------------------------------------------------------------
+! time step controls
+2           ! id_ctrl_time   (1=constant 2=increasing 3=prop. sup(rhs ode)   )
+0.1          ! deltat 	     (initial deltat                            )
+1.5        ! exp_rate       (id_time_ctrl=2,3,4 expansion rate         )
+10000         ! up_bd_deltat   (id_time_ctrl=2,3,4 upper bound delta_t    )
+0.005	    ! low_bd_deltat  (id_time_ctrl=3,4   lower bound delta_t    )
+!>-----------------------------------------------------------------------
+! convergence tolerances 
+1.0e-11	    ! tol_var_tdens (tol. var. tdens                            ) 
+1.0e-10	    ! tol_fixpoint  (tol. fix-point iter. methods for timestep  )
+!************************************************************************
+! Linear solver controls
+!***********************************************************************
+1	    ! id_singular    (1=ort init. sol 2= dir on sol(1) )
+0	    ! id_diagscale   (0=off 1 = diag. scale of stiff mat.) 
+!>-----------------------------------------------------------------------
+! linear controls
+!>-----------------------------------------------------------------------
+MINRES        ! scheme       ('PCG','BICGSTAB','GMRES'not working)
+stderr      ! lun_err       (log unit for error  message) 
+stdout      ! lun_out       (log unit for output message) 
+1           ! iexit         (0=exit abs. res. 1=exit normalized abs. res.) 
+1000         ! imax          (max number of iterations ) 
+0           ! iprt          (0=no print, 1=convergence profile)
+1           ! isol          (0=initial data zero 1= given initial data)
+1.0e-13     ! tol_sol      (tolerance required)
+0           ! iort          (=0 (0ff) >0 (ort. wrt. kernel with freq. iort) 
+!>-----------------------------------------------------------------------
+! preconditioner controls
+!>-----------------------------------------------------------------------
+! Standard Preconditioner
+IC          ! id_prec        ('identity', 'diag', 'C'=choelsky 'IC'=Incomplete Cholesky)) 
+20	    ! n_fillin       (id_prec=3 nmb of fillin elem.) 
+1.0e-4      ! tol_fillin     (id_prec=3 tol. fillin ) 
+!>-----------------------------------------------------------------------
+! Deflation w.r.t eigen.
+0           ! ieig           (0=no eig. 1=Dacg 2=Lanczos)
+10          ! nev            (max number of eigenvalue)
+1           ! ituned         (tuning parameter)	    
+!>-----------------------------------------------------------------------
+! ieig=1 ( Dacg )
+stderr      ! lun_err_dacg   (log unit for dacg error  message) 
+stdout      ! lun_out_dacg   (log unit for dacg output message) 
+1           ! iexit          (0=exit abs. res. 1=exit normalized abs. res.) 
+900         ! imax           (max iter for dacg for each eigen.) 
+1           ! iprt           (0=no print, 1= partial 2=full )
+0           ! isol           (0=initial data zero 1= given initial data)
+1.0e-1      ! tol_dacg      (tol. Dacg Procedure)
+!>-----------------------------------------------------------------------
+! ieig=2  (Lanczos)   
+100         ! neffmax        (max number of residual vectors stored)
+!>----------------------------------------------------------------------
+! buffering construction of prec.
+0           ! id_buffer_prec ( 0=no 1=ref_iter 2=avg iter 3= set in code  )
+10          ! ref_iter       ( reference iteration                        )
+1.2         ! prec_growth    ( build stprec if iter>iter_growth*ref_iter  )
+0.01        ! fraction_npot  ( use to buffer full Cholesky factorization  ) 
+!>-----------------------------------------------------------------------
+!> Newton controls
+!>-----------------------------------------------------------------------
+0           ! nbroyden        (=0 :no update >0 : number of updated
+1           ! reduced_jac.    ( 0 :solve full system 1 : solve reduced system)
+1           ! inexact_newton  ( 0 :off, 1: on                               )
+!************************************************************************
+! saving data
+!************************************************************************
+1           ! id_save_dat    (0=off,1=all 2=with vtk_freq 3=on var)
+0 	    ! freq_dat       (id_save=2 freq. data saving ) 
+0	    ! ifile_dat      (initial label of vtk)
+0	    ! id_save_matrix (0=off,1=all 2=with mat_freq 3= on var)  
+0	    ! ifile_matrix   (initial label of matrices)  
+0 	    ! freq_matrix    (id_save=2 freq. vtk saving ) 
+!************************************************************************
+! lasso regularization
+!************************************************************************
+0           ! id_lasso (0=off 1=cnst lassoo0 2=etc..)--
+0.0d-1       ! lasso0   (initial lasso)
+!************************************************************************
+1            ! swap  
+0.0          ! relax

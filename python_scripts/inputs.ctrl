@@ -2,18 +2,19 @@
 2d ! flag_domain (2d, 3d, surface)
 # MESH #########################################################
 rect_cnst path/grid.dat ! flag_grid
-15 ! ndiv
-0  ! nref
+12 ! ndiv
+1  ! nref
 # PREBUILD EXAMPLES ############################################
-1.3 extra_path ! flag_pflux 
+1.5 extra_path ! flag_pflux 
 1.0 extra_path ! flag_pmass (gamma)
 1.0 extra_path ! flag_decay
 1.0 extra ! decay0
 rect_cnst  path/frog_source.dat ! flag_source
 rect_cnst  path/frog_sink2.dat ! flag_sink
 0 ! flag_normalize
-parabola_3 path/tdens0.dat ! flag_tdens0 
+1 path/tdens0.dat ! flag_tdens0 
 1.0 extra_path ! flag_kappa
 ## TIME RANGE ###################################################
 0.0 ! tzero
 5.0e2 ! tmax (stop while loop)
+1.5  ! beta_discrete_stored
