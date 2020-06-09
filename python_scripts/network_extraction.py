@@ -20,12 +20,13 @@ import glob
 import subprocess
 from shutil import copytree, ignore_patterns
 
-#---------------------------------------
+# ---------------------------------------
 import source_sink_generator
 import utils
 import discrete2graph
 import continuous2graph
-#---------------------------------------
+
+# ---------------------------------------
 
 
 click.echo("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
@@ -62,17 +63,15 @@ if click.confirm("Do you have an input.ctrl file?"):
 else:
     flag_list = click.prompt("What is the input flag?")
     ndiv_list = click.prompt("What is the number of divisions of the mesh?")
-    beta_list = click.prompt("What is the value for beta to be used in the DMK-solver?")
+    beta_list = click.prompt("Which beta should be used in the DMK-solver?")
     source_list = click.prompt("What is(are) the flag(s) for source function?")
     sink_list = click.prompt("What is(are) the flag(s) for sink function?")
-    bd_list = click.prompt(
-        "What is the value for beta to be used in the filtering part?"
-    )
+    bd_list = click.prompt("Which beta should be used in the filtering?")
     pass
 
 dmk_input = click.prompt("Should the DMK-solver step be executed?")
-ge_input = click.prompt("Should the graph pre-extraction be done?")
-gs_input = click.prompt("Should the graph filtering/reduction be done?")
+ge_input = click.prompt("Do you want the graph pre-extraction to be done?")
+gs_input = click.prompt("Do you need the graph filtering/reduction to be done?")
 
 """
 @click.command()
@@ -283,7 +282,9 @@ def network_extraction(
                                 source_sink[0] != "rect_cnst"
                                 and source_sink[1] != "rect_cnst"
                             ):
-                                source_sink_generator.source_sink_preprocess("./runs/" + folder_name)
+                                source_sink_generator.source_sink_preprocess(
+                                    "./runs/" + folder_name
+                                )
 
                             command = (
                                 "./dmk_folder.py run "
@@ -337,7 +338,7 @@ def network_extraction(
                                     for threshold in t_list:
                                         subfolder = "./runs/" + folder_name
                                         t = float(threshold)
-                                        '''
+                                        """
                                         new_dir = subfolder + "/" + funct
 
                                         try:
@@ -347,7 +348,7 @@ def network_extraction(
                                                 "Creation of the directory %s failed."
                                                 % new_dir
                                             )
-                                        '''
+                                        """
 
                                         if ge_input == "yes":
                                             print(
@@ -486,22 +487,22 @@ def network_extraction(
                         # shutil.move("runs/" + folder_name, dest)
 
                         dest2 = "../results/discrete/"
-                        
-                        isdir = os.path.isdir(dest + folder_name)  
+
+                        isdir = os.path.isdir(dest + folder_name)
 
                         isdir2 = os.path.isdir(dest2 + folder_name)
 
-                        if isdir or isdir2:  
-                            os.system('rm -r '+ dest + folder_name)
-                            os.system('rm -r '+ dest2 + folder_name)
-                        
+                        if isdir or isdir2:
+                            os.system("rm -r " + dest + folder_name)
+                            os.system("rm -r " + dest2 + folder_name)
+
                         shutil.move(
-                        "../otp_utilities/muffe_sparse_optimization/simplifications/runs/"
-                        + folder_name,
-                        dest2,
+                            "../otp_utilities/muffe_sparse_optimization/simplifications/runs/"
+                            + folder_name,
+                            dest2,
                         )
                         shutil.move(
-                        os.path.join("runs/" + folder_name), os.path.join(dest)
+                            os.path.join("runs/" + folder_name), os.path.join(dest)
                         )
 
 
