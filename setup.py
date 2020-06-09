@@ -168,3 +168,5 @@ make_dir = {
     ".": [" mkdir results", "mkdir results/discrete", "mkdir results/continuous"]
 }
 execute(make_dir)
+
+print("Setup is finished!")
