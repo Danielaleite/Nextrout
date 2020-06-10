@@ -50,6 +50,11 @@ def fsource(x,y,flag):
     '''
     radio=.05
     z=0
+    #------------------------------------------------------------------
+    if flag == '1_4_small_squares':
+        if x<.1 and y<.1:
+            z=1
+    #------------------------------------------------------------------
     if flag =='signal_prop':
         # taken from https://www.pnas.org/content/114/20/5136
         if (x > .2 and x < .8 and y > .5 and y < .7):
@@ -209,7 +214,14 @@ def fsink(x,y,flag):
     '''
     radio=.05
     z=0
-
+    #----------------------------------------------------------------------------------
+    if flag == '1_4_small_squares':
+        if (( x < .1 and y > .9 ) or  #left-top
+         (x > .9 and y > .9 ) or  #right-top
+        ( x > .9 and y < .1) or  #right-bottom
+        (x > .45 and x < .55 and y > .45 and y < .55) ): #center
+            z=1
+    #----------------------------------------------------------------------------------
     if flag =='4_circles':
         if (math.sqrt((x-.35)**2+(y-.35)**2)<=radio) or (math.sqrt((x-.35)**2+(y-.65)**2)<=radio) or (math.sqrt((x-.65)**2+(y-.35)**2)<=radio) or (math.sqrt((x-.65)**2+(y-.65)**2)<=radio):
             z=1
@@ -472,10 +484,16 @@ def source_sink_preprocess(folder_name):
 def source_plot(flag,ax=None):
     return_ax = True
 
-    if flag =='signal_prop':
+    if flag == '1_4_small_squares':
+        x1 = .0
+        x2 = .1 
+        y1 = .0
+        y2 = .1
+        _ , _, ax = rect_plot(x1,x2,y1,y2,ax,'source')
+    elif flag =='signal_prop':
         x1 , y1 , x2 , y2 = .2,.5,.8, .7
         _ , _, ax = rect_plot(x1,x2,y1,y2,ax,'source')
-    if flag == 'rect_cnst':
+    elif flag == 'rect_cnst':
         x1 , y1 , x2 , y2 = 1.0/8.0,1/4, 3/8, 3/4
         _ , _, ax = rect_plot(x1,x2,y1,y2,ax,'source')
     elif flag=='2rcs':
@@ -565,10 +583,15 @@ def source_plot(flag,ax=None):
 def sink_plot(flag,ax=None):
     return_ax = True
 
-    if flag =='signal_prop':
+    if flag == '1_4_small_squares':
+        _ , _, ax = rect_plot(.0,.1,.9,1,ax,'sink') #x1,x2,y1,y2
+        _ , _, ax = rect_plot(.9,1,.9,1,ax,'sink')
+        _ , _, ax = rect_plot(.9,1,0,.1,ax,'sink')
+        _ , _, ax = rect_plot(.45,.55,.45,.55,ax,'sink')
+    elif flag =='signal_prop':
         x1 , y1 , x2 , y2 = .2,.1,.8, .5
         _ , _, ax = rect_plot(x1,x2,y1,y2,ax,'sink')
-    if flag == 'rect_cnst':
+    elif flag == 'rect_cnst':
         x3 , y3 , x4 , y4 = 5.0/8.0,1/4, 7/8, 3/4
         _ , _, ax = rect_plot(x3,x4,y3,y4,ax,'sink')
 

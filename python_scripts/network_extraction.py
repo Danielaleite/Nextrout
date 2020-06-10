@@ -224,10 +224,10 @@ def network_extraction(
                             file.write("1.0 extra_path ! flag_decay" + "\n")
                             file.write("1.0 extra ! decay0" + "\n")
                             file.write(
-                                "rect_cnst  path/frog_source.dat ! flag_source" + "\n"
+                                source_sink[0]+"  path/frog_source.dat ! flag_source" + "\n"
                             )  # %s' %source_sink[0]+
                             file.write(
-                                "rect_cnst  path/frog_sink2.dat ! flag_sink" + "\n"
+                                source_sink[1]+"  path/frog_sink2.dat ! flag_sink" + "\n"
                             )  # %s' %source_sink[1]+
                             file.write("0 ! flag_normalize" + "\n")
                             # file.write('%s' %flag + '!flag_tdens0 ' + "\n" )
