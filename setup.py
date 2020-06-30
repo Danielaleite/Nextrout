@@ -48,35 +48,21 @@ build_commands = {
     "otp_utilities/globals": ["./make all.sh",],
     "otp_utilities/linear_algebra/code": ["make clobber", "make dirs", "make",],
     "otp_utilities/linear_algebra/Mxv": ["make clobber", "make dirs", "make",],
-    "otp_utilities/linear_algebra/test": ["make clobber", "make dirs", "make",],
     "otp_utilities/muffe_p1p0/code": ["make clobber", "make dirs", "make",],
     "otp_utilities/muffe_p1p0/preprocess/2d_assembly/subgrid_preprocess/code": [
         "make clobber",
         "make dirs",
         "make",
     ],
-    "otp_utilities/muffe_p1p0/python_interface": ["make clobber", "make dirs", "make",],
     "otp_utilities/muffe_sparse_optimization/code": [
         "make clobber",
         "make dirs",
         "make",
     ],
     "otp_utilities/p1galerkin/code": ["make clobber", "make dirs", "make",],
-    "otp_utilities/p1galerkin/assembly_stiff": ["make clobber", "make dirs", "make",],
     "otp_utilities/p1galerkin/dirac2rhs": ["make clobber", "make dirs", "make",],
-    "otp_utilities/p1galerkin/eval_divergence_constrain": [
-        "make clobber",
-        "make dirs",
-        "make",
-    ],
     "otp_utilities/p1galerkin/eval_gradient": ["make clobber", "make dirs", "make",],
     "otp_utilities/p1galerkin/makerhs": ["make clobber", "make dirs", "make",],
-    "otp_utilities/p1galerkin/Laplace_Convergence": [
-        "make clobber",
-        "make dirs",
-        "make",
-    ],
-    "otp_utilities/spectral/src": ["make clobber", "make dirs", "make",],
     "otp_utilities/vtk": ["make clobber", "make dirs", "make",],
 }
 
