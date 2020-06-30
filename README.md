@@ -4,6 +4,11 @@
 
 You can use in input pre-build functions, graphs or images.  The filtering allows you to have a less redundant network. You can choose whether only have a graph from a continuous framework on routing optimization, or go beyond and apply a similar dynamics that allows to execute a filtering without losing important information stored on the network. 
 
+NextRout is based on the theory described in this paper:
+- _Network extraction by routing optimization_, D. Baptista, D. Leite, E. Facca, M. Putti and C. D. Bacco, arxiv 2005.02805, 2020. 
+Preprint can be found [here](https://arxiv.org/abs/2005.02805).  
+If you use this software please cite this work.
+
 ## Prerequisites
 
 The required dependencies are
