@@ -91,7 +91,7 @@ Nextrout is being developed continuously. We appreciate any help or suggestions.
 
 See also the list of [contributors](https://github.com/Danielaleite/Nextrout/graphs/contributors) who participated in this project.
 
-
+## License
 
 Copyright (c) 2020 Daniela Leite, Diego Theuerkauf and Caterina De Bacco
 
