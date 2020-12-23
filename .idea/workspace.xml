@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d48fed13-7887-47c8-b563-58cbdbf69130" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/otp_utilities/globals/python_timedata/perturbation.py" beforeDir="false" afterPath="$PROJECT_DIR$/otp_utilities/globals/python_timedata/perturbation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/otp_utilities/muffe_p1p0/preprocess/2d_assembly/cell.py" beforeDir="false" afterPath="$PROJECT_DIR$/otp_utilities/muffe_p1p0/preprocess/2d_assembly/cell.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/otp_utilities/muffe_p1p0/preprocess/2d_assembly/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/otp_utilities/muffe_p1p0/preprocess/2d_assembly/common.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/otp_utilities/muffe_p1p0/preprocess/2d_assembly/make_dirichlet.py" beforeDir="false" afterPath="$PROJECT_DIR$/otp_utilities/muffe_p1p0/preprocess/2d_assembly/make_dirichlet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/otp_utilities/muffe_p1p0/preprocess/2d_assembly/meshtools.py" beforeDir="false" afterPath="$PROJECT_DIR$/otp_utilities/muffe_p1p0/preprocess/2d_assembly/meshtools.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/otp_utilities/muffe_p1p0/preprocess/2d_assembly/scalars.py" beforeDir="false" afterPath="$PROJECT_DIR$/otp_utilities/muffe_p1p0/preprocess/2d_assembly/scalars.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/otp_utilities/muffe_p1p0/preprocess/2d_assembly/subgrid.fnames" beforeDir="false" afterPath="$PROJECT_DIR$/otp_utilities/muffe_p1p0/preprocess/2d_assembly/subgrid.fnames" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_scripts/filtering.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_scripts/filtering.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_scripts/pre_extraction.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_scripts/pre_extraction.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_scripts/terminal_computation.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_scripts/terminal_computation.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1dg1AN09hUFGDpbfP4CzjcvtbqK" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../networks_from_images" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d48fed13-7887-47c8-b563-58cbdbf69130" name="Default Changelist" comment="" />
+      <created>1592831777293</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1592831777293</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1592902688964">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1592902688964" />
+  </component>
+</project>
