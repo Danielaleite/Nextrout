@@ -6,7 +6,7 @@ You can use in input pre-build functions, graphs or images.  The filtering allow
 
 NextRout is based on the theory described in this paper:
 
-- _Network extraction by routing optimization_ [published here](https://www.nature.com/articles/s41598-020-77064-4), D. Baptista, D. Leite, E. Facca, M. Putti and C. D. Bacco, arxiv 2005.02805, 2020.   
+- _Network extraction by routing optimization_ [see it here](https://www.nature.com/articles/s41598-020-77064-4), D. Baptista, D. Leite, E. Facca, M. Putti and C. D. Bacco, arxiv 2005.02805, 2020.   
 If you use this software please cite this work.
 
 ## Prerequisites
@@ -22,7 +22,7 @@ The required dependencies are
  	* PyVTK;
 
 * For the DMK-discrete
-	* **Python 3** is enough.
+	* Python 3 is enough.
 
 ## Installation
 
