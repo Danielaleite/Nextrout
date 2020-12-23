@@ -684,7 +684,7 @@ def pre_extraction_from_image(image_path,new_size,t2,number_of_colors=50,number_
 		# print(len(square_edges))
 		s1 = Polygon(square_edges)
 		patches.append(s1)
-	p = PatchCollection(patches, alpha=1, cmap='YlOrRd', linewidth=.1, edgecolor='b')
+	p = PatchCollection(patches, alpha=.7, cmap='YlOrRd', linewidth=.1, edgecolor='b')
 
 	colors = np.array(list(color_dict.values()))
 	p.set_array(colors)
@@ -697,7 +697,7 @@ def pre_extraction_from_image(image_path,new_size,t2,number_of_colors=50,number_
 	# print(small_G_pre_extracted.nodes())
 
 	pos = nx.get_node_attributes(small_G_pre_extracted, 'pos')
-	nx.draw_networkx(small_G_pre_extracted, pos, node_size=1, width=1, with_labels=False, edge_color='Gray', alpha=0.8,
+	nx.draw_networkx(small_G_pre_extracted, pos, node_size=1, width=3, with_labels=False, edge_color='Gray', alpha=0.8,
 					 node_color='black', ax=ax)
 
 	if number_of_cc in [1,None]: #we assume then there's just one
@@ -708,7 +708,7 @@ def pre_extraction_from_image(image_path,new_size,t2,number_of_colors=50,number_
 		small_G_pre_extracted = small_G_pre_extracted.subgraph(cc_large)
 
 		pos = nx.get_node_attributes(small_G_pre_extracted, 'pos')
-		nx.draw_networkx(small_G_pre_extracted, pos, node_size=3, width=1.5, with_labels=False, edge_color='black',
+		nx.draw_networkx(small_G_pre_extracted, pos, node_size=3, width=3, with_labels=False, edge_color='black',
 						 alpha=0.8, node_color='black', ax=ax)
 
 	with open(folder_path + '/extracted_graph.pkl', 'wb') as file:
@@ -717,12 +717,12 @@ def pre_extraction_from_image(image_path,new_size,t2,number_of_colors=50,number_
 	with open(folder_path+'/real_image.pkl', 'wb') as file:
 		pkl.dump(color_dict, file)
 
-	#print(folder_path)
+	print(folder_path)
 	plt.savefig(folder_path + '/extracted_graph.png')
-	return small_G_pre_extracted, color_dict
+	return small_G_pre_extracted, color_dict, partition_dict, folder_path
 
 
-def tree_approximation(Graph, root = None):
+def tree_approximation(Graph, color_dict, partition_dict, folder_path, root = None):
 	'''
 	This returns a tree approximation of the input graph. In this case, the graph used is the bfs rooted at the lowest
 	labeled node.
@@ -750,7 +750,95 @@ def tree_approximation(Graph, root = None):
 			bfs_Graph.edges[edge][word] = Graph.edges[edge][word]
 
 
+	## -- plotting
+
+	plt_graph_plots([bfs_Graph], partition_dict, color_dict, folder_path,'/bfs_graph.png')
+
 	return bfs_Graph
+
+
+def plt_graph_plots(Graph_list, partition_dict, color_dict, folder_path, file_name, alpha=.6, width_list = [3], color_list = ['black'], highlighted_nodes = None):
+
+	fig, ax = plt.subplots(1, 1, figsize=(15, 15))
+
+	#plotting the image (square by square)
+
+	patches = []
+
+	for key in partition_dict:
+
+		square_edges = np.asarray([partition_dict[key][0]] + [partition_dict[key][2]] + [partition_dict[key][3]] + [
+			partition_dict[key][1]] + [partition_dict[key][0]])
+
+		s1 = Polygon(square_edges)
+		patches.append(s1)
+
+	p = PatchCollection(patches, alpha=alpha, cmap='YlOrRd', linewidth=.1, edgecolor='b')
+
+	# getting colors
+	colors = np.array(list(color_dict.values()))
+	p.set_array(colors)
+	ax.add_collection(p)
+
+	#plotting graphs
+	if len(Graph_list)!=len(width_list):
+		width_list = len(Graph_list) * width_list
+	if len(Graph_list)!=len(color_list):
+		width_list = len(Graph_list) * color_list
+
+	for Graph, width, color in zip(Graph_list,width_list,color_list):
+
+		pos = nx.get_node_attributes(Graph, 'pos')
+		nx.draw_networkx(Graph, pos, node_size=0, width=width, with_labels=False, edge_color=color,
+						 alpha=0.75, ax=ax)
+
+	if highlighted_nodes is not None:
+		if len(highlighted_nodes)==1:
+
+			nodes = highlighted_nodes[0]
+			for i in range(len(nodes)):
+				node = nodes[i]
+				color = 'red'
+				size = 4
+
+				x = Graph_list[0].nodes[node]['pos'][0]
+				y = Graph_list[0].nodes[node]['pos'][1]
+				circle1 = plt.Circle((x, y), .01, color=color, fill=False, lw=size)
+				ax.add_artist(circle1)
+				# label = ax.annotate(str(node), xy=(x, y), fontsize=12, ha="center")
+
+
+		elif len(highlighted_nodes)==2:
+
+			nodes = highlighted_nodes[0]
+			for i in range(len(nodes)):
+				node = nodes[i]
+				color = 'red'
+				size = 4
+
+				x = Graph_list[0].nodes[node]['pos'][0]
+				y = Graph_list[0].nodes[node]['pos'][1]
+				circle1 = plt.Circle((x, y), .01, color=color, fill=False, lw=size)
+				ax.add_artist(circle1)
+			# label = ax.annotate(str(node), xy=(x, y), fontsize=12, ha="center")
+
+			nodes = highlighted_nodes[1]
+			for i in range(len(nodes)):
+				node = nodes[i]
+				color = 'black'
+				size = 2
+
+				x = Graph_list[0].nodes[node]['pos'][0]
+				y = Graph_list[0].nodes[node]['pos'][1]
+				circle1 = plt.Circle((x, y), .01, color=color, fill=False, lw=size)
+				ax.add_artist(circle1)
+				# label = ax.annotate(str(node), xy=(x, y), fontsize=12, ha="center")
+
+		else:
+			print('more than two node lists to highlight!')
+
+	plt.savefig(folder_path + file_name)
+
 
 
 
@@ -775,7 +863,7 @@ def bfs_preprocess(image_path, new_size,number_of_colors, t1,t2, number_of_cc,gr
 
 	width, color_dict, folder_path = resizing_image(image_path, number_of_colors, new_size, t1, reversed_colors)
 
-	Graph,_ = pre_extraction_from_image(image_path,new_size,t2,number_of_colors,number_of_cc,graph_type, t1, reversed_colors)
+	Graph,_,_,_ = pre_extraction_from_image(image_path,new_size,t2,number_of_colors,number_of_cc,graph_type, t1, reversed_colors)
 
 	bfs_Graph = tree_approximation(Graph)
 

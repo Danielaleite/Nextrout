@@ -256,7 +256,7 @@ def filtering_from_image(small_G_filtered, beta_d, terminals, color_dict, partit
     :param beta_d: beta input for the DMK solver.
     :param terminals: union of source and sink nodes.
     :param color_dict: dictionary s.t., color_dict[key]= real value for the key-th pixel.
-		key is the index for the pixels in the resized image.
+        key is the index for the pixels in the resized image.
     :param partition_dict: dictionary, s.t., part_dict[key]=[(x1,y1),...,(x4,y4)].
     :param weighting_method_simplification: 'ER', 'IBP', 'BPW'.00
     :param entry: node index. terminals[entry] is the unique source node.
@@ -390,7 +390,7 @@ def filtering_from_image(small_G_filtered, beta_d, terminals, color_dict, partit
 
 
 
-def img_pre_extr2filtering(image_path, filter_size,beta_d,weighting_method_simplification='ER',entries=[0]):
+def img_pre_extr2filtering(image_path, filter_size, beta_d, weighting_method_simplification='ER', entries=None, terminal_list = None):
     '''
     This takes as input a path containing the bfs approximation of the pre-extracted graph. This pre-extracted graph has
      been obtained from an image. The output is the filtered graph.
@@ -402,6 +402,14 @@ def img_pre_extr2filtering(image_path, filter_size,beta_d,weighting_method_simpl
         G_filtered: filtered graph (networkx graph).
     '''
 
+    ## -- getting pre_extraction and bfs tree approximation
+
+    if entries is None:
+        entries = [0]
+
+    if terminal_list is None:
+        terminal_list = []
+
     last_word = image_path.split('/')[-1]
     new_folder_name = last_word.split('.')[0]
     saving_path = './runs/' + new_folder_name
@@ -409,7 +417,7 @@ def img_pre_extr2filtering(image_path, filter_size,beta_d,weighting_method_simpl
     file = '/bfs_extracted_graph.pkl'
 
     with open(saving_path + file, 'rb') as file:
-        Graph = pkl.load(file)
+        G_bfs = pkl.load(file)
 
     file = '/real_image.pkl'
 
@@ -421,70 +429,224 @@ def img_pre_extr2filtering(image_path, filter_size,beta_d,weighting_method_simpl
     with open(saving_path + file, 'rb') as file:
         partition_dict = pkl.load(file)
 
-    nbr_graph, color_nbr, terminal_list, nodes_for_correction, filter_number = terminal_computation.terminal_finder(filter_size,
-                                                                                partition_dict,
-                                                                                Graph)
-    l = []
-    for value in nodes_for_correction.values():
-        l += value
+    file = '/extracted_graph.pkl'
+    with open(saving_path + file, 'rb') as file:
+        G_pre_extracted = pkl.load(file)
 
-    fig, ax = plt.subplots(1, 1, figsize=(15, 15))
+    ## -- removing leaves
 
-    partition_dict_mask, _, _ = quality_measure.partition_set(filter_number + 1)
-    patches = []
-    for key in partition_dict_mask:
-        square_edges = np.asarray(
-            [partition_dict_mask[key][0]] + [partition_dict_mask[key][2]] + [partition_dict_mask[key][3]] + [
-                partition_dict_mask[key][1]] + [partition_dict_mask[key][0]])
-        # print(square_edges)
-        # print(len(square_edges))
-        s1 = Polygon(square_edges)
-        patches.append(s1)
-    p = PatchCollection(patches, alpha=.5, linewidth=1, edgecolor='b', facecolor='white')
-    ax.add_collection(p)
+    deletion_number = 1 #<----------------------------- !
 
-    patches2 = []
-    for key in partition_dict:
-        square_edges = np.asarray([partition_dict[key][0]] + [partition_dict[key][2]] + [partition_dict[key][3]] + [
-            partition_dict[key][1]] + [partition_dict[key][0]])
-        # print(square_edges)
-        # print(len(square_edges))
-        s1 = Polygon(square_edges)
-        patches2.append(s1)
-    p2 = PatchCollection(patches2, alpha=.4, cmap='YlOrRd', linewidth=.1, edgecolor='b')
+    G_bfs_less_leaves = leaves_removal(G_bfs, deletion_number)
 
-    colors = np.array(list(color_dict.values()))
-    p2.set_array(colors)
-    ax.add_collection(p2)
+    ## -- getting edges for correction
 
-    pos = nx.get_node_attributes(nbr_graph, 'pos')
-    nx.draw_networkx(nbr_graph, pos, node_size=15, width=1.5, with_labels=False, edge_color='red', alpha=1,
-                     node_color=color_nbr, ax=ax)
+    gbfs_threshold = 30 #<--------------------------- !
+    gpe_threshold = 5 #<---------------------------- !
 
-    pos = nx.get_node_attributes(Graph, 'pos')
-    nx.draw_networkx(Graph, pos, node_size=0, width=1.5, with_labels=False, edge_color='black',
-                     alpha=0.5, ax=ax)
+    edges, source_target_pair = edge_correction_v2(G_bfs_less_leaves, G_pre_extracted, gbfs_threshold,
+                                                       gpe_threshold)
+    nodes_for_correction = []
 
-    for i in range(len(terminal_list)):
-        node = terminal_list[i]
-        # color=color_nbr[i]
-        if node in l:
-            color = 'green'
-            size = 1
-        else:
-            color = 'black'
-            size = .5
-        x = Graph.nodes[node]['pos'][0]
-        y = Graph.nodes[node]['pos'][1]
-        circle1 = plt.Circle((x, y), .01, color=color, fill=False, lw=size)
-        ax.add_artist(circle1)
-        # label = ax.annotate(str(node), xy=(x, y), fontsize=12, ha="center")
+    for e in source_target_pair:
+        nodes_for_correction.append(e[0])
+        nodes_for_correction.append(e[1])
 
-    plt.savefig(saving_path + '/terminal_map.png')
+    ## -- getting terminals
 
-    G_filtered = filtering_from_image(Graph, beta_d, terminal_list, color_dict, partition_dict, weighting_method_simplification,
-                                           entries,saving_path)
+    if terminal_list == None:
+
+        nbr_graph, color_nbr, terminal_list, _, filter_number = terminal_computation.terminal_finder(
+            filter_size,
+            partition_dict,
+            G_bfs)
+
+        plotting = True
+
+    else:
+
+        print('terminals provided by user.')
+
+        plotting = False
+
+    ## -- getting the filtering
+
+    terminal_list = list(set(terminal_list + nodes_for_correction))
+
+    G_filtered = filtering_from_image(G_bfs, beta_d, terminal_list, color_dict, partition_dict,
+                                      weighting_method_simplification,
+                                      entries, saving_path)
+
+    ## -- adding the missing edges
+
+    G_filtered = quality_measure.relabeling(G_filtered, G_bfs)
+
+    G_filtered.add_edges_from(edges)
+
+    # fixing potential missing locations
+
+    for node in G_filtered.nodes():
+        G_filtered.nodes[node]['pos'] = G_bfs.nodes[node]['pos']
+
+    ##### plotting terminal map ######
+
+    if plotting:
+
+        fig, ax = plt.subplots(1, 1, figsize=(15, 15))
+
+        partition_dict_mask, _, _ = quality_measure.partition_set(filter_number + 1)
+        patches = []
+        for key in partition_dict_mask:
+            square_edges = np.asarray(
+                [partition_dict_mask[key][0]] + [partition_dict_mask[key][2]] + [partition_dict_mask[key][3]] + [
+                    partition_dict_mask[key][1]] + [partition_dict_mask[key][0]])
+            # print(square_edges)
+            # print(len(square_edges))
+            s1 = Polygon(square_edges)
+            patches.append(s1)
+        p = PatchCollection(patches, alpha=.5, linewidth=1, edgecolor='b', facecolor='white')
+        ax.add_collection(p)
+
+        patches2 = []
+        for key in partition_dict:
+            square_edges = np.asarray([partition_dict[key][0]] + [partition_dict[key][2]] + [partition_dict[key][3]] + [
+                partition_dict[key][1]] + [partition_dict[key][0]])
+            # print(square_edges)
+            # print(len(square_edges))
+            s1 = Polygon(square_edges)
+            patches2.append(s1)
+        p2 = PatchCollection(patches2, alpha=.4, cmap='YlOrRd', linewidth=.1, edgecolor='b')
+
+        colors = np.array(list(color_dict.values()))
+        p2.set_array(colors)
+        ax.add_collection(p2)
+
+        pos = nx.get_node_attributes(nbr_graph, 'pos')
+        nx.draw_networkx(nbr_graph, pos, node_size=15, width=1.5, with_labels=False, edge_color='red', alpha=1,
+                         node_color=color_nbr, ax=ax)
+
+        pos = nx.get_node_attributes(G_bfs, 'pos')
+        nx.draw_networkx(G_bfs, pos, node_size=0, width=1.5, with_labels=False, edge_color='black',
+                         alpha=0.5, ax=ax)
+
+        for i in range(len(terminal_list)):
+            node = terminal_list[i]
+            # color=color_nbr[i]
+            if node in nodes_for_correction:
+                color = 'green'
+                size = 1
+            else:
+                color = 'black'
+                size = .5
+            x = G_bfs.nodes[node]['pos'][0]
+            y = G_bfs.nodes[node]['pos'][1]
+            circle1 = plt.Circle((x, y), .01, color=color, fill=False, lw=size)
+            ax.add_artist(circle1)
+            # label = ax.annotate(str(node), xy=(x, y), fontsize=12, ha="center")
+
+        plt.savefig(saving_path + '/terminal_map.png')
+
+
+
     return G_filtered
+
+def leaves_removal(G_bfs, deletion_number):
+
+    G_bfs_less_leaves = G_bfs.copy()
+
+    for deletion in range(deletion_number):
+
+        # getting the leaves
+
+        deg = nx.degree_centrality(G_bfs_less_leaves)
+
+        N = len(G_bfs_less_leaves.nodes)
+
+        for node in deg.keys():
+            deg[node] = round(deg[node] * (N - 1))
+
+        nodes_to_remove = [node for node in G_bfs_less_leaves.nodes() if deg[node] == 1]
+
+        # removing them
+
+        G_bfs_less_leaves.remove_nodes_from(nodes_to_remove)
+
+    return G_bfs_less_leaves
+
+
+def edge_correction_v1(G_bfs, G_pre_extracted,nodes_for_correction):
+
+    edges = []
+
+    for index in range(len(nodes_for_correction)):
+        #
+        nodes_list = nodes_for_correction[index]
+
+        for i in range(len(nodes_list) - 1):
+
+            source = nodes_list[i]
+            target = nodes_list[i + 1]
+
+            len_ = nx.shortest_path_length(G_bfs, source=source, target=target)
+
+            if len_ > 20:
+                # print('=',source,target,'l',len_)
+                # print('1.something to add!')
+                nodes_to_add = nx.shortest_path(G_pre_extracted,
+                                                source=source,
+                                                target=target)
+                if len(nodes_to_add) < 15:
+                    # N+=1
+                    # print('2.not so far in G')
+                    # print('shortest',len(nodes_to_add))
+                    edges_to_add = [(nodes_to_add[i], nodes_to_add[i + 1]) for i in range(len(nodes_to_add) - 1)]
+                    # print(edges_to_add)
+                    # print(source,target,len_)
+                    edges = edges + edges_to_add
+
+    return edges
+
+
+def edge_correction_v2(G_bfs, G_pre_extracted, gbfs_threshold, gpe_threshold):
+    deg = nx.degree_centrality(G_bfs)
+    N = len(G_bfs.nodes)
+    for node in deg.keys():
+        deg[node] = round(deg[node] * (N - 1))
+
+    print(N)
+    leaves = [node for node in G_bfs.nodes if deg[node] == 1]
+    print(len(leaves))
+    edges = []
+    source_target_pair = []
+
+    # leaves = leaves[200:300]
+
+    for i in range(len(leaves) - 2):
+        print('i', i)
+        source = leaves[i]
+        for j in range(i, len(leaves) - 1):
+            target = leaves[j]
+
+            len_ = nx.shortest_path_length(G_bfs, source=source, target=target)
+
+            if len_ > gbfs_threshold:
+                # print('=',source,target,'l',len_)
+                # print('1.something to add!')
+                nodes_to_add = nx.shortest_path(G_pre_extracted,
+                                                source=source,
+                                                target=target)
+                if len(nodes_to_add) < gpe_threshold:
+                    # N+=1
+                    # print('2.not so far in G')
+                    # print('shortest',len(nodes_to_add))
+                    edges_to_add = [(nodes_to_add[i], nodes_to_add[i + 1]) for i in range(len(nodes_to_add) - 1)]
+                    # print(edges_to_add)
+                    print(source, target, len_)
+                    edges = edges + edges_to_add
+                    source_target_pair.append([source, target])
+
+    return edges, source_target_pair
+
 
 def filtering(Graph,
               beta_d,
@@ -672,9 +834,9 @@ def img2filtering(image_path, new_size, number_of_colors, t1, t2, number_of_cc, 
     :param image_path: string.
     :param number_of_colors: number of colors for the output image.
     :param t1: noise threshold. If t=0, then all the new pixels are preserved with their new colors.
-	:param t2: threshold for the weights of the edges after pre-extraction.
+    :param t2: threshold for the weights of the edges after pre-extraction.
     :param number_of_cc: number of connected components of the graph represented by the image. If None, then only 1
-	cc is assumed.
+    cc is assumed.
     :param graph_type: 1 (to use edges and vertices of the grid), 2 (to use only edges).
     :param beta_d: beta input for the DMK solver.
     :return:

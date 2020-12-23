@@ -210,31 +210,58 @@ def dat2pygraph(Graph, folder_name, edge_mapping, min_, BP_weights):
     # Defining the type of weights for the output python graph: opt_tdens or opt_flux
 
     folder_name = "../otp_utilities/muffe_sparse_optimization/simplifications/" + folder_name[2:]
-    
+    '''
     if BP_weights == 'BPtdens':
         opt_tdens = extracting_weights(folder_name, "output/result/opt_tdens.dat")
         dict_weights, _ = weight2dict(opt_tdens, 'output/result/opt_tdens.dat')
     elif BP_weights == 'BPflux':
         opt_flux = extracting_weights(folder_name, "output/result/opt_flux.dat")
         dict_weights, _ = weight2dict(opt_flux, "output/result/opt_flux.dat")
-    else:
+    '''
+    if BP_weights!= 'BPtdens' and BP_weights!= 'BPflux':
         print('BP_weights not defined.')
+        
+    #tdens
+    opt_tdens = extracting_weights(folder_name, "output/result/opt_tdens.dat")
+    dict_tdens, _ = weight2dict(opt_tdens, 'output/result/opt_tdens.dat')
+    #flux
+    opt_flux = extracting_weights(folder_name, "output/result/opt_flux.dat")
+    dict_flux, _ = weight2dict(opt_flux, "output/result/opt_flux.dat")
+    #both
+    dict_weights = {key: (dict_tdens[key],dict_flux[key]) for key in dict_tdens.keys()}
+    #potential
     opt_pot = extracting_weights(folder_name, "output/result/opt_pot.dat")
     dict_weights_pot, _ = weight2dict(opt_pot, 'output/result/opt_pot.dat')
-    # print(dict_weights_pot)
-    # print(edge_mapping)
+    
     # Deleting edges whose weights are not greater than max*threshold
+    if BP_weights=='BPtdens':
 
-    max_ = max(dict_weights.values())
+        max_ = max([dict_weights[key][0] for key in dict_weights.keys()])#max tdens
+
+    else:
+
+        max_ = max([dict_weights[key][1] for key in dict_weights.keys()])#max flux
+
     G_simplification = nx.Graph()
     G_simplification.add_nodes_from(Graph.nodes(data=True))
-    # print(G_simplification.nodes())
+
     for key in dict_weights.keys():
-        weight = dict_weights[key]
+
+        if BP_weights=='BPtdens':
+
+            weight=dict_weights[key][0]#conductance
+
+        else:
+            
+            weight = dict_weights[key][1]#flux
+
         if weight > min_ * max_:
-            G_simplification.add_edge(edge_mapping[key][0], edge_mapping[key][1], weight=weight)
+
+            G_simplification.add_edge(edge_mapping[key][0], edge_mapping[key][1], tdens = dict_weights[key][0], flux = dict_weights[key][1])
+            
             potential = dict_weights_pot[float(edge_mapping[key][0])]
             G_simplification.nodes[edge_mapping[key][0]]['op_pot'] = potential
+
             potential = dict_weights_pot[float(edge_mapping[key][1])]
             G_simplification.nodes[edge_mapping[key][1]]['op_pot'] = potential
 

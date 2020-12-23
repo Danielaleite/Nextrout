@@ -50,7 +50,9 @@ def cluster_counter(intersection_list,partition_dict):
     return box_total
 
 def branch_counter(intersection_list,partition_dict):
+
     box_total = cluster_counter(intersection_list,partition_dict)
+    
     if box_total==2 or box_total==0:
         #path
         nbr = 0
@@ -64,59 +66,103 @@ def branch_counter(intersection_list,partition_dict):
 
 
 def terminal_finder(D, partition_dict, G):
+    
     print('graph size:' ,len(G.nodes) ,' nodes' ,len(G.edges) ,' edges.')
     start_time = time.time()
     terminal_list =[]
     color_nbr =[]
-    nodes_for_correction = {}
+    nodes_for_correction = []
+
+    # bif graph, i.e., terminal mapping
+
     nbr_graph =nx.Graph()
 
     # betweenness centrality
+
     bn =nx.betweenness_centrality(G)
 
     # time
+
     print("bn centralities: --- %s second(s) ---" % (time.time() - start_time))
+    
     start_time = time.time()
 
     # closeness centrality
+
     cn =nx.closeness_centrality(G)
 
     # time
+
     print("cn centralities: --- %s second(s) ---" % (time.time() - start_time))
+
     start_time = time.time()
 
     # building the centers of the masks
+
     number_of_masks =round( 1 /(D))
+
     print('number of masks:' , 1 /D ,number_of_masks)
+
+    
     x_coord_mask =list(np.linspace( D /2 , 1 - D /2 ,number_of_masks))
     x_y_coord_mask =list(itertools.product(x_coord_mask ,x_coord_mask))
-    # print(x_y_coord_mask)
+
     # sweeping the masks
+
     N=0
     for center in x_y_coord_mask:
+
+        correction_cluster= []
         N+=1
-        # print('N',N)
+
+        # get the indices of the intersected pixels
+
         intersection_list = pixel_circle_counter(center,D/2, partition_dict, G)
+
+        # get the *bif*
+
         nbr = branch_counter(intersection_list,partition_dict)
+
+        # get all the nodes in the mask
 
         nodes_in_the_mask=[node for node in G.nodes()
                            if (
                              center[0]-D/2<= G .nodes[node]['pos'][0]<center[0]+D/2)
                            & (center[1]-D/2<= G .nodes[node]['pos'][1]<center[1]+D/2)
                            ]
+        
+        # add them to the terminal mapping graph
+
         nbr_graph.add_nodes_from(nodes_in_the_mask)
+
+        # compute the subgraph G_C
 
         subGraph=G.subgraph(nodes_in_the_mask)
 
+        # Case on *bif*
+
         if nbr==-1 and len(nodes_in_the_mask)>0:
-            # the least betweenness centrality
-            bn_in_the_mask = {n:cn[n] for n in nodes_in_the_mask}
-            term = min(bn_in_the_mask.items(), key=operator.itemgetter(1))[0]
+
+            # the least closeness centrality in the mask
+
+            cn_in_the_mask = {n:cn[n] for n in nodes_in_the_mask}
+
+            term = min(cn_in_the_mask.items(), key=operator.itemgetter(1))[0]
+
+            # add to the list of terminals
+
             terminal_list.append(term)
+
         elif nbr>0 and len(nodes_in_the_mask)>0:
-            # get the connected components and then
+
+            # get the maximum betweenness centrality in the filter
+
             cn_in_the_mask = {n:bn[n] for n in nodes_in_the_mask}
+
             term = max(cn_in_the_mask.items(), key=operator.itemgetter(1))[0]
+            
+            # NOTE: this is not appended, maybe because we are using the conjecture
+
             # terminal_list.append(term)
 
             # compute the closeness center for each one
@@ -124,44 +170,77 @@ def terminal_finder(D, partition_dict, G):
         # add this node to the terminal l is t
 
         elif nbr==0:
+
+        	# get connected components of G_c
+            
             ccom = list(nx.connected_components(subGraph))
+
             lcc = len(ccom )
 
             if lcc==1:
                 # print('nothing special in this 0-branch')
                 pass
             elif lcc>1:
-                nodes_for_correction[N]=[ ]
+
+            	# very likely to be always 2, if not 1.
+
+                #nodes_for_correction[N]=[ ]
+
+                # increase the size of the mask 10%
 
                 Dn=D*(1.1)
+
+                # get the new set of nodes
+
                 nodes_in_the_extended_mask=[node for node in G.nodes()
                                             if (center[0]-Dn/2<=G. nodes[node]['pos'][0]<center[0]+Dn/2)
                                             & (center[1]-Dn/2<=G. nodes[node]['pos'][1]<center[1]+Dn/2)
                                             ]
 
+                # get the new G_C for this aumented mask
 
                 subGraph_extended =G.subgraph(nodes_in_the_extended_mask)
+
+                # get the connected components
+
                 ccom_extended = list(nx.connected_components(subGraph_extended))
+                
                 lcc_e = len(ccom_extended)
+
+                # if they have the same length, then ... 
                 if True:  # lcc==lcc_e:
 
+                	# add to the set of terminals the nodes with the minimum betweenness centrality
+
                     for elem in ccom:
+
                         elem_subgraph = subGraph.subgraph(elem)
+
                         bn_sub = {n:bn[n] for n in elem_subgraph.nodes()}
+
                         term = min(bn_sub.items(), key=operator.itemgetter(1))[0]
+
                         terminal_list.append(term)
 
-                        # correction
-                        nodes_for_correction[N].append(term)
+                        # add the nodes to the set \mathcal{E} for edge correction
 
+                        correction_cluster.append(term)
+                        
+                    nodes_for_correction.append(correction_cluster)
+
+        # coloring
 
         for node in nodes_in_the_mask:
+
             nbr_graph.nodes[node]['pos'] = G.nodes[node]['pos']
-            if nbr == -1:
+
+            #add the color depending on its nbr
+
+            if nbr == -1: #end-point
                 color_nbr.append('red')
-            elif nbr == 0:
+            elif nbr == 0:#path
                 color_nbr.append('blue')
-            else:
+            else:#bifurcation
                 color_nbr.append('green')
 
     print("rest: --- %s second(s) ---" % (time.time() - start_time))
