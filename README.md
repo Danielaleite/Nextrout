@@ -28,7 +28,7 @@ The required dependencies are
 
 **Linux/OSX**
 
-Just clone this repository:
+Once all the dependencies are installed, you just need to clone this repository:
 
 ```
 git clone https://github.com/Danielaleite/Nextrout
