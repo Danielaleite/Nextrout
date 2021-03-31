@@ -10,8 +10,14 @@ import os
 
 ## then clone every
 
-repos_list = ['dmk_solver','globals', 'linear_algebra','p1galerkin','geometry']
+repos_list = []#['dmk_solver','globals', 'linear_algebra','p1galerkin','geometry']
 for repo in repos_list: os.system('cd dmk_utilities && git clone https://gitlab.com/enrico_facca/'+repo+'.git')
+
+## create build/'s
+
+
+os.system('cd dmk_utilities/dmk_solver && mkdir build/ &&  cd build &&  cmake ../ &&  make')
+os.system('cd dmk_utilities/dmk_solver/build && make f2py_interface_dmk')
 
 
 # then care abt this part
