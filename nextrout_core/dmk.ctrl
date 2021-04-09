@@ -1,0 +1,85 @@
+!************************************************************************
+! TIME CONTROLS
+!************************************************************************
+0.0         ! tzero                  (initial time)
+200         ! max_time_iterations    (time iterations, 0=solve ell. PDE )
+1.0e-4      ! tolerance_system_variation (tolerance for convergence. Currently it is measured with the tdens variation )
+5           ! max_restart_update     (max. update restart in case of error)
+!** TIME STEPPING APPROACH **********************************************
+1           ! time_discretization_scheme (1=ee_tdens 2=ei_tdens 3=ee_gfvar gf 4=ei_gfvar )
+20          ! max_nonlinear_iterations (max non linear iterations)
+1.0e-09    ! tolerance_nonlinear (tol. non linear methods in implicit time-step. schemes)
+!** TIME STEP CONTROLS *************************************************
+1           ! deltat_control (1=constant 2=increasing 3=prop. sup(rhs ode)   )
+5e-1        ! deltat 	     (initial deltat                            )
+2           ! deltat_expansion_rate (id_time_ctrl=2,3 expansion rate         )
+0.9e4       ! deltat_upper_bound   (id_time_ctrl=2,3 upper bound delta_t    )
+1e-3    ! deltat_lower_bound  (id_time_ctrl=3   lower bound delta_t    )
+!************************************************************************
+! global controls
+!************************************************************************
+1    ! id_subgrid    (FEM ONLY VAR. 0=no subgrid 1=subgrid  
+1e-10       ! min_tdens     (lower bound for tdens)
+2.0         ! norm for var_tdens (2.0=l^2, 0.0=l^infty)
+0           ! selection
+0e-20       ! threeshold tdens 
+!************************************************************************
+! I/O 
+!************************************************************************
+0           ! debug          (0 no debug, >0 full debug)
+2           ! info_state     (0==no info, >0 increasing information printed)
+1           ! info_update    (0==no info, >0 increasing information printed)
+!** REAL & INTEGER FORMAT ********************************************
+I12         ! iformat        (integer format for data file)
+1e18.10     ! rformat        (real    format for data file)
+!** SAVING DATA ********************************************************
+3           ! id_save_dat    (0=off,1=all 2=with freq_dat 3=adaptive)
+50 	    ! freq_dat       (id_save=2 freq. data saving )
+!************************************************************************
+! LINEAR ALGEBRA CONTROLS
+!***********************************************************************
+1	    ! id_singular    (1=ort init. sol 2= dir on sol(1) )
+0	    ! id_diagscale   (0=off 1 = diag. scale of stiff mat.)
+!** OUTER SOLVER ******************************************************
+ITERATIVE   ! outer_solver_approach       ('AGMG','ITERATIVE')
+PCG         ! outer_krylov_scheme       ('PCG','BICGSTAB','GMRES'not working)
+0           ! outer_lun_err       (log unit for error  message)
+6           ! outer_lun_out       (log unit for output message)
+1           ! outer_iexit         (0=exit abs. res. 1=exit normalized abs. res.)
+200         ! outer_imax (max number of iterations )
+0           ! outer_iprt          (0=no print, 1=convergence profile)
+0           ! outer_isol          (0=initial data zero 1= given initial data)
+1e-5        ! outer_tolerance (tolerance required)
+1           ! iort          (=0 (0ff) >0 (ort. wrt. kernel with freq. iort)
+!** PRECONDITIONER  OUTER SOLVER ***************************************
+IC   ! outer_prec_type   ("identity","diag","IC","ILU","INNER_SOLVER"(inner solver as prec.) )
+30   ! outer_prec_n_fillin (nmb of fillin elem. in IC and ILU )
+1e-8 ! outer_prec_tol_fillin (drop tol. for fillin elem. in IC and ILU )
+!*** INNER  SOLVER *****************************************************
+ITERATIVE   ! inner_solver_approach ('MG','ITERATIVE')
+PCG    ! inner_krylov_scheme       ('PCG','BICGSTAB','GMRES'not working)
+0      ! inner_lun_err       (log unit for error  message)
+6      ! inner_lun_out       (log unit for output message)
+1      ! inner_iexit         (0=exit abs. res. 1=exit normalized abs. res.)
+200    ! inner_imax (max number of iterations )
+0      ! inner_iprt          (0=no print, 1=convergence profile)
+0      ! inner_isol          (0=initial data zero 1= given initial data)
+1e-3   ! inner_tolerance (tolerance required)
+1      ! inner_iort          (=0 (0ff) >0 (ort. wrt. kernel with freq. iort)
+!** PRECONDITIONER INNER SOLVER ******************************************
+IC        ! inner_prec_type          (available options: "identity", "diag", "IC","ILU" )
+20	  ! inner_prec_type_n_fillin (nmb of fillin elem. in IC and ILU )
+1e-6      ! inner_prec_type_tol_fillin (Drop tol. fillin in IC and ILU)
+!** BUFFERING CONSTRUCTION OF PREC ****************************************
+1         ! id_buffer_prec ( 0=no 1=ref_iter 2=avg iter 3= set in code    )
+10        ! ref_iter       ( reference iteration                        )
+1.2       ! prec_growth    ( build stprec if iter>iter_growth*ref_iter  )
+!>************************************************************************
+!> NEWTON CONTROLS
+!>************************************************************************
+reduced ! solve_jacobian_approach
+1e-3    ! damping limit
+!** RELAXATION ***********************************************************
+0e-10     ! relax_tdens (lift tdens)
+1e-10     ! relax_direct (+relax_direct*Identity to matrix to inver)
+1e-09     ! relax4prec   (+relax_direct*Identity to matrix in preconditioner)
