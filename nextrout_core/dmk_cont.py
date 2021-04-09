@@ -232,68 +232,71 @@ def dmk_cont(ndiv, forcing, beta, tdens0 = None,  nref= 0, flag_grid = 'unitsqua
 
     return tdpot
 
-#generate grid
-ndiv = 25
-grid, subgrid, points, vertices, coord,topol,element_attributes = grid_gen(ndiv)
+testing = False
 
-# generate forcing
+if testing:
+    #generate grid
+    ndiv = 25
+    grid, subgrid, points, vertices, coord,topol,element_attributes = grid_gen(ndiv)
 
-forcing_flag = 'rect_cnst'
+    # generate forcing
 
-if forcing_flag == 'rect_cnst':
+    forcing_flag = 'rect_cnst'
 
-    x_source1, y_source1 = (.2,.2)
-    x_source2, y_source2 = (.2,.7)
-    wo1 = .05
-    ho1 = .1
-    rectangles_source = [[(x_source1,y_source1),wo1,ho1],[(x_source2,y_source2),wo1,ho1]] # bottom left cornner, width, height
+    if forcing_flag == 'rect_cnst':
 
-    x_sink, y_sink = (.8,.8)
-    wi = .1
-    hi = .1
-    rectangles_sink = [[(x_sink,y_sink),wi,hi]]
+        x_source1, y_source1 = (.2,.2)
+        x_source2, y_source2 = (.2,.7)
+        wo1 = .05
+        ho1 = .1
+        rectangles_source = [[(x_source1,y_source1),wo1,ho1],[(x_source2,y_source2),wo1,ho1]] # bottom left cornner, width, height
 
-    extra_info = [rectangles_source,rectangles_sink]
+        x_sink, y_sink = (.8,.8)
+        wi = .1
+        hi = .1
+        rectangles_sink = [[(x_sink,y_sink),wi,hi]]
 
-    
+        extra_info = [rectangles_source,rectangles_sink]
 
-elif forcing_flag == 'dirac':
-    Nplus=3
-    Nminus=2
+        
 
-    fplus=[1,2,3]
-    fminus=[4,2]
+    elif forcing_flag == 'dirac':
+        Nplus=3
+        Nminus=2
 
-    xplus=[[0.1,0.21],[0.3,0.4],[0.1,0.7]]
-    xminus=[[0.6,0.2],[0.8,0.4]]
+        fplus=[1,2,3]
+        fminus=[4,2]
 
-    extra_info = {'Nplus':Nplus,
-                   'Nminus':Nminus,
-                    'fplus':fplus,
-                    'fminus':fminus,
-                    'xplus':xplus,
-                    'xminus':xminus}
+        xplus=[[0.1,0.21],[0.3,0.4],[0.1,0.7]]
+        xminus=[[0.6,0.2],[0.8,0.4]]
+
+        extra_info = {'Nplus':Nplus,
+                       'Nminus':Nminus,
+                        'fplus':fplus,
+                        'fminus':fminus,
+                        'xplus':xplus,
+                        'xminus':xminus}
 
 
-forcing = forcing_generator(forcing_flag, grid, coord, topol, extra_info=extra_info)
-triang = mtri.Triangulation(coord.transpose()[0,:], coord.transpose()[1,:], topol)
+    forcing = forcing_generator(forcing_flag, grid, coord, topol, extra_info=extra_info)
+    triang = mtri.Triangulation(coord.transpose()[0,:], coord.transpose()[1,:], topol)
 
-fig, ax = plt.subplots()
-len(coord.transpose()[0,:])
-ax.tricontour(triang, forcing, levels=40, linewidths=0.1, cmap = 'RdBu_r')
-#cntr2 = ax.tricontourf(coord.transpose()[0,:], coord.transpose()[1,:], forcing_dirac, levels=14, cmap="RdBu_r")
+    fig, ax = plt.subplots()
+    len(coord.transpose()[0,:])
+    ax.tricontour(triang, forcing, levels=40, linewidths=0.1, cmap = 'RdBu_r')
+    #cntr2 = ax.tricontourf(coord.transpose()[0,:], coord.transpose()[1,:], forcing_dirac, levels=14, cmap="RdBu_r")
 
-plt.subplots_adjust(hspace=0.5)
-plt.show()
+    plt.subplots_adjust(hspace=0.5)
+    plt.show()
 
-#run dmk
-beta = 1.5
-tdpot = dmk_cont(ndiv,forcing,beta)
+    #run dmk
+    beta = 1.5
+    tdpot = dmk_cont(ndiv,forcing,beta)
 
-# plotting results
-#triang = mtri.Triangulation(coord.transpose()[0,:], coord.transpose()[1,:], topol)
-fig1, ax1 = plt.subplots(figsize=(8, 8)); ax1.set_aspect('equal')
-tpc = ax1.tripcolor(triang, tdpot.tdens , cmap='Greens')
-fig1.colorbar(tpc)
-ax1.set_title('Optimal transportation density $\mu^*$')
-plt.show()
+    # plotting results
+    #triang = mtri.Triangulation(coord.transpose()[0,:], coord.transpose()[1,:], topol)
+    fig1, ax1 = plt.subplots(figsize=(8, 8)); ax1.set_aspect('equal')
+    tpc = ax1.tripcolor(triang, tdpot.tdens , cmap='Greens')
+    fig1.colorbar(tpc)
+    ax1.set_title('Optimal transportation density $\mu^*$')
+    plt.show()

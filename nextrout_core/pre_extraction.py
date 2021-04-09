@@ -1,6 +1,7 @@
 ### import needed stuff
-
-
+import networkx as nx
+import numpy as np
+from itertools import combinations
 
 
 def dmk2pre_extr_inputs(coord, topol, tdpot):
@@ -8,8 +9,8 @@ def dmk2pre_extr_inputs(coord, topol, tdpot):
 	k=-1
 	for index_ in coord:
 	  k+=1
-	  coordinates [str(k)] = index_[:2]
-
+	  coordinates [k] = index_[:2]
+	print('here')
 	G_bar = nx.Graph()
 	G_triang = nx.Graph()
 	k=-1
@@ -18,21 +19,24 @@ def dmk2pre_extr_inputs(coord, topol, tdpot):
 	  k+=1
 	  edges_in_T = list(combinations(T, 2))
 	  for edge in edges_in_T:
-	    G_triang.add_edge(str(edge[0]),str(edge[1]))
-	  coord_of_nodes_in_T = np.array([coordinates[str(node)] for node in T])
+	    G_triang.add_edge(edge[0],edge[1])
+	  coord_of_nodes_in_T = np.array([coordinates[node] for node in T])
 	  #print(len(coord_of_edges_in_T))
 	  center = sum(coord_of_nodes_in_T)/3
 	  #print(coord_of_edges_in_T)
 	  #center = ndimage.measurements.center_of_mass(coord_of_edges_in_T)
 	  centers[k] = center
-	  G_bar.add_node(str(k),pos = center, weight = tdpot.tdens[k])
+	  G_bar.add_node(k,pos = center, weight = tdpot.tdens[k])
 
 	for node in G_triang.nodes():
 	  G_triang.nodes[node]['pos'] = coordinates[node]
 
 	dict_seq = {}
 	for key in G_bar.nodes():
-	  dict_seq[key] = topol[int(key)]
+	  dict_seq[key] = topol[key]
+
+
+	return G_bar,G_triang,dict_seq
 
 def get_first_neig(node, dict_seq):
 	'''
@@ -184,7 +188,7 @@ def connecting_edges(G_bar, node, min_, graph_type, dict_seq, max_, weighting_me
 	if graph_type == "1":
 		# If True, then just the 'first neighbors' are taken.
 		if input_flag != 'image':
-			node = str(node)
+			#node = str(node)
 			dict_sec_neig, index_ = get_sec_neig(node, dict_seq)
 			index_ = index_[node]
 		else:
@@ -194,7 +198,7 @@ def connecting_edges(G_bar, node, min_, graph_type, dict_seq, max_, weighting_me
 	elif graph_type == "2":
 		# If True, then just the 'second neighbors' are taken (firsts included).
 		if input_flag != 'image':
-			node = str(node)
+			node = node
 			dict_sec_neig, index_ = get_sec_neig_edges(node, dict_seq)
 			index_ = index_[node]
 		else:
@@ -309,7 +313,7 @@ def node_edge_filter(G_bar, min_, graph_type, dict_seq, weighting_method,input_f
 	# Iterate over all the numbers (<--> nodes) to test the condition about the threshold:
 	for n in range(len(G_bar.nodes())):
 		connecting_edges(
-			G_bar, n + 1, min_, graph_type, dict_seq, max_, weighting_method,input_flag,node2box_index
+			G_bar, n, min_, graph_type, dict_seq, max_, weighting_method,input_flag,node2box_index
 		)
 
 	if weighting_method == "ER":
@@ -380,7 +384,7 @@ def graph_builder(
 
 		return G_pre_extracted
 
-def pre_extraction(coord, topol, tdpot, min_):
+def pre_extr(coord, topol, tdpot, min_):
 
 	G_bar,G_triang,dict_seq = dmk2pre_extr_inputs(coord, topol, tdpot)
 
