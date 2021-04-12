@@ -6,11 +6,12 @@ from itertools import combinations
 
 def dmk2pre_extr_inputs(coord, topol, tdpot):
 	coordinates = {}
+	print('len coord 1', len(coord))
 	k=-1
 	for index_ in coord:
 	  k+=1
 	  coordinates [k] = index_[:2]
-	print('here')
+
 	G_bar = nx.Graph()
 	G_triang = nx.Graph()
 	k=-1
@@ -21,10 +22,7 @@ def dmk2pre_extr_inputs(coord, topol, tdpot):
 	  for edge in edges_in_T:
 	    G_triang.add_edge(edge[0],edge[1])
 	  coord_of_nodes_in_T = np.array([coordinates[node] for node in T])
-	  #print(len(coord_of_edges_in_T))
 	  center = sum(coord_of_nodes_in_T)/3
-	  #print(coord_of_edges_in_T)
-	  #center = ndimage.measurements.center_of_mass(coord_of_edges_in_T)
 	  centers[k] = center
 	  G_bar.add_node(k,pos = center, weight = tdpot.tdens[k])
 
@@ -308,10 +306,11 @@ def node_edge_filter(G_bar, min_, graph_type, dict_seq, weighting_method,input_f
 	"""
 	nodes_dict = G_bar.nodes(data='weight')
 	max_ = max([entry[1] for entry in nodes_dict])
-	print('gt',graph_type)
+
+	reduced_node_list = [int(node) for node in G_bar.nodes() if G_bar.nodes[node]['weight']>min_ * max_]
 
 	# Iterate over all the numbers (<--> nodes) to test the condition about the threshold:
-	for n in range(len(G_bar.nodes())):
+	for n in reduced_node_list:#range(len(G_bar.nodes()))
 		connecting_edges(
 			G_bar, n, min_, graph_type, dict_seq, max_, weighting_method,input_flag,node2box_index
 		)
@@ -389,7 +388,5 @@ def pre_extr(coord, topol, tdpot, min_):
 	G_bar,G_triang,dict_seq = dmk2pre_extr_inputs(coord, topol, tdpot)
 
 	Gpe = graph_builder(G_bar,G_triang,dict_seq, min_) 
-
-	Gpe.remove_nodes_from(list(nx.isolates(Gpe))) # this is contained in the previous one
 
 	return Gpe

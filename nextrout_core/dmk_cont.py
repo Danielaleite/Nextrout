@@ -37,7 +37,7 @@ from dmk import (Dmkcontrols,    # controls for dmk simulations)
 import matplotlib.pyplot as plt
 import matplotlib.tri as mtri
 
-def grid_gen(ndiv, nref=0, flag_grid='unitsquare'):
+def grid_gen(ndiv, nref=1, flag_grid='unitsquare'):
     #
     # Define mesh for spatial disctetization.
     # Build the "coord" and "topol" numpy arrays describing coordinate and topology of the mesh.
@@ -45,16 +45,12 @@ def grid_gen(ndiv, nref=0, flag_grid='unitsquare'):
 
     # set mesh size 
     length=1.0/float(ndiv)
-    nref=0
 
     # build grid using prebuild examples 
     points, vertices, coord,topol,element_attributes = example_grid.example_grid(flag_grid,length)
 
     # initialized fortran variable for the spatial discretization
     [grid,subgrid]=dmk_p1p0.init_geometry(topol, coord, 1)
-    ncell=grid.ncell
-    ntdens=grid.ncell
-    npot=subgrid.nnode
 
     return grid, subgrid, points, vertices, coord,topol,element_attributes
 
@@ -82,7 +78,7 @@ def forcing_generator(forcing_flag, grid, coord, topol,extra_info):
 
     centers = center_computation(topol, coord)
 
-    if forcing_flag == 'dirac':
+    if 'dirac' in forcing_flag:
         
         Nplus = extra_info['Nplus']
         Nminus = extra_info['Nminus']
@@ -152,39 +148,35 @@ def kappa_generator(coord, kappa_flag):
     return fvalue
 
 
-def dmk_cont(ndiv, forcing, beta, tdens0 = None,  nref= 0, flag_grid = 'unitsquare', kappa_flag = None):
+def dmk_cont(forcing, beta_c, ndiv, tdens0 = None, nref= 0, flag_grid = 'unitsquare', kappa_flag = None):
 
-    ### building the grid
-    # set mesh size 
     length=1.0/float(ndiv)
 
     # build grid using prebuild examples 
     points, vertices, coord,topol,element_attributes = example_grid.example_grid(flag_grid,length)
+
     # initialized fortran variable for the spatial discretization
     [grid,subgrid]=dmk_p1p0.init_geometry(topol, coord, 1)
     ncell=grid.ncell
     ntdens=grid.ncell
     npot=subgrid.nnode
 
-    ### defining dmk controls
-    ctrl = Dmkcontrols.DmkCtrl()
-    ## redef param.
-    ctrl.tolerance_system_variation = .000001
-    print(ctrl.tolerance_system_variation)
+    # initial integrated forcing term
+    rhs=np.zeros(subgrid.ncell)
+    dmk_p1p0.build_subgrid_rhs(subgrid,rhs, np.zeros(ncell),forcing)
 
     # Init and set "container" with inputs for dmk simulation
     dmkin=Dmkinputsdata.DmkInputs()
     Dmkinputsdata.dmkinputs_constructor(dmkin,0,ntdens,npot,True) # this True set to default all varaibles
 
-    ## redef param.
-    dmkin.pflux = beta
-    print(dmkin.pflux)
+    # integrate forcing term w.r.t. p1 base function
+    build_subgrid_rhs(subgrid, dmkin.rhs, np.zeros(grid.ncell),forcing)
+    dmkin.pflux = beta_c
 
     # Init "container" variable with tdens(mu) and potential(u) varaible
     tdpot=Tdenspotentialsystem.tdpotsys()
     Tdenspotentialsystem.tdpotsys_constructor(tdpot,0,ntdens, npot,1)
     tdpot.tdens[:]=1.0
-
     ### defining tdens0
 
     if tdens0 is None:
@@ -201,20 +193,13 @@ def dmk_cont(ndiv, forcing, beta, tdens0 = None,  nref= 0, flag_grid = 'unitsqua
         for i in range(ncell):
             kappa_cell[i] = kappa_generator(bar_cell[:,i])
 
-    ### defining rhs
-
-    # initial integrated forcing term
-    rhs=np.zeros(subgrid.ncell)
-    # integrate forcing term w.r.t. p1 base function
-    build_subgrid_rhs(subgrid, dmkin.rhs, np.zeros(grid.ncell),forcing)
-
     # init and set controls
     ctrl = Dmkcontrols.DmkCtrl()
     Dmkcontrols.get_from_file(ctrl,'dmk.ctrl')
     ctrl.fn_tdens='tdens.dat'
     ctrl.fn_pot='pot.dat'
     ctrl.fn_statistics='dmk.log'
-
+    ctrl.max_time_iterations = 300
     #
     # init type for storing evolution/algorithm info
     #
@@ -227,76 +212,7 @@ def dmk_cont(ndiv, forcing, beta, tdens0 = None,  nref= 0, flag_grid = 'unitsqua
     info=0
     dmkp1p0_steady_data(grid, subgrid, tdpot, dmkin, ctrl, info,timefun=timefun)
 
-
     if info ==0: print('convergence achieved!.')
 
     return tdpot
 
-testing = False
-
-if testing:
-    #generate grid
-    ndiv = 25
-    grid, subgrid, points, vertices, coord,topol,element_attributes = grid_gen(ndiv)
-
-    # generate forcing
-
-    forcing_flag = 'rect_cnst'
-
-    if forcing_flag == 'rect_cnst':
-
-        x_source1, y_source1 = (.2,.2)
-        x_source2, y_source2 = (.2,.7)
-        wo1 = .05
-        ho1 = .1
-        rectangles_source = [[(x_source1,y_source1),wo1,ho1],[(x_source2,y_source2),wo1,ho1]] # bottom left cornner, width, height
-
-        x_sink, y_sink = (.8,.8)
-        wi = .1
-        hi = .1
-        rectangles_sink = [[(x_sink,y_sink),wi,hi]]
-
-        extra_info = [rectangles_source,rectangles_sink]
-
-        
-
-    elif forcing_flag == 'dirac':
-        Nplus=3
-        Nminus=2
-
-        fplus=[1,2,3]
-        fminus=[4,2]
-
-        xplus=[[0.1,0.21],[0.3,0.4],[0.1,0.7]]
-        xminus=[[0.6,0.2],[0.8,0.4]]
-
-        extra_info = {'Nplus':Nplus,
-                       'Nminus':Nminus,
-                        'fplus':fplus,
-                        'fminus':fminus,
-                        'xplus':xplus,
-                        'xminus':xminus}
-
-
-    forcing = forcing_generator(forcing_flag, grid, coord, topol, extra_info=extra_info)
-    triang = mtri.Triangulation(coord.transpose()[0,:], coord.transpose()[1,:], topol)
-
-    fig, ax = plt.subplots()
-    len(coord.transpose()[0,:])
-    ax.tricontour(triang, forcing, levels=40, linewidths=0.1, cmap = 'RdBu_r')
-    #cntr2 = ax.tricontourf(coord.transpose()[0,:], coord.transpose()[1,:], forcing_dirac, levels=14, cmap="RdBu_r")
-
-    plt.subplots_adjust(hspace=0.5)
-    plt.show()
-
-    #run dmk
-    beta = 1.5
-    tdpot = dmk_cont(ndiv,forcing,beta)
-
-    # plotting results
-    #triang = mtri.Triangulation(coord.transpose()[0,:], coord.transpose()[1,:], topol)
-    fig1, ax1 = plt.subplots(figsize=(8, 8)); ax1.set_aspect('equal')
-    tpc = ax1.tripcolor(triang, tdpot.tdens , cmap='Greens')
-    fig1.colorbar(tpc)
-    ax1.set_title('Optimal transportation density $\mu^*$')
-    plt.show()
