@@ -4,23 +4,26 @@ import numpy as np
 import sys
 from scipy.spatial import ConvexHull, convex_hull_plot_2d
 from scipy.spatial import distance
+
+nextrout_path = '/home/dtheuerkauf/Nextrout/'
+
 # Import I/O for timedata
 try:
-    sys.path.append('../dmk_utilities/globals/python/timedata/')
+    sys.path.append(nextrout_path+'/dmk_utilities/globals/python/timedata/')
     import timedata as td
 except:
     print("Global repo non found")
 
 # Import geometry tools
-sys.path.append('../dmk_utilities/geometry/python/')
+sys.path.append(nextrout_path+'/dmk_utilities/geometry/python/')
 import meshtools as mt
-sys.path.append('../dmk_utilities/dmk_solver/otp_solver/preprocess/assembly/')
+sys.path.append(nextrout_path+'/dmk_utilities/dmk_solver/otp_solver/preprocess/assembly/')
 import example_grid
 
 # Import dmk tools
-sys.path.append('../dmk_utilities/dmk_solver/otp_solver/python/')
+sys.path.append(nextrout_path+'/dmk_utilities/dmk_solver/otp_solver/python/')
 import dmk_p1p0 
-sys.path.append('/../dmk_utilities/dmk_solver/build/python/fortran_python_interface/')
+sys.path.append(nextrout_path+'/dmk_utilities/dmk_solver/build/python/fortran_python_interface/')
 from dmk import (Dmkcontrols,    # controls for dmk simulations)
                  Timefunctionals, # information of time/algorithm evolution
                 Dmkinputsdata, # structure variable containg inputs data
@@ -31,7 +34,7 @@ from dmk import (Dmkcontrols,    # controls for dmk simulations)
 # Import plot tools
 import matplotlib.pyplot as plt
 import matplotlib.tri as mtri
-sys.path.append('../dmk_utilities/dmk_solver/graph_otp_solver/python')
+sys.path.append(nextrout_path+'/dmk_utilities/dmk_solver/graph_otp_solver/python')
 import dmk_graph
 
 
@@ -258,7 +261,7 @@ def terminals_from_cont(Graph, forcing_flag, extra_info, btns_factor_source, btn
 
 
 
-def filtering(Gpe, sources, sinks,beta_d = 1.5,threshold=1E-3, BPweights = 'tdens'):
+def filtering(Gpe, sources, sinks,beta_d = 1.5,threshold=0.001, BPweights = 'tdens'):
 
     ### relabeling
 
@@ -296,7 +299,6 @@ def filtering(Gpe, sources, sinks,beta_d = 1.5,threshold=1E-3, BPweights = 'tden
     rhs = np.zeros(nnodes)
     sources_rel = [mapping[node] for node in sources]
     sinks_rel = [mapping[node] for node in sinks]
-    print(sinks)
     number_sources = len(sources_rel)
     number_sinks = len(sinks_rel)
 
@@ -311,7 +313,7 @@ def filtering(Gpe, sources, sinks,beta_d = 1.5,threshold=1E-3, BPweights = 'tden
 
     # init and set controls
     ctrl = Dmkcontrols.DmkCtrl()
-    Dmkcontrols.get_from_file(ctrl,'../dmk_utilities/dmk_solver/graph_otp_solver/python/examples/FaccaBenzi2021_TestCase1/dmk.ctrl')
+    Dmkcontrols.get_from_file(ctrl,nextrout_path+'/dmk_utilities/dmk_solver/graph_otp_solver/python/examples/FaccaBenzi2021_TestCase1/dmk.ctrl')
     # if and where save data
     ctrl.id_save_dat=1
     ctrl.fn_tdens='tdens.dat'
@@ -321,7 +323,6 @@ def filtering(Gpe, sources, sinks,beta_d = 1.5,threshold=1E-3, BPweights = 'tden
     ctrl.fn_statistics='dmk.log'
     # if print info 
     # 
-    print(ctrl.outer_solver_approach)
 
     [info,tdens,pot,flux,timefun] = dmk_graph.dmk_graph(topol,rhs,beta_d,1e-6,weight,ctrl)
     if (info==0):
