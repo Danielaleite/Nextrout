@@ -68,12 +68,11 @@ def terminals_from_cont(Graph, forcing_flag, extra_info, btns_factor_source, btn
         possible_terminals_sink: for each i, possible_terminals_sink[i]= "sources" of i-th cc.
     '''
 
-
-    bn = nx.betweenness_centrality(Graph, normalized=True)
-
     # Defining source-sink nodes of the graph (nodes inside the source or sink of the continuous DMK)
+
     nodes_in_source = []
     nodes_in_sink = []
+
     if 'rect' in forcing_flag:
         
         rectangles_source = extra_info[0] # it should be a list of lists: every sublist has 3 elements: (x,y), w, h
@@ -109,11 +108,12 @@ def terminals_from_cont(Graph, forcing_flag, extra_info, btns_factor_source, btn
         Nplus = extra_info['Nplus']
         Nminus = extra_info['Nminus']
 
-        xplus = extra_info['xplus'] # [[0.1,0.2],[0.3,0.4],[0.1,0.7]]
-        xminus = extra_info['xminus'] # [[0.6,0.2],[0.8,0.4]]
+        xplus = extra_info['xplus'] 
+        xminus = extra_info['xminus']
         
         nodes_in_source = []
         nodes_in_sink = []
+
         for node in Graph.nodes():
             for xy in xplus:
                 xy = np.array(xy)
@@ -125,6 +125,8 @@ def terminals_from_cont(Graph, forcing_flag, extra_info, btns_factor_source, btn
                     nodes_in_sink.append(node)
     else:
         raise ValueError('forcing flag not recognized.')
+
+    bn = nx.betweenness_centrality(Graph, normalized=True)
 
     # min bn inside the source and sink
 
@@ -260,7 +262,7 @@ def terminals_from_cont(Graph, forcing_flag, extra_info, btns_factor_source, btn
 
 
 
-def filtering(Gpe, sources, sinks,beta_d = 1.5,threshold=1E-3, BPweights = 'tdens'):
+def filtering(Gpe, sources, sinks,beta_d = 1.5,threshold=1e-3, BPweights = 'tdens', stopping_threshold_f = 1e-6, weight_flag='unit'):
 
     ### relabeling
 
@@ -288,11 +290,14 @@ def filtering(Gpe, sources, sinks,beta_d = 1.5,threshold=1E-3, BPweights = 'tden
     # weight (uniform)
 
     weight =np.empty(nedges, dtype=object)
+    
     k=-1
     for edge in edges:
-      k+=1
-      weight[k] = 1
-
+        k+=1
+        if weight_flag == 'unit':
+            weight[k] = 1
+        elif weight_flag == 'length':
+            weight[k] = distance.euclidean(Gpe.nodes[edge[0]]['pos'],Gpe.nodes[edge[1]]['pos'])
     # rhs (f+ and f-)
 
     rhs = np.zeros(nnodes)
@@ -325,7 +330,14 @@ def filtering(Gpe, sources, sinks,beta_d = 1.5,threshold=1E-3, BPweights = 'tden
     # 
     print(ctrl.outer_solver_approach)
 
-    [info,tdens,pot,flux,timefun] = dmk_graph.dmk_graph(topol,rhs,beta_d,1e-6,weight,ctrl)
+    [info,tdens,pot,flux,timefun] = dmk_graph.dmk_graph(
+        topol,
+        rhs,
+        pflux = beta_d,
+        tolerance = stopping_threshold_f,
+        weight= weight,
+        ctrl = ctrl)
+
     if (info==0):
         print('Convergence achieved')
 

@@ -7,31 +7,48 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import matplotlib.tri as mtri
 import numpy as np
+import pickle as pkl
 
 
 
-
-def nextrout(forcing_flag,extra_info,beta_c,beta_d,ndiv=15, min_pe = 0.01, min_f = 0.001,verbose = True):
+def nextrout(
+    forcing_flag,
+    extra_info,
+    beta_c,
+    beta_d = 1,
+    ndiv=15, 
+    min_pe = 0.01, 
+    min_f = 0.001,
+    verbose = True, 
+    BPw = 'flux', 
+    stop_thresh_f = 1e-6, 
+    btns_factor_source=.1, 
+    btns_factor_sink=.1,
+    terminal_criterion = 'btns_centr',
+    weight_flag = 'unit',
+    storing = None
+    ):
 
     # run the dmk_cont
     grid, subgrid, points, vertices, coord,topol,element_attributes = dmk_cont.grid_gen(ndiv)
     forcing = dmk_cont.forcing_generator(forcing_flag, grid, coord, topol, extra_info=extra_info)
     tdpot = dmk_cont.dmk_cont(forcing,beta_c, ndiv)
 
-    if verbose:
+    if storing is not None:
         triang = mtri.Triangulation(coord.transpose()[0,:], coord.transpose()[1,:], topol)
         fig1, ax1 = plt.subplots(figsize=(10, 10))
         ax1.set_aspect('equal')
-        tpc = ax1.tripcolor(triang, tdpot.tdens,  cmap='GnBu')
-        #fig1.colorbar(tpc)
-        #tpc = ax1.tripcolor(triang, dmkin.penalty_weight,   cmap='cubehelix')
+        tpc = ax1.tripcolor(triang, -tdpot.tdens,  cmap='gray')
+        ax1.tricontour(triang, forcing, levels=40, linewidths=0.1, colors='k')
         fig1.colorbar(tpc)
-        plt.show()
+        plt.savefig(storing+'/dmk_sol.png')
+        plt.close()
 
     # run the graph extraction
+
     Gpe = pre_extraction.pre_extr(coord, topol, tdpot, min_= min_pe)
 
-    if verbose:
+    if storing is not None:
         weights = np.array([Gpe.edges[edge]['weight'] for edge in Gpe.edges()])
         max_w = max(weights)
         weights/=max_w
@@ -39,13 +56,14 @@ def nextrout(forcing_flag,extra_info,beta_c,beta_d,ndiv=15, min_pe = 0.01, min_f
         ax1.tricontour(triang, forcing, levels=40, linewidths=0.1, colors='k')
         pos = nx.get_node_attributes(Gpe,'pos')
         nx.draw(Gpe,pos, node_size = 10, node_color = 'k',width = weights,ax = ax1)
-        plt.show()
-    
+        plt.savefig(storing+'/Gpe.png')
+        plt.close()
+
     # source/sink generations
-    flags = ['whole_convex_hull+btns_centr','branch_convex_hull+btns_centr','btns_centr','single']
+    
     sources,sinks = filtering.terminals_from_cont(Gpe, forcing_flag, extra_info, 
-        btns_factor_source=.1, btns_factor_sink=.1, 
-        terminal_criterion=flags[1])
+        btns_factor_source=btns_factor_source, btns_factor_sink=btns_factor_sink, 
+        terminal_criterion=terminal_criterion)
 
     # run the dmk_discrete
 
@@ -53,24 +71,55 @@ def nextrout(forcing_flag,extra_info,beta_c,beta_d,ndiv=15, min_pe = 0.01, min_f
     cc_list = list(nx.connected_components(Gpe))
 
     # apply dmk in the cc
+    Gf = nx.Graph()
+    count=0
     for cc in cc_list:
-
+        count+=1
         temp_Gpe = Gpe.subgraph(cc)
         temp_sources = [node for node in sources if node in cc]
         temp_sinks = [node for node in sinks if node in cc]
-        Gf,weights,colors = filtering.filtering(temp_Gpe, temp_sources, temp_sinks, beta_d = beta_d, threshold = min_f, BPweights = 'tdens')
-        if verbose:
 
-            pos = nx.get_node_attributes(Gf,'pos')
-            nx.draw(Gf,pos, node_size = 30, node_color = colors, width = abs(weights)*2 )
-            plt.show()
-    # put everything together
+        temp_Gf,weights,colors = filtering.filtering(
+            temp_Gpe, 
+            temp_sources, 
+            temp_sinks, 
+            beta_d = beta_d, 
+            threshold = min_f, 
+            BPweights = BPw, 
+            stopping_threshold_f = stop_thresh_f)
+        
+        # put everything together
 
-    
+        Gf = nx.disjoint_union(Gf, temp_Gf)
 
-    # storing the results!
+        if storing is not None and len(cc_list)!=1:
+            fig1, ax1 = plt.subplots(figsize=(10, 10))
+            ax1.tricontour(triang, forcing, levels=40, linewidths=0.1, colors='k')
+            pos = nx.get_node_attributes(temp_Gf,'pos')
+            nx.draw(temp_Gf,pos, node_size = 30, node_color = colors, width = abs(weights)*2 ,ax = ax1)
+            plt.savefig(storing+'/Gf_'+str(count)+'.png')
+            plt.close()
 
-    ### pending
+    if storing is not None:
+        if len(cc_list)==1:
+            color = colors
+        else:
+            color = 'k'
+        weights = np.array([Gf.edges[edge][BPw] for edge in Gf.edges()])
+        fig1, ax1 = plt.subplots(figsize=(10, 10))
+        ax1.tricontour(triang, forcing, levels=40, linewidths=0.1, colors='k')
+        pos = nx.get_node_attributes(Gf,'pos')
+        nx.draw(Gf,pos, node_size = 30, node_color = color, width = abs(weights)*3, ax = ax1 )
+        plt.savefig(storing+'/Gf.png')
+        plt.close()
+    # storing the results
+
+    if storing is not None:
+        if verbose:print('storing at:'+storing)
+        files = [('Gpe',Gpe),('Gf',Gf)]
+        for ff in files:
+            with open(storing + '/'+ff[0]+'.pkl', 'wb') as file:
+                pkl.dump(ff[1], file)
 
     return Gf
 
@@ -79,7 +128,7 @@ def nextrout(forcing_flag,extra_info,beta_c,beta_d,ndiv=15, min_pe = 0.01, min_f
 
 # generate forcing
 
-forcing_flag = 'rect_cnst2'
+forcing_flag = 'rect_cnst_d'
 
 if forcing_flag == 'rect_cnst':
 
@@ -110,9 +159,24 @@ elif forcing_flag == 'rect_cnst2':
 
     extra_info = [rectangles_source,rectangles_sink]
 
+elif forcing_flag == 'rect_cnst_d':
+
+    x_source1, y_source1 = (.1,.1)
+    wo1 = .05
+    ho1 = .05
+    rectangles_source = [[(x_source1,y_source1),wo1,ho1]] # bottom left cornner, width, height
+
+    x_sink, y_sink = (.7,.1)
+    wi = .05
+    hi = .05    
+    rectangles_sink = [[(x_sink,y_sink),wi,hi]]
+
+    extra_info = [rectangles_source,rectangles_sink]
+
     
 
 elif forcing_flag == 'dirac':
+
     Nplus=3
     Nminus=2
 
@@ -130,14 +194,15 @@ elif forcing_flag == 'dirac':
                     'xminus':xminus}
 
 elif forcing_flag == 'dirac2':
-    Nplus=2
-    Nminus=2
 
-    fplus=[3,2]
-    fminus=[4,2]
+    fplus=[1,2,3,1]
+    fminus=[4,2,1]
 
-    xplus=[[0.1,0.21],[0.3,0.9]]
-    xminus=[[0.6,0.2],[0.8,0.4]]
+    xplus=[[0.1,0.2],[0.3,0.4],[0.1,0.7], [0.1,0.9]]
+    xminus=[[0.6,0.2],[0.8,0.4],[0.9,0.5]]
+
+    Nplus = len(xplus)
+    Nminus = len(xminus)
 
     extra_info = {'Nplus':Nplus,
                    'Nminus':Nminus,
@@ -146,14 +211,41 @@ elif forcing_flag == 'dirac2':
                     'xplus':xplus,
                     'xminus':xminus}
 
-beta_c = 1.5
-beta_d = 1.2
+elif forcing_flag == 'dirac3':
+
+    fplus=[3,2]
+    fminus=[4,2]
+
+    xplus=[[0.1,0.21],[0.3,0.9]]
+    xminus=[[0.6,0.2],[0.8,0.4]]
+
+    Nplus = len(xplus)
+    Nminus = len(xminus)
+
+    extra_info = {'Nplus':Nplus,
+                   'Nminus':Nminus,
+                    'fplus':fplus,
+                    'fminus':fminus,
+                    'xplus':xplus,
+                    'xminus':xminus}
+
+beta_c = 1.3
+beta_d = 1.
+flags = ['whole_convex_hull+btns_centr','branch_convex_hull+btns_centr','btns_centr','single']
 
 ### running nextrout
 
 nextrout(forcing_flag,
     extra_info,
     beta_c,
-    beta_d, 
-    ndiv = 20, 
-    min_f = 0.0001)
+    beta_d = beta_d, 
+    ndiv = 18, 
+    min_f = 0.001,
+    BPw = 'tdens',
+    stop_thresh_f = 1e-8,
+    verbose = False,
+    weight_flag = 'length',
+    btns_factor_source=.5, 
+    btns_factor_sink=.5,
+    terminal_criterion =  flags[2],
+    storing = './outputs/')
