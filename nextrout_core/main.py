@@ -45,17 +45,28 @@ def nextrout(forcing_flag,extra_info,beta_c,beta_d,ndiv=15, min_pe = 0.01, min_f
     flags = ['whole_convex_hull+btns_centr','branch_convex_hull+btns_centr','btns_centr','single']
     sources,sinks = filtering.terminals_from_cont(Gpe, forcing_flag, extra_info, 
         btns_factor_source=.1, btns_factor_sink=.1, 
-        terminal_criterion=flags[3])
+        terminal_criterion=flags[1])
 
     # run the dmk_discrete
 
-    Gf,weights,colors = filtering.filtering(Gpe, sources, sinks, beta_d = beta_d, threshold = min_f, BPweights = 'flux')
+    # get the connected components
+    cc_list = list(nx.connected_components(Gpe))
 
-    if verbose:
+    # apply dmk in the cc
+    for cc in cc_list:
 
-        pos = nx.get_node_attributes(Gf,'pos')
-        nx.draw(Gf,pos, node_size = 30, node_color = colors, width = abs(weights)*5 )
-        plt.show()
+        temp_Gpe = Gpe.subgraph(cc)
+        temp_sources = [node for node in sources if node in cc]
+        temp_sinks = [node for node in sinks if node in cc]
+        Gf,weights,colors = filtering.filtering(temp_Gpe, temp_sources, temp_sinks, beta_d = beta_d, threshold = min_f, BPweights = 'tdens')
+        if verbose:
+
+            pos = nx.get_node_attributes(Gf,'pos')
+            nx.draw(Gf,pos, node_size = 30, node_color = colors, width = abs(weights)*2 )
+            plt.show()
+    # put everything together
+
+    
 
     # storing the results!
 
@@ -68,7 +79,7 @@ def nextrout(forcing_flag,extra_info,beta_c,beta_d,ndiv=15, min_pe = 0.01, min_f
 
 # generate forcing
 
-forcing_flag = 'dirac'
+forcing_flag = 'rect_cnst2'
 
 if forcing_flag == 'rect_cnst':
 
@@ -81,6 +92,20 @@ if forcing_flag == 'rect_cnst':
     x_sink, y_sink = (.8,.8)
     wi = .1
     hi = .1
+    rectangles_sink = [[(x_sink,y_sink),wi,hi]]
+
+    extra_info = [rectangles_source,rectangles_sink]
+
+elif forcing_flag == 'rect_cnst2':
+
+    x_source1, y_source1 = (.1,.1)
+    wo1 = .2
+    ho1 = .5
+    rectangles_source = [[(x_source1,y_source1),wo1,ho1]] # bottom left cornner, width, height
+
+    x_sink, y_sink = (.7,.1)
+    wi = .2
+    hi = .5
     rectangles_sink = [[(x_sink,y_sink),wi,hi]]
 
     extra_info = [rectangles_source,rectangles_sink]
@@ -122,5 +147,13 @@ elif forcing_flag == 'dirac2':
                     'xminus':xminus}
 
 beta_c = 1.5
-beta_d = 1.5
-nextrout(forcing_flag,extra_info,beta_c,beta_d, ndiv = 20, min_f = 0.001)
+beta_d = 1.2
+
+### running nextrout
+
+nextrout(forcing_flag,
+    extra_info,
+    beta_c,
+    beta_d, 
+    ndiv = 20, 
+    min_f = 0.0001)

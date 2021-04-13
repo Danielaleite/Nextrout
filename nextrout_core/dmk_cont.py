@@ -98,7 +98,7 @@ def forcing_generator(forcing_flag, grid, coord, topol,extra_info):
             inode=mt.Inode(coord,xminus[i])
             forcing[inode]=-fminus[i]
 
-    elif forcing_flag == 'rect_cnst':
+    elif 'rect' in forcing_flag:
 
         rectangles_source = extra_info[0] # it should be a list of lists: every sublist has 3 elements: (x,y), w, h
         rectangles_sink = extra_info[1]

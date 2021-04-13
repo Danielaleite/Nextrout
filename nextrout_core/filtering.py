@@ -74,7 +74,7 @@ def terminals_from_cont(Graph, forcing_flag, extra_info, btns_factor_source, btn
     # Defining source-sink nodes of the graph (nodes inside the source or sink of the continuous DMK)
     nodes_in_source = []
     nodes_in_sink = []
-    if forcing_flag == 'rect_cnst':
+    if 'rect' in forcing_flag:
         
         rectangles_source = extra_info[0] # it should be a list of lists: every sublist has 3 elements: (x,y), w, h
         rectangles_sink = extra_info[1]
@@ -123,6 +123,8 @@ def terminals_from_cont(Graph, forcing_flag, extra_info, btns_factor_source, btn
                 xy = np.array(xy)
                 if distance.euclidean(Graph.nodes[node]['pos'],xy)<.1:
                     nodes_in_sink.append(node)
+    else:
+        raise ValueError('forcing flag not recognized.')
 
     # min bn inside the source and sink
 
