@@ -140,7 +140,7 @@ def get_sec_neig_edges_square(node, dict_seq, node2box_index):
 	'''
 	same_triang = get_first_neig(node, dict_seq)  # getting the nodes of the triang that has 'node' as barycenter
 	neighboring_boxes = []
-	pair_of_vertices_same_triang = list(itertools.combinations(same_triang, 2))
+	pair_of_vertices_same_triang = list(combinations(same_triang, 2))
 	for pair in pair_of_vertices_same_triang:
 		node1=pair[0]
 		node2=pair[1]
@@ -262,7 +262,7 @@ def grid_filter(G_bar, G_triang, min_, dict_seq):
 			# If True, we add the edges to the graph
 			for node in same_triang:
 				G_pre_extracted.nodes[node]['weight']=0
-			edges = list(itertools.combinations(same_triang, 2))
+			edges = list(combinations(same_triang, 2))
 			membership = [
 				edges[0] in G_pre_extracted.edges(),
 				edges[1] in G_pre_extracted.edges(),
@@ -383,10 +383,10 @@ def graph_builder(
 
 		return G_pre_extracted
 
-def pre_extr(coord, topol, tdpot, min_):
+def pre_extr(coord, topol, tdpot, min_, graph_type='1',weighting_method = 'ER'):
 
 	G_bar,G_triang,dict_seq = dmk2pre_extr_inputs(coord, topol, tdpot)
 
-	Gpe = graph_builder(G_bar,G_triang,dict_seq, min_) 
+	Gpe = graph_builder(G_bar,G_triang,dict_seq, min_,graph_type=graph_type,weighting_method=weighting_method) 
 
 	return Gpe

@@ -2,6 +2,7 @@
 import networkx as nx
 import numpy as np
 import sys
+
 from scipy.spatial import ConvexHull, convex_hull_plot_2d
 from scipy.spatial import distance
 # Import I/O for timedata
@@ -262,7 +263,7 @@ def terminals_from_cont(Graph, forcing_flag, extra_info, btns_factor_source, btn
 
 
 
-def filtering(Gpe, sources, sinks,beta_d = 1.5,threshold=1e-3, BPweights = 'tdens', stopping_threshold_f = 1e-6, weight_flag='unit'):
+def filtering(Gpe, sources, sinks,beta_d = 1.5,threshold=1e-3, tdens0 = 1, BPweights = 'tdens', stopping_threshold_f = 1e-6, weight_flag='unit'):
 
     ### relabeling
 
@@ -278,6 +279,11 @@ def filtering(Gpe, sources, sinks,beta_d = 1.5,threshold=1e-3, BPweights = 'tden
     nedges = len(edges)
     nodes = Gpe_rel.nodes()
     nnodes = len(nodes)
+
+    # tdens0
+
+    if tdens0 != 1:
+        tdens0 = np.array([(Gpe_rel.edges[edge]['weight']) for edge in edges])
 
     # topol
 
@@ -334,6 +340,7 @@ def filtering(Gpe, sources, sinks,beta_d = 1.5,threshold=1e-3, BPweights = 'tden
         topol,
         rhs,
         pflux = beta_d,
+        tdens0 =  tdens0,
         tolerance = stopping_threshold_f,
         weight= weight,
         ctrl = ctrl)

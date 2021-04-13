@@ -17,6 +17,8 @@ def nextrout(
     beta_c,
     beta_d = 1,
     ndiv=15, 
+    graph_type='1',
+    weighting_method = 'ER',
     min_pe = 0.01, 
     min_f = 0.001,
     verbose = True, 
@@ -46,7 +48,7 @@ def nextrout(
 
     # run the graph extraction
 
-    Gpe = pre_extraction.pre_extr(coord, topol, tdpot, min_= min_pe)
+    Gpe = pre_extraction.pre_extr(coord, topol, tdpot, min_= min_pe, graph_type=graph_type,weighting_method = weighting_method)
 
     if storing is not None:
         weights = np.array([Gpe.edges[edge]['weight'] for edge in Gpe.edges()])
@@ -55,7 +57,7 @@ def nextrout(
         fig1, ax1 = plt.subplots(figsize=(10, 10))
         ax1.tricontour(triang, forcing, levels=40, linewidths=0.1, colors='k')
         pos = nx.get_node_attributes(Gpe,'pos')
-        nx.draw(Gpe,pos, node_size = 10, node_color = 'k',width = weights,ax = ax1)
+        nx.draw(Gpe,pos, node_size = 10, node_color = 'k',width = weights, ax = ax1)
         plt.savefig(storing+'/Gpe.png')
         plt.close()
 
@@ -84,6 +86,7 @@ def nextrout(
             temp_sources, 
             temp_sinks, 
             beta_d = beta_d, 
+            tdens0 = 2, # 2 means not unitary (i.e., taken from Gpe)
             threshold = min_f, 
             BPweights = BPw, 
             stopping_threshold_f = stop_thresh_f)
@@ -230,7 +233,7 @@ elif forcing_flag == 'dirac3':
                     'xminus':xminus}
 
 beta_c = 1.3
-beta_d = 1.
+beta_d = 1.5
 flags = ['whole_convex_hull+btns_centr','branch_convex_hull+btns_centr','btns_centr','single']
 
 ### running nextrout
@@ -240,8 +243,11 @@ nextrout(forcing_flag,
     beta_c,
     beta_d = beta_d, 
     ndiv = 18, 
-    min_f = 0.001,
-    BPw = 'tdens',
+    graph_type='3',
+    weighting_method = 'AVG',
+    min_pe = 0.001,
+    min_f = 0.32,
+    BPw = 'flux',
     stop_thresh_f = 1e-8,
     verbose = False,
     weight_flag = 'length',
