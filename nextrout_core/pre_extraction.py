@@ -4,7 +4,7 @@ import numpy as np
 from itertools import combinations
 
 
-def dmk2pre_extr_inputs(coord, topol, tdpot):
+def dmk2pre_extr_inputs(coord, topol, tdpot, DMKw = 'tdens'):
 	coordinates = {}
 	print('len coord 1', len(coord))
 	k=-1
@@ -24,7 +24,12 @@ def dmk2pre_extr_inputs(coord, topol, tdpot):
 	  coord_of_nodes_in_T = np.array([coordinates[node] for node in T])
 	  center = sum(coord_of_nodes_in_T)/3
 	  centers[k] = center
-	  G_bar.add_node(k,pos = center, weight = tdpot.tdens[k])
+	  if DMKw == 'tdens':
+	  	G_bar.add_node(k,pos = center, tdens = tdpot.tdens[k])
+	  elif DMKw == 'flux':
+	  	G_bar.add_node(k,pos = center, flux = abs(tdpot.flux[k]))
+	  else:
+	  	raise ValueError('DMKw not defined.')
 
 	for node in G_triang.nodes():
 	  G_triang.nodes[node]['pos'] = coordinates[node]
@@ -203,21 +208,28 @@ def connecting_edges(G_bar, node, min_, graph_type, dict_seq, max_, weighting_me
 			node = node - 1
 			dict_sec_neig, index_ = get_sec_neig_edges_square(node, dict_seq, node2box_index)
 
-
+	# getting weight flag
+	try: 
+		node_test = list(G_bar.nodes())[0]
+		G_bar.nodes[node_test]['tdens']
+		DMKw = 'tdens'
+	except:
+		DMKw = 'flux'
 	#print(index_)
 	for bar_ in index_:
 		if graph_type == "1" or graph_type == "2":  # both edges and vertices
 			# Checking if the weights are greater than the threshold x max
 			if (
-					G_bar.nodes[bar_]["weight"] > min_ * max_
-					and G_bar.nodes[node]["weight"] > min_ * max_
+					G_bar.nodes[bar_][DMKw] > min_ * max_
+					and G_bar.nodes[node][DMKw] > min_ * max_
 			):
 				if weighting_method == "AVG":
 					# If True, then we assign weights to the edges based on the 'AVG' method
-					w_list = [G_bar.nodes[bar_]["weight"], G_bar.nodes[node]["weight"]]
+					w_list = [G_bar.nodes[bar_][DMKw], G_bar.nodes[node][DMKw]]
 					w = sum(w_list) / len(w_list)  # <--- the average
 					# w=w0 #<--- this is the minimum
-					G_bar.add_edge(node, bar_, weight=w)
+					G_bar.add_edge(node, bar_)
+					G_bar.edges[(node, bar_)][DMKw] = w
 				elif weighting_method == "ER":
 					# If True, then we just add the edge. Later on we define the weight.
 					G_bar.add_edge(node, bar_)
@@ -236,8 +248,14 @@ def grid_filter(G_bar, G_triang, min_, dict_seq):
 		 G_pre_extracted: the input graph but with edges generated according to graph_type 3.
 	'''
 
-	nodes_dict = G_bar.nodes(data='weight')
-	max_ = max([entry[1] for entry in nodes_dict])
+	try:
+		nodes_dict = G_bar.nodes(data='tdens')
+		max_ = max([entry[1] for entry in nodes_dict])
+		DMKw = 'tdens'
+	except:
+		nodes_dict = G_bar.nodes(data='flux')
+		max_ = max([entry[1] for entry in nodes_dict])
+		DMKw = 'flux'
 
 	G_pre_extracted = G_triang.copy()
 
@@ -256,12 +274,12 @@ def grid_filter(G_bar, G_triang, min_, dict_seq):
 		# Getting the edges of the triangle for a given bar 'bar_'
 
 		same_triang = get_first_neig(bar_, dict_seq)
-		w = G_bar.nodes[bar_]["weight"]
+		w = G_bar.nodes[bar_][DMKw]
 
 		if w >= min_ * max_:
 			# If True, we add the edges to the graph
 			for node in same_triang:
-				G_pre_extracted.nodes[node]['weight']=0
+				G_pre_extracted.nodes[node][DMKw]=1
 			edges = list(combinations(same_triang, 2))
 			membership = [
 				edges[0] in G_pre_extracted.edges(),
@@ -275,14 +293,15 @@ def grid_filter(G_bar, G_triang, min_, dict_seq):
 				# If the edge is in the graph (thanks to another barycenter), we sum the weight of the barycenter 'bar_' to the existing weight
 				if bool_val == True:
 					new_weight = (
-							G_pre_extracted.edges[(edges[i][0], edges[i][1])]["weight"]
+							G_pre_extracted.edges[(edges[i][0], edges[i][1])][DMKw]
 							+ float(w) / 2.0
 					)
-					G_pre_extracted.edges[(edges[i][0], edges[i][1])]["weight"] = new_weight
+					G_pre_extracted.edges[(edges[i][0], edges[i][1])][DMKw] = new_weight
 				# If the edge is not in the graph, we add half of the weight of the barycenter
 				else:
 					new_weight = float(w) / 2.0
-					G_pre_extracted.add_edge(edges[i][0], edges[i][1], weight=new_weight)
+					G_pre_extracted.add_edge(edges[i][0], edges[i][1])
+					G_pre_extracted.edges[(edges[i][0], edges[i][1])][DMKw] = new_weight
 
 	return G_pre_extracted
 
@@ -304,10 +323,16 @@ def node_edge_filter(G_bar, min_, graph_type, dict_seq, weighting_method,input_f
 	"""
 	This script generates graph type 1 and 2.
 	"""
-	nodes_dict = G_bar.nodes(data='weight')
-	max_ = max([entry[1] for entry in nodes_dict])
+	try:
+		nodes_dict = G_bar.nodes(data='tdens')
+		max_ = max([entry[1] for entry in nodes_dict])
+		DMKw = 'tdens'
+	except:
+		nodes_dict = G_bar.nodes(data='flux')
+		max_ = max([entry[1] for entry in nodes_dict])
+		DMKw = 'flux'
 
-	reduced_node_list = [int(node) for node in G_bar.nodes() if G_bar.nodes[node]['weight']>min_ * max_]
+	reduced_node_list = [int(node) for node in G_bar.nodes() if G_bar.nodes[node][DMKw]>min_ * max_]
 
 	# Iterate over all the numbers (<--> nodes) to test the condition about the threshold:
 	for n in reduced_node_list:#range(len(G_bar.nodes()))
@@ -325,9 +350,9 @@ def node_edge_filter(G_bar, min_, graph_type, dict_seq, weighting_method,input_f
 		# If True, then apply 'ER' method
 
 		for edge in G_bar.edges():
-			G_bar.edges[(edge[0], edge[1])]["weight"] = G_bar.nodes[edge[0]]["weight"] / (
+			G_bar.edges[(edge[0], edge[1])][DMKw] = G_bar.nodes[edge[0]][DMKw] / (
 					deg[edge[0]] * (N - 1)
-			) + G_bar.nodes[edge[1]]["weight"] / (deg[edge[1]] * (N - 1))
+			) + G_bar.nodes[edge[1]][DMKw] / (deg[edge[1]] * (N - 1))
 	elif weighting_method == "AVG":
 		pass
 	else:
@@ -383,9 +408,9 @@ def graph_builder(
 
 		return G_pre_extracted
 
-def pre_extr(coord, topol, tdpot, min_, graph_type='1',weighting_method = 'ER'):
+def pre_extr(coord, topol, tdpot, min_, graph_type='1', DMKw = 'tdens', weighting_method = 'ER'):
 
-	G_bar,G_triang,dict_seq = dmk2pre_extr_inputs(coord, topol, tdpot)
+	G_bar,G_triang,dict_seq = dmk2pre_extr_inputs(coord, topol, tdpot, DMKw = DMKw)
 
 	Gpe = graph_builder(G_bar,G_triang,dict_seq, min_,graph_type=graph_type,weighting_method=weighting_method) 
 

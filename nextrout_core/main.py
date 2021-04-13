@@ -19,10 +19,12 @@ def nextrout(
     ndiv=15, 
     graph_type='1',
     weighting_method = 'ER',
+    DMKw = 'tdens',
     min_pe = 0.01, 
     min_f = 0.001,
     verbose = True, 
-    BPw = 'flux', 
+    weighting_method_simplification = 'ER',
+    BPw = 'tdens0', 
     stop_thresh_f = 1e-6, 
     btns_factor_source=.1, 
     btns_factor_sink=.1,
@@ -48,16 +50,16 @@ def nextrout(
 
     # run the graph extraction
 
-    Gpe = pre_extraction.pre_extr(coord, topol, tdpot, min_= min_pe, graph_type=graph_type,weighting_method = weighting_method)
+    Gpe = pre_extraction.pre_extr(coord, topol, tdpot, min_= min_pe, graph_type=graph_type,weighting_method = weighting_method, DMKw = DMKw)
 
     if storing is not None:
-        weights = np.array([Gpe.edges[edge]['weight'] for edge in Gpe.edges()])
+        weights = np.array([Gpe.edges[edge][DMKw] for edge in Gpe.edges()])
         max_w = max(weights)
         weights/=max_w
         fig1, ax1 = plt.subplots(figsize=(10, 10))
         ax1.tricontour(triang, forcing, levels=40, linewidths=0.1, colors='k')
         pos = nx.get_node_attributes(Gpe,'pos')
-        nx.draw(Gpe,pos, node_size = 10, node_color = 'k',width = weights, ax = ax1)
+        nx.draw(Gpe,pos, node_size = 10, node_color = 'k',width = weights*3, ax = ax1)
         plt.savefig(storing+'/Gpe.png')
         plt.close()
 
@@ -81,6 +83,9 @@ def nextrout(
         temp_sources = [node for node in sources if node in cc]
         temp_sinks = [node for node in sinks if node in cc]
 
+        if len(temp_sources) ==0 or len(temp_sinks) == 0:
+            raise ValueError('Not enough sources or sinks.')
+
         temp_Gf,weights,colors = filtering.filtering(
             temp_Gpe, 
             temp_sources, 
@@ -103,18 +108,51 @@ def nextrout(
             plt.savefig(storing+'/Gf_'+str(count)+'.png')
             plt.close()
 
+    
+
+    deg = nx.degree_centrality(Gf)
+
+    if weighting_method_simplification == 'ER':
+
+        N = len(Gf.nodes())
+
+        for edge in Gf.edges():
+
+            Gf.edges[(edge[0], edge[1])][BPw] = Gf.nodes[edge[0]][
+                                                                 'weight'] / (
+                                                                     deg[edge[0]] * (N - 1)) + \
+                                                             Gf.nodes[edge[1]][
+                                                                 'weight'] / (
+                                                                     deg[edge[1]] * (N - 1))
+    elif weighting_method_simplification == 'IBP':
+        
+        raise ValueError('not implemented yet.')
+        '''
+        Gf_relabeled = relabeling(Gf, Gpe)
+        for edge in Gf_relabeled.edges():
+            Gf.edges[edge[0],edge[1]][BPw]=Gpe.edges[edge[0],edge[1]]['weight']
+        '''
+        
+    elif weighting_method_simplification == 'BPW':
+        pass
+
+
     if storing is not None:
         if len(cc_list)==1:
             color = colors
         else:
             color = 'k'
         weights = np.array([Gf.edges[edge][BPw] for edge in Gf.edges()])
+        max_w = max(weights)
+        weights/=max_w
         fig1, ax1 = plt.subplots(figsize=(10, 10))
         ax1.tricontour(triang, forcing, levels=40, linewidths=0.1, colors='k')
         pos = nx.get_node_attributes(Gf,'pos')
         nx.draw(Gf,pos, node_size = 30, node_color = color, width = abs(weights)*3, ax = ax1 )
         plt.savefig(storing+'/Gf.png')
         plt.close()
+
+    
     # storing the results
 
     if storing is not None:
@@ -124,6 +162,8 @@ def nextrout(
             with open(storing + '/'+ff[0]+'.pkl', 'wb') as file:
                 pkl.dump(ff[1], file)
 
+    #print('isolated nodes?:',len(list(nx.isolates(Gf))))
+
     return Gf
 
 
@@ -131,7 +171,7 @@ def nextrout(
 
 # generate forcing
 
-forcing_flag = 'rect_cnst_d'
+forcing_flag = 'rect_cnst'
 
 if forcing_flag == 'rect_cnst':
 
@@ -232,7 +272,7 @@ elif forcing_flag == 'dirac3':
                     'xplus':xplus,
                     'xminus':xminus}
 
-beta_c = 1.3
+beta_c = 1.5
 beta_d = 1.5
 flags = ['whole_convex_hull+btns_centr','branch_convex_hull+btns_centr','btns_centr','single']
 
@@ -242,16 +282,17 @@ nextrout(forcing_flag,
     extra_info,
     beta_c,
     beta_d = beta_d, 
-    ndiv = 18, 
-    graph_type='3',
-    weighting_method = 'AVG',
-    min_pe = 0.001,
-    min_f = 0.32,
+    ndiv = 30, 
+    graph_type='1',
+    weighting_method = 'ER',
+    min_pe = 0.01,
+    min_f = 0.1,
     BPw = 'flux',
+    weighting_method_simplification ='ER',
     stop_thresh_f = 1e-8,
     verbose = False,
     weight_flag = 'length',
     btns_factor_source=.5, 
     btns_factor_sink=.5,
-    terminal_criterion =  flags[2],
+    terminal_criterion =  flags[3],
     storing = './outputs/')

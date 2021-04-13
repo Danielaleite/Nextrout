@@ -283,7 +283,10 @@ def filtering(Gpe, sources, sinks,beta_d = 1.5,threshold=1e-3, tdens0 = 1, BPwei
     # tdens0
 
     if tdens0 != 1:
-        tdens0 = np.array([(Gpe_rel.edges[edge]['weight']) for edge in edges])
+        try:
+            tdens0 = np.array([(Gpe_rel.edges[edge]['tdens']) for edge in edges])
+        except:
+            tdens0 = np.array([(Gpe_rel.edges[edge]['flux']) for edge in edges])
 
     # topol
 
@@ -324,7 +327,7 @@ def filtering(Gpe, sources, sinks,beta_d = 1.5,threshold=1e-3, tdens0 = 1, BPwei
 
     # init and set controls
     ctrl = Dmkcontrols.DmkCtrl()
-    Dmkcontrols.get_from_file(ctrl,'../dmk_utilities/dmk_solver/graph_otp_solver/python/examples/FaccaBenzi2021_TestCase1/dmk.ctrl')
+    Dmkcontrols.get_from_file(ctrl,'./dmk_discr.ctrl')
     # if and where save data
     ctrl.id_save_dat=1
     ctrl.fn_tdens='tdens.dat'
@@ -359,28 +362,32 @@ def filtering(Gpe, sources, sinks,beta_d = 1.5,threshold=1e-3, tdens0 = 1, BPwei
             if abs(flux[ed_count])> max_flux*threshold:
                 Gf.add_edge(*edge,  flux = flux[ed_count])
                 weights_in_Gf.append(flux[ed_count])
+
         elif BPweights == 'tdens':
             if abs(tdens[ed_count])> max_tdens*threshold:
                 Gf.add_edge(*edge,  tdens = tdens[ed_count])
                 weights_in_Gf.append(tdens[ed_count])
+
         else:
             raise ValueError('BPweights flag not defined!.')
+        Gf.add_node(edge[0], weight = Gpe_rel.nodes[edge[0]]['tdens'])# todo: this needs to be fixed once the flux is working again (BPweights)
+        Gf.add_node(edge[1], weight = Gpe_rel.nodes[edge[1]]['tdens'])
 
 
+    Gf.remove_nodes_from(list(nx.isolates(Gf)))
+        
     weights_in_Gf = np.array(weights_in_Gf)
     colors = []
 
     for node in Gf.nodes():
+
         Gf.nodes[node]['pos'] = Gpe_rel.nodes[node]['pos']
+
         if node in sources_rel:
             colors.append('g')
         elif node in sinks_rel:
             colors.append('r')
         else:
             colors.append('k')
-
-    # reweighing simplification
-
-    ### pending!
 
     return Gf, weights_in_Gf, colors

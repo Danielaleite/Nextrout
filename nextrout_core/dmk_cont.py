@@ -195,7 +195,7 @@ def dmk_cont(forcing, beta_c, ndiv, tdens0 = None, nref= 0, flag_grid = 'unitsqu
 
     # init and set controls
     ctrl = Dmkcontrols.DmkCtrl()
-    Dmkcontrols.get_from_file(ctrl,'dmk.ctrl')
+    Dmkcontrols.get_from_file(ctrl,'dmk_cont.ctrl')
     ctrl.fn_tdens='tdens.dat'
     ctrl.fn_pot='pot.dat'
     ctrl.fn_statistics='dmk.log'
