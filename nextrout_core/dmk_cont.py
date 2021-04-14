@@ -8,24 +8,24 @@ import sys
 import numpy as np
 from itertools import combinations
 
-
+root = '/home/dtheuerkauf/Nextrout/'
 # Import I/O for timedata
 try:
-    sys.path.append('../dmk_utilities/globals/python/timedata/')
+    sys.path.append(root+'/dmk_utilities/globals/python/timedata/')
     import timedata as td
 except:
     print("Global repo non found")
 
 # Import geometry tools
-sys.path.append('../dmk_utilities/geometry/python/')
+sys.path.append(root+'/dmk_utilities/geometry/python/')
 import meshtools as mt
-sys.path.append('../dmk_utilities/dmk_solver/otp_solver/preprocess/assembly/')
+sys.path.append(root+'/dmk_utilities/dmk_solver/otp_solver/preprocess/assembly/')
 import example_grid
 
 # Import dmk tools
-sys.path.append('../dmk_utilities/dmk_solver/otp_solver/python/')
+sys.path.append(root+'/dmk_utilities/dmk_solver/otp_solver/python/')
 import dmk_p1p0 
-sys.path.append('/../dmk_utilities/dmk_solver/build/python/fortran_python_interface/')
+sys.path.append(root+'/dmk_utilities/dmk_solver/build/python/fortran_python_interface/')
 from dmk import (Dmkcontrols,    # controls for dmk simulations)
                  Timefunctionals, # information of time/algorithm evolution
                 Dmkinputsdata, # structure variable containg inputs data
@@ -93,10 +93,10 @@ def forcing_generator(forcing_flag, grid, coord, topol,extra_info):
         forcing=np.zeros(grid.nnode)
         for i in range(Nplus):
             inode=mt.Inode(coord,xplus[i])
-            forcing[inode]=fplus[i]
+            forcing[inode]=1#fplus[i]
         for i in range(Nminus):
             inode=mt.Inode(coord,xminus[i])
-            forcing[inode]=-fminus[i]
+            forcing[inode]=-1#fminus[i]
 
     elif 'rect' in forcing_flag:
 
@@ -135,6 +135,16 @@ def forcing_generator(forcing_flag, grid, coord, topol,extra_info):
     else:
         raise ValueError('forcing not defined')
 
+    npos = len(forcing[forcing>0])
+    nneg = len(forcing[forcing<0])
+    for i in range(len(forcing)):
+        if forcing[i]>0:
+            forcing[i] = forcing[i]/npos
+        elif forcing[i]<0:
+            forcing[i] = forcing[i]/nneg
+
+    assert sum(forcing)<0.01
+    
     return forcing
 
 def kappa_generator(coord, kappa_flag):
@@ -148,7 +158,10 @@ def kappa_generator(coord, kappa_flag):
     return fvalue
 
 
-def dmk_cont(forcing, beta_c, ndiv, tdens0 = None, nref= 0, flag_grid = 'unitsquare', kappa_flag = None):
+def dmk_cont(forcing, beta_c, ndiv, tdens0 = None, nref= 0, flag_grid = 'unitsquare', kappa_flag = None, storing = None):
+
+    if storing == None:
+        storing = '.'
 
     length=1.0/float(ndiv)
 
@@ -195,10 +208,10 @@ def dmk_cont(forcing, beta_c, ndiv, tdens0 = None, nref= 0, flag_grid = 'unitsqu
 
     # init and set controls
     ctrl = Dmkcontrols.DmkCtrl()
-    Dmkcontrols.get_from_file(ctrl,'dmk_cont.ctrl')
-    ctrl.fn_tdens='tdens.dat'
-    ctrl.fn_pot='pot.dat'
-    ctrl.fn_statistics='dmk.log'
+    Dmkcontrols.get_from_file(ctrl,root+'/nextrout_core/dmk_cont.ctrl')
+    ctrl.fn_tdens=storing+'/tdens.dat'
+    ctrl.fn_pot=storing+'/pot.dat'
+    ctrl.fn_statistics=storing+'/dmk.log'
     ctrl.max_time_iterations = 300
     #
     # init type for storing evolution/algorithm info

@@ -4,7 +4,7 @@ import numpy as np
 from itertools import combinations
 
 
-def dmk2pre_extr_inputs(coord, topol, tdpot, DMKw = 'tdens'):
+def dmk2pre_extr_inputs(coord, topol, weights, DMKw = 'tdens'):
 	coordinates = {}
 	print('len coord 1', len(coord))
 	k=-1
@@ -25,9 +25,9 @@ def dmk2pre_extr_inputs(coord, topol, tdpot, DMKw = 'tdens'):
 	  center = sum(coord_of_nodes_in_T)/3
 	  centers[k] = center
 	  if DMKw == 'tdens':
-	  	G_bar.add_node(k,pos = center, tdens = tdpot.tdens[k])
+	  	G_bar.add_node(k,pos = center, tdens = weights[k])
 	  elif DMKw == 'flux':
-	  	G_bar.add_node(k,pos = center, flux = abs(tdpot.flux[k]))
+	  	G_bar.add_node(k,pos = center, flux = abs(weights[k]))
 	  else:
 	  	raise ValueError('DMKw not defined.')
 
@@ -408,9 +408,9 @@ def graph_builder(
 
 		return G_pre_extracted
 
-def pre_extr(coord, topol, tdpot, min_, graph_type='1', DMKw = 'tdens', weighting_method = 'ER'):
+def pre_extr(coord, topol, weights, min_, graph_type='1', DMKw = 'tdens', weighting_method = 'ER'):
 
-	G_bar,G_triang,dict_seq = dmk2pre_extr_inputs(coord, topol, tdpot, DMKw = DMKw)
+	G_bar,G_triang,dict_seq = dmk2pre_extr_inputs(coord, topol, weights, DMKw = DMKw)
 
 	Gpe = graph_builder(G_bar,G_triang,dict_seq, min_,graph_type=graph_type,weighting_method=weighting_method) 
 

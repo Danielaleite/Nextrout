@@ -36,28 +36,30 @@ def nextrout(
     # run the dmk_cont
     grid, subgrid, points, vertices, coord,topol,element_attributes = dmk_cont.grid_gen(ndiv)
     forcing = dmk_cont.forcing_generator(forcing_flag, grid, coord, topol, extra_info=extra_info)
-    tdpot = dmk_cont.dmk_cont(forcing,beta_c, ndiv)
+    tdpot = dmk_cont.dmk_cont(forcing,beta_c, ndiv, storing = storing)
 
     if storing is not None:
         triang = mtri.Triangulation(coord.transpose()[0,:], coord.transpose()[1,:], topol)
         fig1, ax1 = plt.subplots(figsize=(10, 10))
         ax1.set_aspect('equal')
         tpc = ax1.tripcolor(triang, -tdpot.tdens,  cmap='gray')
-        ax1.tricontour(triang, forcing, levels=40, linewidths=0.1, colors='k')
+        ax1.tricontour(triang, forcing, cmap='RdBu_r')
         fig1.colorbar(tpc)
         plt.savefig(storing+'/dmk_sol.png')
         plt.close()
 
     # run the graph extraction
 
-    Gpe = pre_extraction.pre_extr(coord, topol, tdpot, min_= min_pe, graph_type=graph_type,weighting_method = weighting_method, DMKw = DMKw)
+    tdens_weights = tdpot.tdens
+
+    Gpe = pre_extraction.pre_extr(coord, topol, tdens_weights, min_= min_pe, graph_type=graph_type,weighting_method = weighting_method, DMKw = DMKw)
 
     if storing is not None:
         weights = np.array([Gpe.edges[edge][DMKw] for edge in Gpe.edges()])
         max_w = max(weights)
         weights/=max_w
         fig1, ax1 = plt.subplots(figsize=(10, 10))
-        ax1.tricontour(triang, forcing, levels=40, linewidths=0.1, colors='k')
+        ax1.tricontour(triang, forcing, cmap='RdBu_r')
         pos = nx.get_node_attributes(Gpe,'pos')
         nx.draw(Gpe,pos, node_size = 10, node_color = 'k',width = weights*3, ax = ax1)
         plt.savefig(storing+'/Gpe.png')
@@ -102,7 +104,7 @@ def nextrout(
 
         if storing is not None and len(cc_list)!=1:
             fig1, ax1 = plt.subplots(figsize=(10, 10))
-            ax1.tricontour(triang, forcing, levels=40, linewidths=0.1, colors='k')
+            ax1.tricontour(triang, forcing, cmap='RdBu_r')
             pos = nx.get_node_attributes(temp_Gf,'pos')
             nx.draw(temp_Gf,pos, node_size = 30, node_color = colors, width = abs(weights)*2 ,ax = ax1)
             plt.savefig(storing+'/Gf_'+str(count)+'.png')
@@ -146,7 +148,7 @@ def nextrout(
         max_w = max(weights)
         weights/=max_w
         fig1, ax1 = plt.subplots(figsize=(10, 10))
-        ax1.tricontour(triang, forcing, levels=40, linewidths=0.1, colors='k')
+        ax1.tricontour(triang, forcing, cmap='RdBu_r')
         pos = nx.get_node_attributes(Gf,'pos')
         nx.draw(Gf,pos, node_size = 30, node_color = color, width = abs(weights)*3, ax = ax1 )
         plt.savefig(storing+'/Gf.png')
