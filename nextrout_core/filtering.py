@@ -77,6 +77,14 @@ def terminals_from_cont(Graph, forcing_flag, extra_info, btns_factor_source, btn
     nodes_in_source = []
     nodes_in_sink = []
 
+    for node in Graph.nodes():
+        terminal_val = Graph.nodes[node]['terminal']
+        if terminal_val == 1:
+            nodes_in_source.append(node)
+        elif terminal_val == -1:
+            nodes_in_sink.append(node)
+
+    '''
     if 'rect' in forcing_flag:
         
         rectangles_source = extra_info[0] # it should be a list of lists: every sublist has 3 elements: (x,y), w, h
@@ -129,7 +137,7 @@ def terminals_from_cont(Graph, forcing_flag, extra_info, btns_factor_source, btn
                     nodes_in_sink.append(node)
     else:
         raise ValueError('forcing flag not recognized.')
-
+    '''
     bn = nx.betweenness_centrality(Graph, normalized=True)
 
     # min bn inside the source and sink
@@ -173,7 +181,7 @@ def terminals_from_cont(Graph, forcing_flag, extra_info, btns_factor_source, btn
             stop = False
             
             
-            for j in range(i,len(terminals)):
+            for j in range(i+1,len(terminals)):
                 
                 node2 = terminals[j]
                 
@@ -315,7 +323,7 @@ def filtering(Gpe, sources, sinks,beta_d = 1.5,threshold=1e-3, tdens0 = 1, BPwei
     rhs = np.zeros(nnodes)
     sources_rel = [mapping[node] for node in sources]
     sinks_rel = [mapping[node] for node in sinks]
-    print(sinks)
+
     number_sources = len(sources_rel)
     number_sinks = len(sinks_rel)
 
@@ -327,7 +335,7 @@ def filtering(Gpe, sources, sinks,beta_d = 1.5,threshold=1e-3, tdens0 = 1, BPwei
         else:
             rhs[node] = 0
 
-
+    assert sum(rhs) < .01
     # init and set controls
     ctrl = Dmkcontrols.DmkCtrl()
     Dmkcontrols.get_from_file(ctrl,root+'/nextrout_core/dmk_discr.ctrl')

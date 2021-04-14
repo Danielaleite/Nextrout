@@ -35,8 +35,10 @@ def nextrout(
 
     # run the dmk_cont
     grid, subgrid, points, vertices, coord,topol,element_attributes = dmk_cont.grid_gen(ndiv)
-    forcing = dmk_cont.forcing_generator(forcing_flag, grid, coord, topol, extra_info=extra_info)
+    forcing, triang_source_indices,triang_sink_indices = dmk_cont.forcing_generator(forcing_flag, grid, coord, topol, extra_info=extra_info)
     tdpot = dmk_cont.dmk_cont(forcing,beta_c, ndiv, storing = storing)
+
+
 
     if storing is not None:
         triang = mtri.Triangulation(coord.transpose()[0,:], coord.transpose()[1,:], topol)
@@ -52,7 +54,17 @@ def nextrout(
 
     tdens_weights = tdpot.tdens
 
-    Gpe = pre_extraction.pre_extr(coord, topol, tdens_weights, min_= min_pe, graph_type=graph_type,weighting_method = weighting_method, DMKw = DMKw)
+    Gpe = pre_extraction.pre_extr(coord, topol, tdens_weights,triang_source_indices,triang_sink_indices, min_= min_pe, graph_type=graph_type,weighting_method = weighting_method, DMKw = DMKw)
+
+    node_colors = []
+    for node in Gpe.nodes():
+    	terminal_val = Gpe.nodes[node]['terminal']
+    	if terminal_val == 1:
+    		node_colors.append('g')
+    	elif terminal_val == -1:
+    		node_colors.append('r')
+    	else:
+    		node_colors.append('k')
 
     if storing is not None:
         weights = np.array([Gpe.edges[edge][DMKw] for edge in Gpe.edges()])
@@ -61,7 +73,7 @@ def nextrout(
         fig1, ax1 = plt.subplots(figsize=(10, 10))
         ax1.tricontour(triang, forcing, cmap='RdBu_r')
         pos = nx.get_node_attributes(Gpe,'pos')
-        nx.draw(Gpe,pos, node_size = 10, node_color = 'k',width = weights*3, ax = ax1)
+        nx.draw(Gpe,pos, node_size = 10, node_color = node_colors, width = weights*3, ax = ax1)
         plt.savefig(storing+'/Gpe.png')
         plt.close()
 

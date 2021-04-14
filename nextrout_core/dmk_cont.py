@@ -55,7 +55,7 @@ def grid_gen(ndiv, nref=1, flag_grid='unitsquare'):
     return grid, subgrid, points, vertices, coord,topol,element_attributes
 
 def center_computation(topol, coord):
-    centers= {}
+    centers= np.zeros((len(topol),2))
     coordinates = coordinate_computation(coord)
     k=-1
     for T in topol: #T is a triangle
@@ -78,6 +78,9 @@ def forcing_generator(forcing_flag, grid, coord, topol,extra_info):
 
     centers = center_computation(topol, coord)
 
+    grid_source_indices = []
+    grid_sink_indices = []
+
     if 'dirac' in forcing_flag:
         
         Nplus = extra_info['Nplus']
@@ -91,13 +94,15 @@ def forcing_generator(forcing_flag, grid, coord, topol,extra_info):
 
         # set array forcing_dirac "evoluation" f=f^{+}-f^{-} on grid nodes
         forcing=np.zeros(grid.nnode)
+        print('forcing',len(forcing))
         for i in range(Nplus):
             inode=mt.Inode(coord,xplus[i])
             forcing[inode]=1#fplus[i]
+            grid_source_indices.append(inode)
         for i in range(Nminus):
             inode=mt.Inode(coord,xminus[i])
             forcing[inode]=-1#fminus[i]
-
+            grid_sink_indices.append(inode)
     elif 'rect' in forcing_flag:
 
         rectangles_source = extra_info[0] # it should be a list of lists: every sublist has 3 elements: (x,y), w, h
@@ -117,10 +122,10 @@ def forcing_generator(forcing_flag, grid, coord, topol,extra_info):
             ho = rect[2]
 
             if (x_source <= x <= x_source+wo) and (y_source <= y <= y_source+ho):
-              inode=mt.Inode(coord,centers[cent])
+              inode = mt.Inode(centers,centers[cent])
               #print(inode)
               forcing[inode]=1
-
+              source_baryc.append(inode)
           for rect in rectangles_sink:
 
             x_sink = rect[0][0]
@@ -129,14 +134,27 @@ def forcing_generator(forcing_flag, grid, coord, topol,extra_info):
             hi = rect[2]
 
             if (x_sink <= x <= x_sink+wi) and (y_sink <= y <= y_sink+hi):
-              inode=mt.Inode(coord,centers[cent])
+              inode = mt.Inode(centers,centers[cent])
               #print(inode)
               forcing[inode]=-1
+              sink_baryc.append(inode)
     else:
         raise ValueError('forcing not defined')
 
+    ### triangle indices
+    triang_source_indices = []
+    triang_sink_indices = []
+    k=-1
+    for T in topol:
+        k+=1
+        if T[0] in grid_source_indices or T[1] in grid_source_indices or T[2] in grid_source_indices:
+            triang_source_indices.append(k)
+        elif T[0] in grid_sink_indices or T[1] in grid_sink_indices or T[2] in grid_sink_indices:
+            triang_sink_indices.append(k)
+
     npos = len(forcing[forcing>0])
     nneg = len(forcing[forcing<0])
+
     for i in range(len(forcing)):
         if forcing[i]>0:
             forcing[i] = forcing[i]/npos
@@ -145,7 +163,7 @@ def forcing_generator(forcing_flag, grid, coord, topol,extra_info):
 
     assert sum(forcing)<0.01
     
-    return forcing
+    return forcing, triang_source_indices,triang_sink_indices
 
 def kappa_generator(coord, kappa_flag):
 

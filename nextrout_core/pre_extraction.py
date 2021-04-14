@@ -4,40 +4,50 @@ import numpy as np
 from itertools import combinations
 
 
-def dmk2pre_extr_inputs(coord, topol, weights, DMKw = 'tdens'):
+def dmk2pre_extr_inputs(coord, topol, weights,triang_source_indices,triang_sink_indices, DMKw = 'tdens'):
+	
 	coordinates = {}
-	print('len coord 1', len(coord))
 	k=-1
 	for index_ in coord:
 	  k+=1
-	  coordinates [k] = index_[:2]
+	  coordinates[k] = index_[:2]
 
 	G_bar = nx.Graph()
 	G_triang = nx.Graph()
 	k=-1
+
 	centers= {}
 	for T in topol: #T is a triangle
-	  k+=1
-	  edges_in_T = list(combinations(T, 2))
-	  for edge in edges_in_T:
-	    G_triang.add_edge(edge[0],edge[1])
-	  coord_of_nodes_in_T = np.array([coordinates[node] for node in T])
-	  center = sum(coord_of_nodes_in_T)/3
-	  centers[k] = center
-	  if DMKw == 'tdens':
-	  	G_bar.add_node(k,pos = center, tdens = weights[k])
-	  elif DMKw == 'flux':
-	  	G_bar.add_node(k,pos = center, flux = abs(weights[k]))
-	  else:
-	  	raise ValueError('DMKw not defined.')
+		k+=1
+		edges_in_T = list(combinations(T, 2))
+		for edge in edges_in_T:
+			G_triang.add_edge(edge[0],edge[1])
+			coord_of_nodes_in_T = np.array([coordinates[node] for node in T])
+			center = sum(coord_of_nodes_in_T)/3
+			centers[k] = center
+			if k in triang_source_indices:
+				terminal = 1
+			elif k in triang_sink_indices:
+				terminal = -1
+			else:
+				terminal = 0
+			if DMKw == 'tdens':
+				G_bar.add_node( k, pos = center, tdens = weights[k], terminal = terminal)
+			elif DMKw == 'flux':
+				G_bar.add_node( k, pos = center, flux = abs(weights[k]), terminal = terminal)
+			else:
+				raise ValueError('DMKw not defined.')
+
+
 
 	for node in G_triang.nodes():
-	  G_triang.nodes[node]['pos'] = coordinates[node]
+		G_triang.nodes[node]['pos'] = coordinates[node]
 
 	dict_seq = {}
 	for key in G_bar.nodes():
-	  dict_seq[key] = topol[key]
+		dict_seq[key] = topol[key]
 
+	print('Gbar',len(G_bar.nodes()))
 
 	return G_bar,G_triang,dict_seq
 
@@ -408,9 +418,9 @@ def graph_builder(
 
 		return G_pre_extracted
 
-def pre_extr(coord, topol, weights, min_, graph_type='1', DMKw = 'tdens', weighting_method = 'ER'):
+def pre_extr(coord, topol, weights,triang_source_indices,triang_sink_indices, min_, graph_type='1', DMKw = 'tdens', weighting_method = 'ER'):
 
-	G_bar,G_triang,dict_seq = dmk2pre_extr_inputs(coord, topol, weights, DMKw = DMKw)
+	G_bar,G_triang,dict_seq = dmk2pre_extr_inputs(coord, topol, weights,triang_source_indices,triang_sink_indices, DMKw = DMKw)
 
 	Gpe = graph_builder(G_bar,G_triang,dict_seq, min_,graph_type=graph_type,weighting_method=weighting_method) 
 
