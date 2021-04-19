@@ -8,6 +8,7 @@ import networkx as nx
 import matplotlib.tri as mtri
 import numpy as np
 import pickle as pkl
+import os
 
 
 
@@ -38,7 +39,7 @@ def nextrout(
     forcing, triang_source_indices,triang_sink_indices = dmk_cont.forcing_generator(forcing_flag, grid, coord, topol, extra_info=extra_info)
     tdpot = dmk_cont.dmk_cont(forcing,beta_c, ndiv, storing = storing)
 
-
+    print(os.getcwd())
 
     if storing is not None:
         triang = mtri.Triangulation(coord.transpose()[0,:], coord.transpose()[1,:], topol)
@@ -84,10 +85,10 @@ def nextrout(
         terminal_criterion=terminal_criterion)
 
     # run the dmk_discrete
-
+    print('len',len(sources),len(sinks))
     # get the connected components
     cc_list = list(nx.connected_components(Gpe))
-
+    print('CC',len(cc_list))
     # apply dmk in the cc
     Gf = nx.Graph()
     count=0
@@ -98,7 +99,7 @@ def nextrout(
         temp_sinks = [node for node in sinks if node in cc]
 
         if len(temp_sources) ==0 or len(temp_sinks) == 0:
-            raise ValueError('Not enough sources or sinks.')
+            raise ValueError('Not enough sources or sinks. Increase btns_factor.')
 
         temp_Gf,weights,colors = filtering.filtering(
             temp_Gpe, 
