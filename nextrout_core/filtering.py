@@ -276,7 +276,14 @@ def terminals_from_cont(Graph, forcing_flag, extra_info, btns_factor_source, btn
 
 
 
-def filtering(Gpe, sources, sinks,beta_d = 1.5,threshold=1e-3, tdens0 = 1, BPweights = 'tdens', stopping_threshold_f = 1e-6, weight_flag='unit'):
+def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tdens0 = 1, BPweights = 'tdens', stopping_threshold_f = 1e-6, weight_flag='unit', rhs = None):
+
+
+    if sources is None and sinks is None and rhs is None:
+
+        raise ValueError('Either rhs or sources/sinks need to be passed as inputs.')
+
+
 
     ### relabeling
 
@@ -322,20 +329,23 @@ def filtering(Gpe, sources, sinks,beta_d = 1.5,threshold=1e-3, tdens0 = 1, BPwei
             weight[k] = distance.euclidean(Gpe.nodes[edge[0]]['pos'],Gpe.nodes[edge[1]]['pos'])
     # rhs (f+ and f-)
 
-    rhs = np.zeros(nnodes)
-    sources_rel = [mapping[node] for node in sources]
-    sinks_rel = [mapping[node] for node in sinks]
+    if sinks is not None and sources is not None: # there are lists from the sources and sinks are going to be chosen.
+    # (else) if this is not pass, then the rhs is passed.
 
-    number_sources = len(sources_rel)
-    number_sinks = len(sinks_rel)
+        rhs = np.zeros(nnodes)
+        sources_rel = [mapping[node] for node in sources]
+        sinks_rel = [mapping[node] for node in sinks]
 
-    for node in nodes:
-        if node in sources_rel:
-            rhs[node] = 1/number_sources
-        elif node in sinks_rel:
-            rhs[node] = -1/number_sinks
-        else:
-            rhs[node] = 0
+        number_sources = len(sources_rel)
+        number_sinks = len(sinks_rel)
+
+        for node in nodes:
+            if node in sources_rel:
+                rhs[node] = 1/number_sources
+            elif node in sinks_rel:
+                rhs[node] = -1/number_sinks
+            else:
+                rhs[node] = 0
 
     assert sum(rhs) < .01
     # init and set controls
