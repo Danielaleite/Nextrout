@@ -6,7 +6,8 @@ import sys
 from scipy.spatial import ConvexHull, convex_hull_plot_2d
 from scipy.spatial import distance
 
-root = '/home/dleite/community_detection_nextrout/Nextrout'
+#root = '/home/dleite/community_detection_nextrout/Nextrout'
+root = '/home/dtheuerkauf/Nextrout'
 
 # Import I/O for timedata
 try:
@@ -346,8 +347,12 @@ def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tde
                 rhs[node] = -1/number_sinks
             else:
                 rhs[node] = 0
+    else:
+        sources_rel = [i for i in range(len(rhs)) if rhs[i]>0]
+        sinks_rel = [i for i in range(len(rhs)) if rhs[i]<0]
 
     assert sum(rhs) < .01
+    assert len(rhs) == nnodes
     # init and set controls
     ctrl = Dmkcontrols.DmkCtrl()
     Dmkcontrols.get_from_file(ctrl,root+'/nextrout_core/dmk_discr.ctrl')
