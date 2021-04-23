@@ -6,7 +6,7 @@ import sys
 from scipy.spatial import ConvexHull, convex_hull_plot_2d
 from scipy.spatial import distance
 
-root = '/home/dtheuerkauf/Nextrout/'
+root = '/home/dleite/community_detection_nextrout/Nextrout'
 
 # Import I/O for timedata
 try:
@@ -383,8 +383,11 @@ def filtering(Gpe, sources, sinks,beta_d = 1.5,threshold=1e-3, tdens0 = 1, BPwei
 
         else:
             raise ValueError('BPweights flag not defined!.')
-        Gf.add_node(edge[0], weight = Gpe_rel.nodes[edge[0]]['tdens'])# todo: this needs to be fixed once the flux is working again (BPweights)
-        Gf.add_node(edge[1], weight = Gpe_rel.nodes[edge[1]]['tdens'])
+        try:
+            Gf.add_node(edge[0], weight = Gpe_rel.nodes[edge[0]]['tdens'])# todo: this needs to be fixed once the flux is working again (BPweights)
+            Gf.add_node(edge[1], weight = Gpe_rel.nodes[edge[1]]['tdens'])
+        except:
+            pass
 
 
     Gf.remove_nodes_from(list(nx.isolates(Gf)))
