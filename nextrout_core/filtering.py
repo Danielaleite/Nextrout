@@ -81,7 +81,6 @@ def terminals_from_cont(Graph, forcing_flag, extra_info, btns_factor_source, btn
     for node in Graph.nodes():
         terminal_val = Graph.nodes[node]['terminal']
         if terminal_val == 1:
-            print('here')
             nodes_in_source.append(node)
         elif terminal_val == -1:
             nodes_in_sink.append(node)

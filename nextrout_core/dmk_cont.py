@@ -245,5 +245,5 @@ def dmk_cont(forcing, beta_c, ndiv, tdens0 = None, nref= 0, flag_grid = 'unitsqu
 
     if info ==0: print('convergence achieved!.')
 
-    return tdpot
+    return tdpot, timefun
 
