@@ -1,24 +1,25 @@
 !************************************************************************
-! TIME CONTROLS
+! EVOLUTION CONTROLS
 !************************************************************************
-0.0         ! tzero                  (initial time)
-200         ! max_time_iterations    (time iterations, 0=solve ell. PDE )
+!** CONVERGENCE CONTROLS ***************************************************
+200          ! max_time_iterations    (time iterations, 0=solve ell. PDE )
 1.0e-8      ! tolerance_system_variation (tolerance for convergence. Currently it is measured with the tdens variation )
-5           ! max_restart_update     (max. update restart in case of error)
 !** TIME STEPPING APPROACH **********************************************
-4          ! time_discretization_scheme (1=ee_tdens 2=ei_tdens 3=ee_gfvar gf 4=ei_gfvar )
+3           ! time_discretization_scheme (1=ee_tdens 2=ei_tdens 3=ee_gfvar gf 4=ei_gfvar )
 20          ! max_nonlinear_iterations (max non linear iterations)
-1.0e-09    ! tolerance_nonlinear (tol. non linear methods in implicit time-step. schemes)
+1.0e-12     ! tolerance_nonlinear (tol. solveing PDE -div(mu \nabla u)= f )
+5           ! max_restart_update     (max. update restart in case of error)
 !** TIME STEP CONTROLS *************************************************
-2           ! deltat_control (1=constant 2=increasing 3=prop. sup(rhs ode)   )
-5e-1        ! deltat 	     (initial deltat                            )
+0.0         ! tzero          (initial time)
+1           ! deltat_control (1=constant 2=increasing 3=prop. sup(rhs ode)   )
+4e-1        ! deltat 	     (initial deltat                            )
 2           ! deltat_expansion_rate (id_time_ctrl=2,3 expansion rate         )
 0.9e4       ! deltat_upper_bound   (id_time_ctrl=2,3 upper bound delta_t    )
-1e-3    ! deltat_lower_bound  (id_time_ctrl=3   lower bound delta_t    )
+1e-3        ! deltat_lower_bound  (id_time_ctrl=3   lower bound delta_t    )
 !************************************************************************
 ! global controls
 !************************************************************************
-1    ! id_subgrid    (FEM ONLY VAR. 0=no subgrid 1=subgrid  
+1           ! id_subgrid    (FEM ONLY VAR. 0=no subgrid 1=subgrid  
 1e-10       ! min_tdens     (lower bound for tdens)
 2.0         ! norm for var_tdens (2.0=l^2, 0.0=l^infty)
 0           ! selection
@@ -49,7 +50,7 @@ PCG         ! outer_krylov_scheme       ('PCG','BICGSTAB','GMRES'not working)
 200         ! outer_imax (max number of iterations )
 0           ! outer_iprt          (0=no print, 1=convergence profile)
 0           ! outer_isol          (0=initial data zero 1= given initial data)
-1e-12        ! outer_tolerance (tolerance required)
+1e-5        ! outer_tolerance (tolerance required)
 1           ! iort          (=0 (0ff) >0 (ort. wrt. kernel with freq. iort)
 !** PRECONDITIONER  OUTER SOLVER ***************************************
 IC   ! outer_prec_type   ("identity","diag","IC","ILU","INNER_SOLVER"(inner solver as prec.) )

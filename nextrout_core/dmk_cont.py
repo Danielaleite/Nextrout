@@ -92,7 +92,7 @@ def forcing_generator(forcing_flag, grid, coord, topol,extra_info):
         xplus = extra_info['xplus'] # [[0.1,0.2],[0.3,0.4],[0.1,0.7]]
         xminus = extra_info['xminus'] # [[0.6,0.2],[0.8,0.4]]
 
-        # set array forcing_dirac "evoluation" f=f^{+}-f^{-} on grid nodes
+        # set array forcing_dirac "evolution" f=f^{+}-f^{-} on grid nodes
         forcing=np.zeros(grid.nnode)
         print('forcing',len(forcing))
         for i in range(Nplus):
@@ -103,6 +103,7 @@ def forcing_generator(forcing_flag, grid, coord, topol,extra_info):
             inode=mt.Inode(coord,xminus[i])
             forcing[inode]=-1#fminus[i]
             grid_sink_indices.append(inode)
+
     elif 'rect' in forcing_flag:
 
         rectangles_source = extra_info[0] # it should be a list of lists: every sublist has 3 elements: (x,y), w, h
@@ -110,9 +111,9 @@ def forcing_generator(forcing_flag, grid, coord, topol,extra_info):
         
         forcing =np.zeros(grid.nnode)
         # iterate over the center of the triangles
-        for cent in centers.keys():
+        for cent in centers:
 
-          x,y = centers[cent]
+          x,y = cent
 
           for rect in rectangles_source:
 
@@ -122,10 +123,12 @@ def forcing_generator(forcing_flag, grid, coord, topol,extra_info):
             ho = rect[2]
 
             if (x_source <= x <= x_source+wo) and (y_source <= y <= y_source+ho):
-              inode = mt.Inode(centers,centers[cent])
+              
+              inode = mt.Inode(centers,cent)
               #print(inode)
               forcing[inode]=1
-              source_baryc.append(inode)
+              grid_source_indices.append(inode)
+
           for rect in rectangles_sink:
 
             x_sink = rect[0][0]
@@ -134,10 +137,12 @@ def forcing_generator(forcing_flag, grid, coord, topol,extra_info):
             hi = rect[2]
 
             if (x_sink <= x <= x_sink+wi) and (y_sink <= y <= y_sink+hi):
-              inode = mt.Inode(centers,centers[cent])
+              
+              inode = mt.Inode(centers,cent)
               #print(inode)
               forcing[inode]=-1
-              sink_baryc.append(inode)
+              grid_sink_indices.append(inode)
+
     else:
         raise ValueError('forcing not defined')
 
@@ -247,3 +252,97 @@ def dmk_cont(forcing, beta_c, ndiv, tdens0 = None, nref= 0, flag_grid = 'unitsqu
 
     return tdpot, timefun
 
+
+
+'''
+ndiv = 20
+
+length=1.0/float(ndiv)
+
+# set grid example
+flag_grid='unitsquare'
+
+# build grid using prebuild examples 
+points, vertices, coord,topol,element_attributes = example_grid.example_grid(flag_grid,length)
+
+# initialized fortran variable for the spatial discretization
+[grid,subgrid]=dmk_p1p0.init_geometry(topol, coord, 1)
+ncell=grid.ncell
+ntdens=grid.ncell
+npot=subgrid.nnode
+
+
+Nplus=3
+Nminus=2
+
+fplus=[1,2,3]
+fminus=[4,2]
+
+xplus=[[0.1,0.2],[0.3,0.4],[0.1,0.7]]
+xminus=[[0.6,0.2],[0.8,0.4]]
+
+# set array forcing_dirac "evoluation" f=f^{+}-f^{-} on grid nodes
+forcing=np.zeros(grid.nnode)
+for i in range(Nplus):
+    inode=mt.Inode(coord,xplus[i])
+    forcing[inode]=fplus[i]
+for i in range(Nminus):
+    inode=mt.Inode(coord,xminus[i])
+    forcing[inode]=-fminus[i]
+
+# initial integrated forcing term
+rhs=np.zeros(subgrid.ncell)
+dmk_p1p0.build_subgrid_rhs(subgrid,rhs, np.zeros(ncell),forcing)
+
+# Init and set "container" with inputs for dmk simulation
+dmkin=Dmkinputsdata.DmkInputs()
+Dmkinputsdata.dmkinputs_constructor(dmkin,0,ntdens,npot,True) # this True set to default all varaibles
+
+# integrate forcing term w.r.t. p1 base function
+build_subgrid_rhs(subgrid, dmkin.rhs, np.zeros(grid.ncell),forcing)
+dmkin.pflux = 1#beta_c
+
+# Init "container" variable with tdens(mu) and potential(u) varaible
+tdpot=Tdenspotentialsystem.tdpotsys()
+Tdenspotentialsystem.tdpotsys_constructor(tdpot,0,ntdens, npot,1)
+tdpot.tdens[:]=1.0
+### defining tdens0
+tdens0 = None
+if tdens0 is None:
+    tdpot.tdens[:]=1.0
+else:
+    tdpot.tdens = tdens0
+
+### defining kappa
+kappa_flag = None
+if kappa_flag is not None:
+    # compute functions on cell centroids
+    ncell=len(topol)
+    bar_cell=mt.make_bar(coord,topol).transpose()
+    kappa_cell=np.zeros([ncell]);
+    for i in range(ncell):
+        kappa_cell[i] = kappa_generator(bar_cell[:,i])
+
+# init and set controls
+ctrl = Dmkcontrols.DmkCtrl()
+Dmkcontrols.get_from_file(ctrl,root+'/nextrout_core/dmk_cont.ctrl')
+ctrl.fn_tdens=storing+'/tdens.dat'
+ctrl.fn_pot=storing+'/pot.dat'
+ctrl.fn_statistics=storing+'/dmk.log'
+ctrl.max_time_iterations = 300
+#
+# init type for storing evolution/algorithm info
+#
+timefun=Timefunctionals.evolfun()
+Timefunctionals.evolfun_constructor(timefun, 0,
+                                        ctrl.max_time_iterations,
+                                        ctrl.max_nonlinear_iterations)
+
+# solve with dmk
+info=0
+dmkp1p0_steady_data(grid, subgrid, tdpot, dmkin, ctrl, info,timefun=timefun)
+
+if info ==0: print('convergence achieved!.')
+
+
+'''

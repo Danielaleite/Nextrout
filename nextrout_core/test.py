@@ -3,7 +3,7 @@ from main import nextrout
 
 # generate forcing
 
-forcing_flag = 'rect_cnst'
+forcing_flag = 'dirac2'
 
 if forcing_flag == 'rect_cnst':
 
@@ -105,7 +105,7 @@ elif forcing_flag == 'dirac3':
                     'xminus':xminus}
 
 beta_c = 1.5
-beta_d = 1.5
+beta_d = 1.0
 flags = ['whole_convex_hull+btns_centr','branch_convex_hull+btns_centr','btns_centr','single']
 
 ### running nextrout
@@ -121,10 +121,10 @@ nextrout(forcing_flag,
     min_f = 0.1,
     BPw = 'flux',
     weighting_method_simplification ='ER',
-    stop_thresh_f = 1e-8,
+    stop_thresh_f = 1e-4,
     verbose = False,
     weight_flag = 'length',
-    btns_factor_source=.5, 
-    btns_factor_sink=.5,
+    btns_factor_source=1, 
+    btns_factor_sink=1,
     terminal_criterion =  flags[3],
     storing = './outputs/')

@@ -327,6 +327,8 @@ def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tde
             weight[k] = 1
         elif weight_flag == 'length':
             weight[k] = distance.euclidean(Gpe.nodes[edge[0]]['pos'],Gpe.nodes[edge[1]]['pos'])
+
+    print('weights',weight)
     # rhs (f+ and f-)
 
     if sinks is not None and sources is not None: # there are lists from the sources and sinks are going to be chosen.
@@ -352,6 +354,7 @@ def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tde
 
     assert sum(rhs) < .01
     assert len(rhs) == nnodes
+    print('rhs',rhs)
     # init and set controls
     ctrl = Dmkcontrols.DmkCtrl()
     Dmkcontrols.get_from_file(ctrl,root+'/nextrout_core/dmk_discr.ctrl')
@@ -370,7 +373,7 @@ def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tde
         topol,
         rhs,
         pflux = beta_d,
-        tdens0 =  tdens0,
+        #tdens0 =  tdens0,
         tolerance = stopping_threshold_f,
         weight= weight,
         ctrl = ctrl)
