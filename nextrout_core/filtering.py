@@ -278,6 +278,7 @@ def terminals_from_cont(Graph, forcing_flag, extra_info, btns_factor_source, btn
 
 def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tdens0 = 1, BPweights = 'tdens', stopping_threshold_f = 1e-6, weight_flag='unit', rhs = None):
 
+    inputs = {}
 
     if sources is None and sinks is None and rhs is None:
 
@@ -293,7 +294,7 @@ def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tde
       k+=1
       mapping[node] = k
     Gpe_rel  =nx.relabel_nodes(Gpe, mapping, copy=True)
-
+    print(Gpe_rel.nodes())
 
     edges = Gpe_rel.edges()
     nedges = len(edges)
@@ -315,6 +316,8 @@ def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tde
     for edge in edges:
       k+=1
       topol[k,:] = edge 
+
+    print('topol',topol)
 
     # weight (uniform)
 
@@ -362,6 +365,7 @@ def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tde
     ctrl.id_save_dat=1
     ctrl.fn_tdens='tdens.dat'
     ctrl.fn_pot='pot.dat'
+    ctrl.max_time_iterations = 100
     # if and where save log
     ctrl.id_save_statistics=1
     ctrl.fn_statistics='dmk.log'
@@ -374,10 +378,13 @@ def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tde
         rhs,
         pflux = beta_d,
         #tdens0 =  tdens0,
-        tolerance = stopping_threshold_f,
-        weight= weight,
+        #tolerance = stopping_threshold_f,
+        #weight= weight,
         ctrl = ctrl)
-
+    
+    tdens = list(tdens)
+    flux = list(flux)
+    
     if (info==0):
         print('Convergence achieved')
 
@@ -405,7 +412,7 @@ def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tde
             Gf.add_node(edge[1], weight = Gpe_rel.nodes[edge[1]]['tdens'])
         except:
             pass
-
+    print('ed_count',ed_count)
 
     Gf.remove_nodes_from(list(nx.isolates(Gf)))
         
@@ -423,4 +430,8 @@ def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tde
         else:
             colors.append('k')
 
-    return Gf, weights_in_Gf, colors
+    inputs['topol'] = topol
+    inputs['rhs'] = rhs
+    inputs['pflux'] = beta_d
+
+    return Gf, weights_in_Gf, colors, inputs

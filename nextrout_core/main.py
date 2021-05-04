@@ -33,7 +33,9 @@ def nextrout(
     weight_flag = 'unit',
     storing = None
     ):
-
+    
+    inputs = {}
+    inputs['continuous'] = {}
     # run the dmk_cont
     grid, subgrid, points, vertices, coord,topol,element_attributes = dmk_cont.grid_gen(ndiv)
     forcing, triang_source_indices,triang_sink_indices = dmk_cont.forcing_generator(forcing_flag, grid, coord, topol, extra_info=extra_info)
@@ -50,6 +52,10 @@ def nextrout(
         fig1.colorbar(tpc)
         plt.savefig(storing+'/dmk_sol.png')
         plt.close()
+
+        inputs['continuous']['ndiv'] = ndiv
+        inputs['continuous']['forcing'] = forcing
+        inputs['continuous']['pflux'] = beta_c
 
     # run the graph extraction
 
@@ -73,8 +79,8 @@ def nextrout(
         weights/=max_w
         fig1, ax1 = plt.subplots(figsize=(10, 10))
         ax1.tricontour(triang, forcing, cmap='RdBu_r')
-        pos = nx.get_node_attributes(Gpe,'pos')
-        nx.draw(Gpe,pos, node_size = 10, node_color = node_colors, width = weights*3, ax = ax1)
+        pos_Gpe = nx.get_node_attributes(Gpe,'pos')
+        nx.draw(Gpe,pos_Gpe, node_size = 10, node_color = node_colors, width = weights*3, ax = ax1)
         plt.savefig(storing+'/Gpe.png')
         plt.close()
 
@@ -101,7 +107,7 @@ def nextrout(
         if len(temp_sources) ==0 or len(temp_sinks) == 0:
             raise ValueError('Not enough sources or sinks. Increase btns_factor.')
 
-        temp_Gf,weights,colors = filtering.filtering(
+        temp_Gf,weights,colors, inputs_discr = filtering.filtering(
             temp_Gpe, 
             temp_sources, 
             temp_sinks, 
@@ -151,19 +157,29 @@ def nextrout(
     elif weighting_method_simplification == 'BPW':
         pass
 
+    
 
     if storing is not None:
         if len(cc_list)==1:
             color = colors
         else:
             color = 'k'
-        weights = np.array([Gf.edges[edge][BPw] for edge in Gf.edges()])
+        weights = np.array([abs(Gf.edges[edge][BPw]) for edge in Gf.edges()])
         max_w = max(weights)
         weights/=max_w
+        print('max',max_w)
+
+        edge_labels = {}
+        for edge in Gf.edges():
+            edge_labels[edge]=round(abs(Gf.edges[edge][BPw])/max_w,2)
+            if edge_labels[edge] == 0:
+                edge_labels[edge] = 0
+
         fig1, ax1 = plt.subplots(figsize=(10, 10))
         ax1.tricontour(triang, forcing, cmap='RdBu_r')
         pos = nx.get_node_attributes(Gf,'pos')
         nx.draw(Gf,pos, node_size = 30, node_color = color, width = abs(weights)*3, ax = ax1 )
+        nx.draw_networkx_edge_labels(Gf,pos,edge_labels=edge_labels,font_color='red', font_size = 8, ax = ax1)
         plt.savefig(storing+'/Gf.png')
         plt.close()
 
@@ -176,6 +192,17 @@ def nextrout(
         for ff in files:
             with open(storing + '/'+ff[0]+'.pkl', 'wb') as file:
                 pkl.dump(ff[1], file)
+
+        # storing inputs
+        inputs['discrete'] = inputs_discr
+
+        with open(storing + '/inputs.pkl', 'wb') as file:
+                pkl.dump(inputs, file)
+
+        pos = nx.get_node_attributes(Gf,'pos')
+
+        with open(storing + '/Gf_node_locations.pkl', 'wb') as file:
+                pkl.dump(pos, file)
 
     #print('isolated nodes?:',len(list(nx.isolates(Gf))))
 

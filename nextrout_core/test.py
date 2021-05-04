@@ -1,3 +1,5 @@
+import pickle as pkl
+import os
 from main import nextrout
 ### testing:
 
@@ -88,6 +90,24 @@ elif forcing_flag == 'dirac2':
 
 elif forcing_flag == 'dirac3':
 
+    fplus=[1]
+    fminus=[1]
+
+    xplus=[[0.1,0.2]]
+    xminus=[[0.6,0.2]]
+
+    Nplus = len(xplus)
+    Nminus = len(xminus)
+
+    extra_info = {'Nplus':Nplus,
+                   'Nminus':Nminus,
+                    'fplus':fplus,
+                    'fminus':fminus,
+                    'xplus':xplus,
+                    'xminus':xminus}
+
+elif forcing_flag == 'dirac4':
+
     fplus=[3,2]
     fminus=[4,2]
 
@@ -104,27 +124,94 @@ elif forcing_flag == 'dirac3':
                     'xplus':xplus,
                     'xminus':xminus}
 
-beta_c = 1.5
-beta_d = 1.0
-flags = ['whole_convex_hull+btns_centr','branch_convex_hull+btns_centr','btns_centr','single']
 
+flags = ['whole_convex_hull+btns_centr','branch_convex_hull+btns_centr','btns_centr','single']
+test_flag = forcing_flag
 ### running nextrout
+
+if test_flag == 'dirac':
+    beta_c = 1.5
+    beta_d = 1.5
+    ndiv = 20
+    graph_type='1'
+    weighting_method = 'ER'
+    min_pe = 1e-2
+    min_f = 1e-2
+    BPw = 'tdens'
+    weighting_method_simplification ='BPW'
+    stop_thresh_f = 1e-12
+    verbose = False
+    weight_flag = 'length'
+    btns_factor_source=1
+    btns_factor_sink=1
+    terminal_criterion =  flags[3]
+    storing = 'outputs/'
+
+elif test_flag == 'dirac2':
+    beta_c = 1.5
+    beta_d = 1.5
+    ndiv = 20
+    graph_type='1'
+    weighting_method = 'ER'
+    min_pe = 1e-2
+    min_f = 1e-2
+    BPw = 'tdens'
+    weighting_method_simplification ='BPW'
+    stop_thresh_f = 1e-12
+    verbose = False
+    weight_flag = 'length'
+    btns_factor_source=1
+    btns_factor_sink=1
+    terminal_criterion =  flags[3]
+    storing = 'outputs/'
+
+elif test_flag =='dirac3':
+    beta_c = 1.5
+    beta_d = 1.5
+    ndiv = 15
+    graph_type='1'
+    weighting_method = 'ER'
+    min_pe = 1e-2
+    min_f = 1e-2
+    BPw = 'tdens'
+    weighting_method_simplification ='BPW'
+    stop_thresh_f = 1e-12
+    verbose = False
+    weight_flag = 'length'
+    btns_factor_source=1
+    btns_factor_sink=1
+    terminal_criterion =  flags[3]
+    storing = 'outputs/'
+
+    
+os.system('mkdir '+storing+test_flag)
+storing = storing+'/'+test_flag 
 
 nextrout(forcing_flag,
     extra_info,
-    beta_c,
+    beta_c=beta_c,
     beta_d = beta_d, 
-    ndiv = 15, 
-    graph_type='1',
-    weighting_method = 'ER',
-    min_pe = 0.01,
-    min_f = 0.1,
-    BPw = 'flux',
-    weighting_method_simplification ='ER',
-    stop_thresh_f = 1e-4,
-    verbose = False,
-    weight_flag = 'length',
-    btns_factor_source=1, 
-    btns_factor_sink=1,
-    terminal_criterion =  flags[3],
-    storing = './outputs/')
+    ndiv = ndiv, 
+    graph_type=graph_type,
+    weighting_method = weighting_method,
+    min_pe = min_pe,
+    min_f = min_f,
+    BPw = BPw,
+    weighting_method_simplification =weighting_method_simplification,
+    stop_thresh_f = stop_thresh_f,
+    verbose = verbose,
+    weight_flag = weight_flag,
+    btns_factor_source=btns_factor_source, 
+    btns_factor_sink=btns_factor_sink,
+    terminal_criterion =  terminal_criterion,
+    storing = storing)
+
+'''
+with open('./outputs/'+'./inputs.pkl', 'rb') as file:
+    inputs = pkl.load(file)
+
+print(inputs.keys())
+
+print(inputs['discrete'].keys())
+print(inputs['continuous'].keys())
+'''
