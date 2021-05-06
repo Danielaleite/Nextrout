@@ -148,8 +148,8 @@ if test_flag == 'dirac':
     storing = 'outputs/'
 
 elif test_flag == 'dirac2':
-    beta_c = 1.5
-    beta_d = 1.5
+    beta_c = 1.2
+    beta_d = 1.8
     ndiv = 20
     graph_type='1'
     weighting_method = 'ER'
@@ -173,7 +173,7 @@ elif test_flag =='dirac3':
     weighting_method = 'ER'
     min_pe = 1e-2
     min_f = 1e-2
-    BPw = 'tdens'
+    BPw = 'flux'
     weighting_method_simplification ='BPW'
     stop_thresh_f = 1e-12
     verbose = False

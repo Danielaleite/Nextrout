@@ -60,9 +60,11 @@ def nextrout(
     # run the graph extraction
 
     tdens_weights = tdpot.tdens
-
+    print('TDENS',tdens_weights)
+    tdens_weights = tdens_weights/max(tdens_weights)
+    print(max(tdens_weights))
     Gpe = pre_extraction.pre_extr(coord, topol, tdens_weights,triang_source_indices,triang_sink_indices, min_= min_pe, graph_type=graph_type,weighting_method = weighting_method, DMKw = DMKw)
-
+    print('Gpe',Gpe.nodes(data=True))
     node_colors = []
     for node in Gpe.nodes():
     	terminal_val = Gpe.nodes[node]['terminal']
@@ -91,10 +93,10 @@ def nextrout(
         terminal_criterion=terminal_criterion)
 
     # run the dmk_discrete
-    print('len',len(sources),len(sinks))
+
     # get the connected components
     cc_list = list(nx.connected_components(Gpe))
-    print('CC',len(cc_list))
+
     # apply dmk in the cc
     Gf = nx.Graph()
     count=0
@@ -115,6 +117,7 @@ def nextrout(
             tdens0 = 2, # 2 means not unitary (i.e., taken from Gpe)
             threshold = min_f, 
             BPweights = BPw, 
+            weight_flag = 'length',
             stopping_threshold_f = stop_thresh_f)
         
         # put everything together
@@ -179,7 +182,7 @@ def nextrout(
         ax1.tricontour(triang, forcing, cmap='RdBu_r')
         pos = nx.get_node_attributes(Gf,'pos')
         nx.draw(Gf,pos, node_size = 30, node_color = color, width = abs(weights)*3, ax = ax1 )
-        nx.draw_networkx_edge_labels(Gf,pos,edge_labels=edge_labels,font_color='red', font_size = 8, ax = ax1)
+        #nx.draw_networkx_edge_labels(Gf,pos,edge_labels=edge_labels,font_color='red', font_size = 8, ax = ax1)
         plt.savefig(storing+'/Gf.png')
         plt.close()
 

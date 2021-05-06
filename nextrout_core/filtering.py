@@ -163,7 +163,7 @@ def terminals_from_cont(Graph, forcing_flag, extra_info, btns_factor_source, btn
     possible_terminals_source = set(kind_of_leaf_nodes_source)
     possible_terminals_sink = set(kind_of_leaf_nodes_sink)
 
-    print('poss',possible_terminals_source,possible_terminals_sink)
+    #print('poss',possible_terminals_source,possible_terminals_sink)
     
     if terminal_criterion == 'single':
         
@@ -276,7 +276,7 @@ def terminals_from_cont(Graph, forcing_flag, extra_info, btns_factor_source, btn
 
 
 
-def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tdens0 = 1, BPweights = 'tdens', stopping_threshold_f = 1e-6, weight_flag='unit', rhs = None):
+def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tdens0 = None, BPweights = 'tdens', stopping_threshold_f = 1e-6, weight_flag='unit', rhs = None):
 
     inputs = {}
 
@@ -288,13 +288,14 @@ def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tde
 
     ### relabeling
 
+    #todo: add an if for the case in which nodes are already relabeled
+
     mapping = {}
     k=-1
     for node in Gpe.nodes():
       k+=1
       mapping[node] = k
     Gpe_rel  =nx.relabel_nodes(Gpe, mapping, copy=True)
-    print(Gpe_rel.nodes())
 
     edges = Gpe_rel.edges()
     nedges = len(edges)
@@ -303,7 +304,7 @@ def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tde
 
     # tdens0
 
-    if tdens0 != 1:
+    if tdens0 != None:
         try:
             tdens0 = np.array([(Gpe_rel.edges[edge]['tdens']) for edge in edges])
         except:
@@ -317,8 +318,6 @@ def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tde
       k+=1
       topol[k,:] = edge 
 
-    print('topol',topol)
-
     # weight (uniform)
 
     weight =np.empty(nedges, dtype=object)
@@ -329,9 +328,8 @@ def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tde
         if weight_flag == 'unit':
             weight[k] = 1
         elif weight_flag == 'length':
-            weight[k] = distance.euclidean(Gpe.nodes[edge[0]]['pos'],Gpe.nodes[edge[1]]['pos'])
+            weight[k] = distance.euclidean(Gpe_rel.nodes[edge[0]]['pos'],Gpe_rel.nodes[edge[1]]['pos'])
 
-    print('weights',weight)
     # rhs (f+ and f-)
 
     if sinks is not None and sources is not None: # there are lists from the sources and sinks are going to be chosen.
@@ -357,7 +355,7 @@ def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tde
 
     assert sum(rhs) < .01
     assert len(rhs) == nnodes
-    print('rhs',rhs)
+
     # init and set controls
     ctrl = Dmkcontrols.DmkCtrl()
     Dmkcontrols.get_from_file(ctrl,root+'/nextrout_core/dmk_discr.ctrl')
@@ -377,14 +375,14 @@ def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tde
         topol,
         rhs,
         pflux = beta_d,
-        #tdens0 =  tdens0,
+        tdens0 =  tdens0,
         #tolerance = stopping_threshold_f,
-        #weight= weight,
+        weight= weight,
         ctrl = ctrl)
     
     tdens = list(tdens)
     flux = list(flux)
-    
+
     if (info==0):
         print('Convergence achieved')
 
@@ -412,7 +410,6 @@ def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tde
             Gf.add_node(edge[1], weight = Gpe_rel.nodes[edge[1]]['tdens'])
         except:
             pass
-    print('ed_count',ed_count)
 
     Gf.remove_nodes_from(list(nx.isolates(Gf)))
         
@@ -433,5 +430,6 @@ def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tde
     inputs['topol'] = topol
     inputs['rhs'] = rhs
     inputs['pflux'] = beta_d
+    inputs['tdens0'] = tdens0
 
     return Gf, weights_in_Gf, colors, inputs

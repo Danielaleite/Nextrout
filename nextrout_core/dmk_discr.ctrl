@@ -29,7 +29,7 @@
 !************************************************************************
 0           ! debug          (0 no debug, >0 full debug)
 2           ! info_state     (0==no info, >0 increasing information printed)
-1           ! info_update    (0==no info, >0 increasing information printed)
+3           ! info_update    (0==no info, >0 increasing information printed)
 !** REAL & INTEGER FORMAT ********************************************
 I12         ! iformat        (integer format for data file)
 1e18.10     ! rformat        (real    format for data file)
@@ -83,4 +83,4 @@ reduced ! solve_jacobian_approach
 !** RELAXATION ***********************************************************
 0e-10     ! relax_tdens (lift tdens)
 1e-10     ! relax_direct (+relax_direct*Identity to matrix to inver)
-1e-09     ! relax4prec   (+relax_direct*Identity to matrix in preconditioner)
+1e-10     ! relax4prec   (+relax_direct*Identity to matrix in preconditioner)

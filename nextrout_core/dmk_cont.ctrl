@@ -2,8 +2,8 @@
 ! EVOLUTION CONTROLS
 !************************************************************************
 !** CONVERGENCE CONTROLS ***************************************************
-400          ! max_time_iterations    (time iterations, 0=solve ell. PDE )
-1.0e-4      ! tolerance_system_variation (tolerance for convergence. Currently it is measured with the tdens variation )
+200          ! max_time_iterations    (time iterations, 0=solve ell. PDE )
+1.0e-8      ! tolerance_system_variation (tolerance for convergence. Currently it is measured with the tdens variation )
 !** TIME STEPPING APPROACH **********************************************
 1           ! time_discretization_scheme (1=ee_tdens 2=ei_tdens 3=ee_gfvar gf 4=ei_gfvar )
 20          ! max_nonlinear_iterations (max non linear iterations)
@@ -12,7 +12,7 @@
 !** TIME STEP CONTROLS *************************************************
 0.0         ! tzero          (initial time)
 1           ! deltat_control (1=constant 2=increasing 3=prop. sup(rhs ode)   )
-1e-1        ! deltat 	     (initial deltat                            )
+4e-1        ! deltat 	     (initial deltat                            )
 2           ! deltat_expansion_rate (id_time_ctrl=2,3 expansion rate         )
 0.9e4       ! deltat_upper_bound   (id_time_ctrl=2,3 upper bound delta_t    )
 1e-3        ! deltat_lower_bound  (id_time_ctrl=3   lower bound delta_t    )
@@ -55,7 +55,7 @@ PCG         ! outer_krylov_scheme       ('PCG','BICGSTAB','GMRES'not working)
 !** PRECONDITIONER  OUTER SOLVER ***************************************
 IC   ! outer_prec_type   ("identity","diag","IC","ILU","INNER_SOLVER"(inner solver as prec.) )
 30   ! outer_prec_n_fillin (nmb of fillin elem. in IC and ILU )
-1e-4 ! outer_prec_tol_fillin (drop tol. for fillin elem. in IC and ILU )
+1e-8 ! outer_prec_tol_fillin (drop tol. for fillin elem. in IC and ILU )
 !*** INNER  SOLVER *****************************************************
 ITERATIVE   ! inner_solver_approach ('MG','ITERATIVE')
 PCG    ! inner_krylov_scheme       ('PCG','BICGSTAB','GMRES'not working)
