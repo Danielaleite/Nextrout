@@ -94,7 +94,6 @@ def forcing_generator(forcing_flag, grid, coord, topol,extra_info):
 
         # set array forcing_dirac "evolution" f=f^{+}-f^{-} on grid nodes
         forcing=np.zeros(grid.nnode)
-        print('forcing',len(forcing))
         for i in range(Nplus):
             inode=mt.Inode(coord,xplus[i])
             forcing[inode]=1#fplus[i]

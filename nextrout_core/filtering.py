@@ -433,3 +433,41 @@ def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tde
     inputs['tdens0'] = tdens0
 
     return Gf, weights_in_Gf, colors, inputs
+
+
+def bifurcation_paths(G, terminals):
+    '''
+    This script takes a filtered graph and reduces its paths (sequences of nodes with degree 2) to a single edge.
+
+    :param G:  filtered graph (networkx graph).
+    :param terminals: union of source and sink nodes.
+    :return:
+        G: reduced graph.
+    '''
+
+    G = G.copy()
+    N = len(G.nodes())
+    deg_norm = nx.degree_centrality(G)
+    deg = {}
+    for key in deg_norm.keys():
+        deg[key] = int(round((N - 1) * deg_norm[key]))
+    # print(deg)
+    # deg_neq_2=[node for node in G.nodes() if deg[node]!= 2]
+    deg_3 = [node for node in G.nodes() if deg[node] >= 3 or deg[node] == 1 or node in terminals]
+
+    G_wo_bifuc = G.copy()
+    for node in deg_3:
+        G_wo_bifuc.remove_node(node)
+    cc = list(nx.connected_components(G_wo_bifuc))
+    # print(list(cc))
+    connect_points = {}
+    index = 1
+    for comp in cc:
+        comp = set(comp)
+        neighs = {neigh for node in comp for neigh in G.neighbors(node) if neigh not in comp}
+        # print(neighs)
+        assert len(neighs) == 2
+        G.remove_nodes_from(comp)
+        G.add_edge(*tuple(neighs))
+
+    return G

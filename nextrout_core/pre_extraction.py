@@ -47,7 +47,6 @@ def dmk2pre_extr_inputs(coord, topol, weights,triang_source_indices,triang_sink_
 	for key in G_bar.nodes():
 		dict_seq[key] = topol[key]
 
-	print('Gbar',len(G_bar.nodes()))
 
 	return G_bar,G_triang,dict_seq
 

@@ -41,7 +41,6 @@ def nextrout(
     forcing, triang_source_indices,triang_sink_indices = dmk_cont.forcing_generator(forcing_flag, grid, coord, topol, extra_info=extra_info)
     tdpot, timefun = dmk_cont.dmk_cont(forcing,beta_c, ndiv, storing = storing)
 
-    print(os.getcwd())
 
     if storing is not None:
         triang = mtri.Triangulation(coord.transpose()[0,:], coord.transpose()[1,:], topol)
@@ -60,11 +59,8 @@ def nextrout(
     # run the graph extraction
 
     tdens_weights = tdpot.tdens
-    print('TDENS',tdens_weights)
     tdens_weights = tdens_weights/max(tdens_weights)
-    print(max(tdens_weights))
     Gpe = pre_extraction.pre_extr(coord, topol, tdens_weights,triang_source_indices,triang_sink_indices, min_= min_pe, graph_type=graph_type,weighting_method = weighting_method, DMKw = DMKw)
-    print('Gpe',Gpe.nodes(data=True))
     node_colors = []
     for node in Gpe.nodes():
     	terminal_val = Gpe.nodes[node]['terminal']

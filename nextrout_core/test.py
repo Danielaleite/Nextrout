@@ -5,7 +5,7 @@ from main import nextrout
 
 # generate forcing
 
-forcing_flag = 'dirac2'
+forcing_flag = 'dirac'
 
 if forcing_flag == 'rect_cnst':
 
