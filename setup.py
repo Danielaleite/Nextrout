@@ -8,8 +8,7 @@ print('<< Installing Nextrout >>')
 python_reqs = ['meshpy','click','--upgrade numpy==1.18.1','f90wrap']
 
 for pkg in python_reqs:
-    print('')
-    #os.system('pip install '+ pkg)
+    os.system('pip install '+ pkg)
 
 # Cloning repositories
 os.system('mkdir dmk_utilities')

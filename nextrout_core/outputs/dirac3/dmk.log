@@ -1,0 +1,1235 @@
+********** INPUTS *****************************************************
+Ntdens =          699 Npot=         1456
+ Stationary data
+Pflux(beta)= 1.50E+00 Pmass(gamma)= 1.00E+00 Pode= 2.00E+00
+-1.00E+00<=rhs        <=1.00E+00
+********** SYNCRONIZATION TDPOT ***************************************
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   15 1.9E-02 8.0E-14 8.1E-14  <<PCG>>WCT:1.0E-03 s
+**********  ***********************************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E+00 | max   =  1.00E+00 | wmass =  1.00E+00
+funct : ene   =  8.95E-01 | lyap  =  1.90E+00 | dgap  =  3.35-312
+ ***********************************************************************
+ iter. =    0 | time  =  0.00E+00
+
+********** UPDATE 00001 | TIME STEP = 4.00E-01 ************************
+2.01E-03<= |TDENS INCREMENT| <= 5.31E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   15 2.0E-02 1.2E-13 1.2E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  6.00E-01 | max   =  2.22E+01 | wmass =  1.03E+00
+funct : ene   =  2.73E-01 | lyap  =  1.30E+00 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =    1 | time =  4.00E-01 | deltat =  4.00E-01 | var = 5.795E+00
+
+********** UPDATE 00002 | TIME STEP = 4.00E-01 ************************
+2.21E-02<= |TDENS INCREMENT| <= 9.33E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   15 1.5E-02 4.3E-14 4.4E-14  <<PCG>>WCT:2.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  3.60E-01 | max   =  2.29E+01 | wmass =  9.15E-01
+funct : ene   =  2.31E-01 | lyap  =  1.15E+00 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =    2 | time =  8.00E-01 | deltat =  4.00E-01 | var = 5.335E-01
+
+********** UPDATE 00003 | TIME STEP = 4.00E-01 ************************
+5.78E-03<= |TDENS INCREMENT| <= 1.23E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   15 1.1E-02 1.6E-14 1.8E-14  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  2.16E-01 | max   =  2.78E+01 | wmass =  8.10E-01
+funct : ene   =  2.07E-01 | lyap  =  1.02E+00 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =    3 | time =  1.20E+00 | deltat =  4.00E-01 | var = 5.161E-01
+
+********** UPDATE 00004 | TIME STEP = 4.00E-01 ************************
+1.84E-02<= |TDENS INCREMENT| <= 1.73E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   14 7.0E-03 5.9E-13 5.9E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.30E-01 | max   =  3.47E+01 | wmass =  7.19E-01
+funct : ene   =  1.89E-01 | lyap  =  9.08E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =    4 | time =  1.60E+00 | deltat =  4.00E-01 | var = 5.161E-01
+
+********** UPDATE 00005 | TIME STEP = 4.00E-01 ************************
+1.94E-02<= |TDENS INCREMENT| <= 2.04E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   14 4.5E-03 2.6E-13 2.6E-13  <<PCG>>WCT:2.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  7.79E-02 | max   =  4.29E+01 | wmass =  6.40E-01
+funct : ene   =  1.75E-01 | lyap  =  8.15E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =    5 | time =  2.00E+00 | deltat =  4.00E-01 | var = 4.880E-01
+
+********** UPDATE 00006 | TIME STEP = 4.00E-01 ************************
+7.79E-02<= |TDENS INCREMENT| <= 2.21E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   14 2.9E-03 4.2E-14 4.4E-14  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  4.67E-02 | max   =  5.17E+01 | wmass =  5.74E-01
+funct : ene   =  1.64E-01 | lyap  =  7.38E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =    6 | time =  2.40E+00 | deltat =  4.00E-01 | var = 4.426E-01
+
+********** UPDATE 00007 | TIME STEP = 4.00E-01 ************************
+4.67E-02<= |TDENS INCREMENT| <= 2.28E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   13 1.8E-03 7.9E-13 7.9E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  2.80E-02 | max   =  6.09E+01 | wmass =  5.17E-01
+funct : ene   =  1.54E-01 | lyap  =  6.72E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =    7 | time =  2.80E+00 | deltat =  4.00E-01 | var = 3.968E-01
+
+********** UPDATE 00008 | TIME STEP = 4.00E-01 ************************
+2.80E-02<= |TDENS INCREMENT| <= 2.30E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   13 1.1E-03 3.4E-13 3.4E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.68E-02 | max   =  7.01E+01 | wmass =  4.70E-01
+funct : ene   =  1.46E-01 | lyap  =  6.16E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =    8 | time =  3.20E+00 | deltat =  4.00E-01 | var = 3.611E-01
+
+********** UPDATE 00009 | TIME STEP = 4.00E-01 ************************
+1.68E-02<= |TDENS INCREMENT| <= 2.53E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   13 6.6E-04 1.3E-13 1.3E-13  <<PCG>>WCT:2.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.01E-02 | max   =  7.94E+01 | wmass =  4.29E-01
+funct : ene   =  1.40E-01 | lyap  =  5.69E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =    9 | time =  3.60E+00 | deltat =  4.00E-01 | var = 3.401E-01
+
+********** UPDATE 00010 | TIME STEP = 4.00E-01 ************************
+1.01E-02<= |TDENS INCREMENT| <= 3.23E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   13 4.0E-04 5.4E-14 5.7E-14  <<PCG>>WCT:2.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  6.05E-03 | max   =  8.89E+01 | wmass =  3.95E-01
+funct : ene   =  1.34E-01 | lyap  =  5.29E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   10 | time =  4.00E+00 | deltat =  4.00E-01 | var = 3.341E-01
+
+********** UPDATE 00011 | TIME STEP = 4.00E-01 ************************
+6.05E-03<= |TDENS INCREMENT| <= 4.05E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   12 2.4E-04 8.6E-13 8.6E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  3.63E-03 | max   =  9.90E+01 | wmass =  3.66E-01
+funct : ene   =  1.29E-01 | lyap  =  4.95E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   11 | time =  4.40E+00 | deltat =  4.00E-01 | var = 3.390E-01
+
+********** UPDATE 00012 | TIME STEP = 4.00E-01 ************************
+2.45E-03<= |TDENS INCREMENT| <= 4.92E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   12 1.5E-04 5.4E-13 5.4E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  2.18E-03 | max   =  1.10E+02 | wmass =  3.41E-01
+funct : ene   =  1.25E-01 | lyap  =  4.66E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   12 | time =  4.80E+00 | deltat =  4.00E-01 | var = 3.479E-01
+
+********** UPDATE 00013 | TIME STEP = 4.00E-01 ************************
+2.18E-03<= |TDENS INCREMENT| <= 5.68E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   12 8.7E-05 2.5E-13 2.5E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.31E-03 | max   =  1.22E+02 | wmass =  3.20E-01
+funct : ene   =  1.21E-01 | lyap  =  4.41E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   13 | time =  5.20E+00 | deltat =  4.00E-01 | var = 3.529E-01
+
+********** UPDATE 00014 | TIME STEP = 4.00E-01 ************************
+1.31E-03<= |TDENS INCREMENT| <= 6.18E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   12 5.2E-05 1.2E-13 1.3E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  7.85E-04 | max   =  1.42E+02 | wmass =  3.02E-01
+funct : ene   =  1.17E-01 | lyap  =  4.19E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   14 | time =  5.60E+00 | deltat =  4.00E-01 | var = 3.483E-01
+
+********** UPDATE 00015 | TIME STEP = 4.00E-01 ************************
+7.85E-04<= |TDENS INCREMENT| <= 6.29E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   12 3.2E-05 4.3E-14 4.4E-14  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  4.71E-04 | max   =  1.67E+02 | wmass =  2.86E-01
+funct : ene   =  1.13E-01 | lyap  =  3.99E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   15 | time =  6.00E+00 | deltat =  4.00E-01 | var = 3.333E-01
+
+********** UPDATE 00016 | TIME STEP = 4.00E-01 ************************
+4.71E-04<= |TDENS INCREMENT| <= 6.02E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   11 1.9E-05 8.0E-13 8.0E-13  <<PCG>>WCT:0.0E+00 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  2.83E-04 | max   =  1.91E+02 | wmass =  2.72E-01
+funct : ene   =  1.09E-01 | lyap  =  3.82E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   16 | time =  6.40E+00 | deltat =  4.00E-01 | var = 3.113E-01
+
+********** UPDATE 00017 | TIME STEP = 4.00E-01 ************************
+2.83E-04<= |TDENS INCREMENT| <= 5.44E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   11 1.5E-05 4.5E-13 4.5E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.70E-04 | max   =  2.13E+02 | wmass =  2.60E-01
+funct : ene   =  1.06E-01 | lyap  =  3.66E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   17 | time =  6.80E+00 | deltat =  4.00E-01 | var = 2.869E-01
+
+********** UPDATE 00018 | TIME STEP = 4.00E-01 ************************
+1.70E-04<= |TDENS INCREMENT| <= 5.51E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   11 3.1E-05 6.0E-14 6.1E-14  <<PCG>>WCT:0.0E+00 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.02E-04 | max   =  2.31E+02 | wmass =  2.49E-01
+funct : ene   =  1.03E-01 | lyap  =  3.51E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   18 | time =  7.20E+00 | deltat =  4.00E-01 | var = 2.629E-01
+
+********** UPDATE 00019 | TIME STEP = 4.00E-01 ************************
+1.02E-04<= |TDENS INCREMENT| <= 6.03E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   10 1.8E-05 8.3E-13 8.3E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  6.10E-05 | max   =  2.47E+02 | wmass =  2.39E-01
+funct : ene   =  9.95E-02 | lyap  =  3.38E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   19 | time =  7.60E+00 | deltat =  4.00E-01 | var = 2.395E-01
+
+********** UPDATE 00020 | TIME STEP = 4.00E-01 ************************
+6.10E-05<= |TDENS INCREMENT| <= 6.18E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   10 2.3E-05 2.1E-13 2.1E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  3.66E-05 | max   =  2.59E+02 | wmass =  2.29E-01
+funct : ene   =  9.66E-02 | lyap  =  3.26E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   20 | time =  8.00E+00 | deltat =  4.00E-01 | var = 2.154E-01
+
+********** UPDATE 00021 | TIME STEP = 4.00E-01 ************************
+3.66E-05<= |TDENS INCREMENT| <= 5.89E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   11 3.3E-05 2.2E-14 3.0E-14  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  2.20E-05 | max   =  2.69E+02 | wmass =  2.21E-01
+funct : ene   =  9.38E-02 | lyap  =  3.15E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   21 | time =  8.40E+00 | deltat =  4.00E-01 | var = 1.909E-01
+
+********** UPDATE 00022 | TIME STEP = 4.00E-01 ************************
+2.20E-05<= |TDENS INCREMENT| <= 5.25E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   10 2.3E-05 2.3E-13 2.4E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.32E-05 | max   =  2.77E+02 | wmass =  2.13E-01
+funct : ene   =  9.13E-02 | lyap  =  3.05E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   22 | time =  8.80E+00 | deltat =  4.00E-01 | var = 1.679E-01
+
+********** UPDATE 00023 | TIME STEP = 4.00E-01 ************************
+1.32E-05<= |TDENS INCREMENT| <= 4.44E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   10 1.8E-05 2.0E-13 2.1E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  7.91E-06 | max   =  2.84E+02 | wmass =  2.06E-01
+funct : ene   =  8.90E-02 | lyap  =  2.95E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   23 | time =  9.20E+00 | deltat =  4.00E-01 | var = 1.483E-01
+
+********** UPDATE 00024 | TIME STEP = 4.00E-01 ************************
+7.91E-06<= |TDENS INCREMENT| <= 3.62E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   11 2.3E-05 1.5E-14 2.8E-14  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  4.74E-06 | max   =  2.90E+02 | wmass =  2.00E-01
+funct : ene   =  8.69E-02 | lyap  =  2.86E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   24 | time =  9.60E+00 | deltat =  4.00E-01 | var = 1.319E-01
+
+********** UPDATE 00025 | TIME STEP = 4.00E-01 ************************
+4.74E-06<= |TDENS INCREMENT| <= 3.22E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   11 3.3E-05 2.5E-13 2.5E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  2.85E-06 | max   =  2.95E+02 | wmass =  1.94E-01
+funct : ene   =  8.50E-02 | lyap  =  2.79E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   25 | time =  1.00E+01 | deltat =  4.00E-01 | var = 1.171E-01
+
+********** UPDATE 00026 | TIME STEP = 4.00E-01 ************************
+2.85E-06<= |TDENS INCREMENT| <= 3.03E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   12 3.6E-05 4.3E-14 4.8E-14  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.71E-06 | max   =  3.00E+02 | wmass =  1.88E-01
+funct : ene   =  8.34E-02 | lyap  =  2.72E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   26 | time =  1.04E+01 | deltat =  4.00E-01 | var = 1.019E-01
+
+********** UPDATE 00027 | TIME STEP = 4.00E-01 ************************
+1.71E-06<= |TDENS INCREMENT| <= 2.67E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   11 2.3E-05 3.0E-13 3.0E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.02E-06 | max   =  3.04E+02 | wmass =  1.83E-01
+funct : ene   =  8.20E-02 | lyap  =  2.65E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   27 | time =  1.08E+01 | deltat =  4.00E-01 | var = 8.621E-02
+
+********** UPDATE 00028 | TIME STEP = 4.00E-01 ************************
+1.02E-06<= |TDENS INCREMENT| <= 2.22E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   11 1.4E-05 3.9E-13 3.9E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  6.15E-07 | max   =  3.09E+02 | wmass =  1.79E-01
+funct : ene   =  8.09E-02 | lyap  =  2.60E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   28 | time =  1.12E+01 | deltat =  4.00E-01 | var = 7.083E-02
+
+********** UPDATE 00029 | TIME STEP = 4.00E-01 ************************
+6.15E-07<= |TDENS INCREMENT| <= 1.76E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   13 9.6E-06 7.9E-14 8.9E-14  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  3.69E-07 | max   =  3.13E+02 | wmass =  1.75E-01
+funct : ene   =  8.01E-02 | lyap  =  2.55E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   29 | time =  1.16E+01 | deltat =  4.00E-01 | var = 5.705E-02
+
+********** UPDATE 00030 | TIME STEP = 4.00E-01 ************************
+3.69E-07<= |TDENS INCREMENT| <= 1.43E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   13 6.4E-06 8.0E-13 8.1E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  2.21E-07 | max   =  3.18E+02 | wmass =  1.71E-01
+funct : ene   =  7.95E-02 | lyap  =  2.51E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   30 | time =  1.20E+01 | deltat =  4.00E-01 | var = 4.579E-02
+
+********** UPDATE 00031 | TIME STEP = 4.00E-01 ************************
+2.21E-07<= |TDENS INCREMENT| <= 1.17E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   14 4.2E-06 2.2E-14 2.9E-14  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.33E-07 | max   =  3.23E+02 | wmass =  1.69E-01
+funct : ene   =  7.90E-02 | lyap  =  2.48E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   31 | time =  1.24E+01 | deltat =  4.00E-01 | var = 3.734E-02
+
+********** UPDATE 00032 | TIME STEP = 4.00E-01 ************************
+1.33E-07<= |TDENS INCREMENT| <= 1.15E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   15 2.9E-06 4.5E-13 4.5E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  7.97E-08 | max   =  3.27E+02 | wmass =  1.66E-01
+funct : ene   =  7.87E-02 | lyap  =  2.45E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   32 | time =  1.28E+01 | deltat =  4.00E-01 | var = 3.145E-02
+
+********** UPDATE 00033 | TIME STEP = 4.00E-01 ************************
+7.97E-08<= |TDENS INCREMENT| <= 1.14E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   17 2.1E-06 1.6E-13 1.6E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  4.78E-08 | max   =  3.32E+02 | wmass =  1.64E-01
+funct : ene   =  7.84E-02 | lyap  =  2.43E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   33 | time =  1.32E+01 | deltat =  4.00E-01 | var = 2.755E-02
+
+********** UPDATE 00034 | TIME STEP = 4.00E-01 ************************
+4.78E-08<= |TDENS INCREMENT| <= 1.12E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   19 1.8E-06 2.5E-13 2.5E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  2.87E-08 | max   =  3.36E+02 | wmass =  1.62E-01
+funct : ene   =  7.82E-02 | lyap  =  2.41E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   34 | time =  1.36E+01 | deltat =  4.00E-01 | var = 2.498E-02
+
+********** UPDATE 00035 | TIME STEP = 4.00E-01 ************************
+2.87E-08<= |TDENS INCREMENT| <= 1.09E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   21 1.3E-06 3.9E-13 3.9E-13  <<PCG>>WCT:2.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.72E-08 | max   =  3.41E+02 | wmass =  1.61E-01
+funct : ene   =  7.81E-02 | lyap  =  2.39E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   35 | time =  1.40E+01 | deltat =  4.00E-01 | var = 2.319E-02
+
+********** UPDATE 00036 | TIME STEP = 4.00E-01 ************************
+1.72E-08<= |TDENS INCREMENT| <= 1.05E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   24 9.9E-07 2.7E-13 2.6E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.03E-08 | max   =  3.45E+02 | wmass =  1.60E-01
+funct : ene   =  7.79E-02 | lyap  =  2.38E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   36 | time =  1.44E+01 | deltat =  4.00E-01 | var = 2.181E-02
+
+********** UPDATE 00037 | TIME STEP = 4.00E-01 ************************
+1.03E-08<= |TDENS INCREMENT| <= 1.00E+01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   27 1.2E-06 7.6E-13 7.7E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  6.20E-09 | max   =  3.49E+02 | wmass =  1.59E-01
+funct : ene   =  7.78E-02 | lyap  =  2.37E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   37 | time =  1.48E+01 | deltat =  4.00E-01 | var = 2.059E-02
+
+********** UPDATE 00038 | TIME STEP = 4.00E-01 ************************
+6.20E-09<= |TDENS INCREMENT| <= 9.31E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   30 1.2E-06 4.6E-13 4.6E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  3.72E-09 | max   =  3.53E+02 | wmass =  1.58E-01
+funct : ene   =  7.77E-02 | lyap  =  2.36E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   38 | time =  1.52E+01 | deltat =  4.00E-01 | var = 1.941E-02
+
+********** UPDATE 00039 | TIME STEP = 4.00E-01 ************************
+3.72E-09<= |TDENS INCREMENT| <= 8.47E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   33 1.6E-06 6.2E-13 6.3E-13  <<PCG>>WCT:2.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  2.23E-09 | max   =  3.56E+02 | wmass =  1.58E-01
+funct : ene   =  7.76E-02 | lyap  =  2.35E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   39 | time =  1.56E+01 | deltat =  4.00E-01 | var = 1.824E-02
+
+********** UPDATE 00040 | TIME STEP = 4.00E-01 ************************
+2.23E-09<= |TDENS INCREMENT| <= 7.50E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   35 1.3E-06 5.7E-13 5.7E-13  <<PCG>>WCT:2.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.34E-09 | max   =  3.59E+02 | wmass =  1.57E-01
+funct : ene   =  7.75E-02 | lyap  =  2.35E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   40 | time =  1.60E+01 | deltat =  4.00E-01 | var = 1.710E-02
+
+********** UPDATE 00041 | TIME STEP = 4.00E-01 ************************
+1.34E-09<= |TDENS INCREMENT| <= 6.67E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   37 1.6E-06 5.0E-13 4.9E-13  <<PCG>>WCT:2.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  8.03E-10 | max   =  3.62E+02 | wmass =  1.57E-01
+funct : ene   =  7.75E-02 | lyap  =  2.34E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   41 | time =  1.64E+01 | deltat =  4.00E-01 | var = 1.606E-02
+
+********** UPDATE 00042 | TIME STEP = 4.00E-01 ************************
+8.03E-10<= |TDENS INCREMENT| <= 6.89E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   37 1.8E-06 6.6E-13 6.6E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  4.82E-10 | max   =  3.64E+02 | wmass =  1.56E-01
+funct : ene   =  7.74E-02 | lyap  =  2.34E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   42 | time =  1.68E+01 | deltat =  4.00E-01 | var = 1.520E-02
+
+********** UPDATE 00043 | TIME STEP = 4.00E-01 ************************
+4.82E-10<= |TDENS INCREMENT| <= 7.13E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   36 1.6E-06 5.7E-13 5.7E-13  <<PCG>>WCT:2.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  2.89E-10 | max   =  3.65E+02 | wmass =  1.56E-01
+funct : ene   =  7.73E-02 | lyap  =  2.33E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   43 | time =  1.72E+01 | deltat =  4.00E-01 | var = 1.457E-02
+
+********** UPDATE 00044 | TIME STEP = 4.00E-01 ************************
+2.89E-10<= |TDENS INCREMENT| <= 7.39E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   35 1.5E-06 8.3E-13 8.4E-13  <<PCG>>WCT:2.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.73E-10 | max   =  3.67E+02 | wmass =  1.56E-01
+funct : ene   =  7.72E-02 | lyap  =  2.33E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   44 | time =  1.76E+01 | deltat =  4.00E-01 | var = 1.420E-02
+
+********** UPDATE 00045 | TIME STEP = 4.00E-01 ************************
+1.73E-10<= |TDENS INCREMENT| <= 7.64E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   35 1.2E-06 9.7E-13 9.7E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.04E-10 | max   =  3.68E+02 | wmass =  1.55E-01
+funct : ene   =  7.72E-02 | lyap  =  2.32E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   45 | time =  1.80E+01 | deltat =  4.00E-01 | var = 1.405E-02
+
+********** UPDATE 00046 | TIME STEP = 4.00E-01 ************************
+1.04E-10<= |TDENS INCREMENT| <= 7.89E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   36 8.9E-07 8.6E-13 8.5E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.69E+02 | wmass =  1.55E-01
+funct : ene   =  7.71E-02 | lyap  =  2.32E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   46 | time =  1.84E+01 | deltat =  4.00E-01 | var = 1.404E-02
+
+********** UPDATE 00047 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 8.10E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   36 6.7E-07 8.5E-13 8.6E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.69E+02 | wmass =  1.55E-01
+funct : ene   =  7.70E-02 | lyap  =  2.32E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   47 | time =  1.88E+01 | deltat =  4.00E-01 | var = 1.408E-02
+
+********** UPDATE 00048 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 8.25E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   36 7.4E-07 6.1E-13 6.0E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.69E+02 | wmass =  1.55E-01
+funct : ene   =  7.70E-02 | lyap  =  2.32E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   48 | time =  1.92E+01 | deltat =  4.00E-01 | var = 1.410E-02
+
+********** UPDATE 00049 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 8.31E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   37 7.4E-07 5.8E-13 5.8E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.55E-01
+funct : ene   =  7.69E-02 | lyap  =  2.31E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   49 | time =  1.96E+01 | deltat =  4.00E-01 | var = 1.400E-02
+
+********** UPDATE 00050 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 8.26E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   37 8.3E-07 7.2E-13 7.2E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.54E-01
+funct : ene   =  7.68E-02 | lyap  =  2.31E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   50 | time =  2.00E+01 | deltat =  4.00E-01 | var = 1.372E-02
+
+********** UPDATE 00051 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 8.05E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   37 5.0E-07 5.1E-13 5.1E-13  <<PCG>>WCT:2.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.54E-01
+funct : ene   =  7.68E-02 | lyap  =  2.31E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   51 | time =  2.04E+01 | deltat =  4.00E-01 | var = 1.323E-02
+
+********** UPDATE 00052 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 7.67E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   36 4.4E-07 8.1E-13 8.2E-13  <<PCG>>WCT:2.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.54E-01
+funct : ene   =  7.67E-02 | lyap  =  2.31E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   52 | time =  2.08E+01 | deltat =  4.00E-01 | var = 1.247E-02
+
+********** UPDATE 00053 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 7.12E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   37 4.5E-07 7.4E-13 7.3E-13  <<PCG>>WCT:2.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.54E-01
+funct : ene   =  7.66E-02 | lyap  =  2.30E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   53 | time =  2.12E+01 | deltat =  4.00E-01 | var = 1.146E-02
+
+********** UPDATE 00054 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 6.41E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   36 3.1E-07 9.0E-13 9.1E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.54E-01
+funct : ene   =  7.65E-02 | lyap  =  2.30E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   54 | time =  2.16E+01 | deltat =  4.00E-01 | var = 1.023E-02
+
+********** UPDATE 00055 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 5.58E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   36 1.8E-07 6.9E-13 7.0E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.54E-01
+funct : ene   =  7.64E-02 | lyap  =  2.30E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   55 | time =  2.20E+01 | deltat =  4.00E-01 | var = 8.839E-03
+
+********** UPDATE 00056 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 4.70E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   36 1.1E-07 3.8E-13 3.8E-13  <<PCG>>WCT:2.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.53E-01
+funct : ene   =  7.64E-02 | lyap  =  2.30E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   56 | time =  2.24E+01 | deltat =  4.00E-01 | var = 7.381E-03
+
+********** UPDATE 00057 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 3.81E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   34 6.6E-08 8.3E-13 8.2E-13  <<PCG>>WCT:2.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.53E-01
+funct : ene   =  7.63E-02 | lyap  =  2.30E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   57 | time =  2.28E+01 | deltat =  4.00E-01 | var = 5.952E-03
+
+********** UPDATE 00058 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 2.98E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   32 4.0E-08 9.3E-13 9.3E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.53E-01
+funct : ene   =  7.63E-02 | lyap  =  2.29E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   58 | time =  2.32E+01 | deltat =  4.00E-01 | var = 4.636E-03
+
+********** UPDATE 00059 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 2.26E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   32 2.4E-08 4.8E-13 4.9E-13  <<PCG>>WCT:2.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.53E-01
+funct : ene   =  7.62E-02 | lyap  =  2.29E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   59 | time =  2.36E+01 | deltat =  4.00E-01 | var = 3.493E-03
+
+********** UPDATE 00060 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 1.65E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   33 1.8E-07 5.7E-13 5.7E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.53E-01
+funct : ene   =  7.62E-02 | lyap  =  2.29E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   60 | time =  2.40E+01 | deltat =  4.00E-01 | var = 2.551E-03
+
+********** UPDATE 00061 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 1.18E+00
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   31 1.2E-07 9.7E-13 9.6E-13  <<PCG>>WCT:2.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.53E-01
+funct : ene   =  7.62E-02 | lyap  =  2.29E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   61 | time =  2.44E+01 | deltat =  4.00E-01 | var = 1.811E-03
+
+********** UPDATE 00062 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 8.16E-01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   29 7.5E-08 9.2E-13 9.2E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.53E-01
+funct : ene   =  7.62E-02 | lyap  =  2.29E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   62 | time =  2.48E+01 | deltat =  4.00E-01 | var = 1.253E-03
+
+********** UPDATE 00063 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 5.53E-01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   29 1.0E-07 9.5E-13 9.5E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.53E-01
+funct : ene   =  7.62E-02 | lyap  =  2.29E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   63 | time =  2.52E+01 | deltat =  4.00E-01 | var = 8.473E-04
+
+********** UPDATE 00064 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 3.67E-01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   30 6.5E-08 9.4E-13 9.4E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.53E-01
+funct : ene   =  7.62E-02 | lyap  =  2.29E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   64 | time =  2.56E+01 | deltat =  4.00E-01 | var = 5.619E-04
+
+********** UPDATE 00065 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 2.40E-01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   34 6.5E-08 4.8E-13 4.9E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.53E-01
+funct : ene   =  7.62E-02 | lyap  =  2.29E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   65 | time =  2.60E+01 | deltat =  4.00E-01 | var = 3.663E-04
+
+********** UPDATE 00066 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 1.54E-01
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   35 2.7E-07 5.7E-13 5.8E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.52E-01
+funct : ene   =  7.62E-02 | lyap  =  2.29E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   66 | time =  2.64E+01 | deltat =  4.00E-01 | var = 2.353E-04
+
+********** UPDATE 00067 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 9.80E-02
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   31 2.9E-07 8.8E-13 8.8E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.52E-01
+funct : ene   =  7.62E-02 | lyap  =  2.29E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   67 | time =  2.68E+01 | deltat =  4.00E-01 | var = 1.493E-04
+
+********** UPDATE 00068 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 6.16E-02
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   28 3.0E-07 7.7E-13 7.7E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.52E-01
+funct : ene   =  7.62E-02 | lyap  =  2.29E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   68 | time =  2.72E+01 | deltat =  4.00E-01 | var = 9.380E-05
+
+********** UPDATE 00069 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 3.84E-02
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   29 2.2E-07 3.6E-13 3.6E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.52E-01
+funct : ene   =  7.62E-02 | lyap  =  2.29E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   69 | time =  2.76E+01 | deltat =  4.00E-01 | var = 5.841E-05
+
+********** UPDATE 00070 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 2.37E-02
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   33 1.9E-07 5.5E-13 5.5E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.52E-01
+funct : ene   =  7.62E-02 | lyap  =  2.29E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   70 | time =  2.80E+01 | deltat =  4.00E-01 | var = 3.612E-05
+
+********** UPDATE 00071 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 1.46E-02
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   30 1.3E-07 3.8E-13 3.8E-13  <<PCG>>WCT:2.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.52E-01
+funct : ene   =  7.61E-02 | lyap  =  2.29E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   71 | time =  2.84E+01 | deltat =  4.00E-01 | var = 2.220E-05
+
+********** UPDATE 00072 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 8.93E-03
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   27 8.0E-08 1.3E-13 1.3E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.52E-01
+funct : ene   =  7.61E-02 | lyap  =  2.28E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   72 | time =  2.88E+01 | deltat =  4.00E-01 | var = 1.358E-05
+
+********** UPDATE 00073 | TIME STEP = 4.00E-01 ************************
+1.00E-10<= |TDENS INCREMENT| <= 5.44E-03
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   22 7.9E-08 9.7E-13 9.7E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.52E-01
+funct : ene   =  7.61E-02 | lyap  =  2.28E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   73 | time =  2.92E+01 | deltat =  4.00E-01 | var = 8.276E-06
+
+********** UPDATE 00074 | TIME STEP = 4.00E-01 ************************
+2.01E-11<= |TDENS INCREMENT| <= 3.31E-03
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   24 1.5E-07 8.4E-14 8.3E-14  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.52E-01
+funct : ene   =  7.61E-02 | lyap  =  2.28E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   74 | time =  2.96E+01 | deltat =  4.00E-01 | var = 5.028E-06
+
+********** UPDATE 00075 | TIME STEP = 4.00E-01 ************************
+3.55E-11<= |TDENS INCREMENT| <= 2.00E-03
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   23 1.2E-07 1.8E-13 1.9E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.52E-01
+funct : ene   =  7.61E-02 | lyap  =  2.28E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   75 | time =  3.00E+01 | deltat =  4.00E-01 | var = 3.046E-06
+
+********** UPDATE 00076 | TIME STEP = 4.00E-01 ************************
+2.54E-11<= |TDENS INCREMENT| <= 1.21E-03
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   27 1.8E-07 1.7E-13 1.8E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.52E-01
+funct : ene   =  7.61E-02 | lyap  =  2.28E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   76 | time =  3.04E+01 | deltat =  4.00E-01 | var = 1.842E-06
+
+********** UPDATE 00077 | TIME STEP = 4.00E-01 ************************
+8.00E-11<= |TDENS INCREMENT| <= 7.32E-04
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   27 1.3E-07 7.8E-14 8.1E-14  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.52E-01
+funct : ene   =  7.61E-02 | lyap  =  2.28E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   77 | time =  3.08E+01 | deltat =  4.00E-01 | var = 1.112E-06
+
+********** UPDATE 00078 | TIME STEP = 4.00E-01 ************************
+6.00E-11<= |TDENS INCREMENT| <= 4.41E-04
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   26 1.2E-07 2.0E-13 2.0E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.52E-01
+funct : ene   =  7.61E-02 | lyap  =  2.28E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   78 | time =  3.12E+01 | deltat =  4.00E-01 | var = 6.705E-07
+
+********** UPDATE 00079 | TIME STEP = 4.00E-01 ************************
+2.61E-11<= |TDENS INCREMENT| <= 2.66E-04
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   26 7.2E-08 7.5E-14 9.5E-14  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.52E-01
+funct : ene   =  7.61E-02 | lyap  =  2.28E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   79 | time =  3.16E+01 | deltat =  4.00E-01 | var = 4.038E-07
+
+********** UPDATE 00080 | TIME STEP = 4.00E-01 ************************
+1.08E-11<= |TDENS INCREMENT| <= 1.60E-04
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   20 4.3E-08 8.0E-13 8.0E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.52E-01
+funct : ene   =  7.61E-02 | lyap  =  2.28E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   80 | time =  3.20E+01 | deltat =  4.00E-01 | var = 2.430E-07
+
+********** UPDATE 00081 | TIME STEP = 4.00E-01 ************************
+7.28E-12<= |TDENS INCREMENT| <= 9.62E-05
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   16 4.0E-08 3.5E-13 3.6E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.52E-01
+funct : ene   =  7.61E-02 | lyap  =  2.28E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   81 | time =  3.24E+01 | deltat =  4.00E-01 | var = 1.462E-07
+
+********** UPDATE 00082 | TIME STEP = 4.00E-01 ************************
+3.58E-12<= |TDENS INCREMENT| <= 5.78E-05
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   16 2.4E-08 8.1E-13 8.1E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.52E-01
+funct : ene   =  7.61E-02 | lyap  =  2.28E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   82 | time =  3.28E+01 | deltat =  4.00E-01 | var = 8.786E-08
+
+********** UPDATE 00083 | TIME STEP = 4.00E-01 ************************
+5.06E-12<= |TDENS INCREMENT| <= 3.48E-05
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   15 1.4E-08 5.9E-13 5.9E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.52E-01
+funct : ene   =  7.61E-02 | lyap  =  2.28E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   83 | time =  3.32E+01 | deltat =  4.00E-01 | var = 5.279E-08
+
+********** UPDATE 00084 | TIME STEP = 4.00E-01 ************************
+7.39E-12<= |TDENS INCREMENT| <= 2.09E-05
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   23 8.6E-09 1.1E-13 1.2E-13  <<PCG>>WCT:0.0E+00 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.52E-01
+funct : ene   =  7.61E-02 | lyap  =  2.28E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   84 | time =  3.36E+01 | deltat =  4.00E-01 | var = 3.171E-08
+
+********** UPDATE 00085 | TIME STEP = 4.00E-01 ************************
+4.04E-12<= |TDENS INCREMENT| <= 1.25E-05
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   14 5.2E-09 6.2E-13 6.2E-13  <<PCG>>WCT:0.0E+00 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.52E-01
+funct : ene   =  7.61E-02 | lyap  =  2.28E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   85 | time =  3.40E+01 | deltat =  4.00E-01 | var = 1.904E-08
+
+********** UPDATE 00086 | TIME STEP = 4.00E-01 ************************
+3.92E-12<= |TDENS INCREMENT| <= 7.53E-06
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   20 3.1E-09 6.3E-13 6.3E-13  <<PCG>>WCT:0.0E+00 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.52E-01
+funct : ene   =  7.61E-02 | lyap  =  2.28E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   86 | time =  3.44E+01 | deltat =  4.00E-01 | var = 1.143E-08
+
+********** UPDATE 00087 | TIME STEP = 4.00E-01 ************************
+8.70E-12<= |TDENS INCREMENT| <= 4.52E-06
+Steady Inputs
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-12 / iort= 0)
+ITERATIVE PCG(err,out= 0, 6 / iexit=1 / imax=   200 / isol=1 / tol=1.0E-03 / iort= 0)
+0   22 1.9E-09 8.8E-13 8.8E-13  <<PCG>>WCT:1.0E-03 s
+********** UPDATE SUCCEED *********************************************
+  
+ ***********************************************************************
+tdens : min   =  1.00E-10 | max   =  3.70E+02 | wmass =  1.52E-01
+funct : ene   =  7.61E-02 | lyap  =  2.28E-01 | dgap  =  3.35-312
+ ***********************************************************************
+ iter =   87 | time =  3.48E+01 | deltat =  4.00E-01 | var = 6.864E-09
