@@ -29,3 +29,13 @@ results/
 
 
 otp_utilities/
+
+dmk_utilities/geometry
+
+dmk_utilities/dmk_solver
+
+dmk_utilities/p1galerkin
+
+dmk_utilities/linear_algebra/
+
+dmk_utilities/globals/
