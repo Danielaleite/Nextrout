@@ -33,7 +33,20 @@ cd Nextrout
 python setup.py
 ```
 
-This is going to download the "DMK-solver" and all required python dependencies. The execution of "setup.py" takes a few minutes to be finished (so dont't panic if you notice it's taking a while). In the end, you should have the following folders:
+This is going to download the "DMK-solver" and all required python dependencies.  
+
+The script `setup.py` is using the default Fortran compile `/usr/bin/gfortran`. 
+If you want to use another path for this compiler, then change the line in side `setup.py`:
+```bash
+os.system('cd dmk_utilities/dmk_solver && mkdir build/ &&  cd build &&  cmake ../ &&  make')
+```
+to
+```
+os.system('cd dmk_utilities/dmk_solver && mkdir build/ &&  cd build && cmake -DMy_Fortran_Compiler=your_fortran_compiler_path ../ &&  make')
+```
+where `your_fortran_compiler_path` is your custom path, e.g. `/usr/local/bin/gfortran`.
+
+The execution of `setup.py` takes a few minutes to be finished (so dont't panic if you notice it's taking a while). In the end, you should have the following folders:
 
 * **otp_utilities**
 * **nextrout_core**
