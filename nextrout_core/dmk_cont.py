@@ -9,7 +9,8 @@ import numpy as np
 from itertools import combinations
 
 # Accesing root path
-with open('../nextrout_location.txt') as f:
+file_path = os.path.dirname(os.path.realpath(__file__))
+with open(file_path+'/../nextrout_location.txt') as f:
     lines = f.readlines()
 root = lines[0]+'/..'
 
