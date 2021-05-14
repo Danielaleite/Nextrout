@@ -6,8 +6,10 @@ import sys
 from scipy.spatial import ConvexHull, convex_hull_plot_2d
 from scipy.spatial import distance
 
-#root = '/home/dleite/community_detection_nextrout/Nextrout'
-root = '/home/dtheuerkauf/Nextrout'
+# Accesing root path
+with open('../nextrout_location.txt') as f:
+    lines = f.readlines()
+root = lines[0]+'/..'
 
 # Import I/O for timedata
 try:
