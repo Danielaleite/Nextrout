@@ -6,26 +6,30 @@ import sys
 from scipy.spatial import ConvexHull, convex_hull_plot_2d
 from scipy.spatial import distance
 
-#root = '/home/dleite/community_detection_nextrout/Nextrout'
-root = '/home/dtheuerkauf/Nextrout'
+# Accesing root path
+import os
+file_path = os.path.dirname(os.path.realpath(__file__))
+with open(file_path+'/../nextrout_location.txt') as f:
+    lines = f.readlines()
+root = lines[0]
 
 # Import I/O for timedata
 try:
-    sys.path.append(root+'/dmk_utilities/globals/python/timedata/')
+    sys.path.append(root+'/../dmk_utilities/globals/python/timedata/')
     import timedata as td
 except:
     print("Global repo non found")
 
 # Import geometry tools
-sys.path.append(root+'/dmk_utilities/geometry/python/')
+sys.path.append(root+'/../dmk_utilities/geometry/python/')
 import meshtools as mt
-sys.path.append(root+'/dmk_utilities/dmk_solver/otp_solver/preprocess/assembly/')
+sys.path.append(root+'/../dmk_utilities/dmk_solver/otp_solver/preprocess/assembly/')
 import example_grid
 
 # Import dmk tools
-sys.path.append(root+'/dmk_utilities/dmk_solver/otp_solver/python/')
+sys.path.append(root+'/../dmk_utilities/dmk_solver/otp_solver/python/')
 import dmk_p1p0 
-sys.path.append(root+'/dmk_utilities/dmk_solver/build/python/fortran_python_interface/')
+sys.path.append(root+'/../dmk_utilities/dmk_solver/build/python/fortran_python_interface/')
 from dmk import (Dmkcontrols,    # controls for dmk simulations)
                  Timefunctionals, # information of time/algorithm evolution
                 Dmkinputsdata, # structure variable containg inputs data
@@ -36,7 +40,7 @@ from dmk import (Dmkcontrols,    # controls for dmk simulations)
 # Import plot tools
 import matplotlib.pyplot as plt
 import matplotlib.tri as mtri
-sys.path.append(root+'/dmk_utilities/dmk_solver/graph_otp_solver/python')
+sys.path.append(root+'/../dmk_utilities/dmk_solver/graph_otp_solver/python')
 import dmk_graph
 
 
@@ -276,7 +280,7 @@ def terminals_from_cont(Graph, forcing_flag, extra_info, btns_factor_source, btn
 
 
 
-def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tdens0 = None, BPweights = 'tdens', stopping_threshold_f = 1e-6, weight_flag='unit', rhs = None):
+def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tdens0 = None, BPweights = 'tdens', stopping_threshold_f = 1e-6, weight_flag='unit', rhs = None, verbose = False):
 
     inputs = {}
 
@@ -369,7 +373,7 @@ def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tde
     ctrl.fn_statistics='dmk.log'
     # if print info 
     # 
-    print(ctrl.outer_solver_approach)
+    if verbose:print(ctrl.outer_solver_approach)
 
     [info,tdens,pot,flux,timefun] = dmk_graph.dmk_graph(
         topol,
@@ -383,7 +387,7 @@ def filtering(Gpe, sources = None, sinks = None,beta_d = 1.5,threshold=1e-3, tde
     tdens = list(tdens)
     flux = list(flux)
 
-    if (info==0):
+    if (info==0) and verbose:
         print('Convergence achieved')
 
     max_flux = max(flux)
