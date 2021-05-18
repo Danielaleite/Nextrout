@@ -7,30 +7,31 @@
 import sys
 import numpy as np
 from itertools import combinations
+import os
 
 # Accesing root path
 file_path = os.path.dirname(os.path.realpath(__file__))
 with open(file_path+'/../nextrout_location.txt') as f:
     lines = f.readlines()
-root = lines[0]+'/..'
+root = lines[0]
 
 # Import I/O for timedata
 try:
-    sys.path.append(root+'/dmk_utilities/globals/python/timedata/')
+    sys.path.append(root+'/../dmk_utilities/globals/python/timedata/')
     import timedata as td
 except:
     print("Global repo non found")
 
 # Import geometry tools
-sys.path.append(root+'/dmk_utilities/geometry/python/')
+sys.path.append(root+'/../dmk_utilities/geometry/python/')
 import meshtools as mt
-sys.path.append(root+'/dmk_utilities/dmk_solver/otp_solver/preprocess/assembly/')
+sys.path.append(root+'/../dmk_utilities/dmk_solver/otp_solver/preprocess/assembly/')
 import example_grid
 
 # Import dmk tools
-sys.path.append(root+'/dmk_utilities/dmk_solver/otp_solver/python/')
+sys.path.append(root+'/../dmk_utilities/dmk_solver/otp_solver/python/')
 import dmk_p1p0 
-sys.path.append(root+'/dmk_utilities/dmk_solver/build/python/fortran_python_interface/')
+sys.path.append(root+'/../dmk_utilities/dmk_solver/build/python/fortran_python_interface/')
 from dmk import (Dmkcontrols,    # controls for dmk simulations)
                  Timefunctionals, # information of time/algorithm evolution
                 Dmkinputsdata, # structure variable containg inputs data
