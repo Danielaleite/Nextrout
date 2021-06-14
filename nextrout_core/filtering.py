@@ -276,6 +276,7 @@ def filtering(
     stopping_threshold_f=1e-3,
     weight_flag="unit",
     rhs=None,
+    MaxNumIter = 100,
     verbose=False,
 ):
 
@@ -368,7 +369,7 @@ def filtering(
     ctrl.id_save_dat = 1
     ctrl.fn_tdens = "tdens.dat"
     ctrl.fn_pot = "pot.dat"
-    ctrl.max_time_iterations = 100
+    ctrl.max_time_iterations = MaxNumIter
     # if and where save log
     ctrl.id_save_statistics = 1
     ctrl.fn_statistics = "dmk.log"
@@ -382,7 +383,7 @@ def filtering(
         rhs,
         pflux=beta_d,
         tdens0=tdens0,
-        # tolerance = stopping_threshold_f,
+        tolerance = stopping_threshold_f,
         weight=weight,
         ctrl=ctrl,
     )
