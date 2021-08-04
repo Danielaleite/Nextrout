@@ -1,7 +1,8 @@
-## import stuff
 import networkx as nx
 import numpy as np
 import sys
+import time
+import pickle
 
 from scipy.spatial import ConvexHull, convex_hull_plot_2d
 from scipy.spatial import distance
@@ -279,7 +280,7 @@ def filtering(
     MaxNumIter = 100,
     verbose=False,
 ):
-
+    
     inputs = {}
 
     if sources is None and sinks is None and rhs is None:
@@ -289,7 +290,7 @@ def filtering(
     ### relabeling
 
     # todo: add an if for the case in which nodes are already relabeled
-
+    t0 = time.time()
     mapping = {}
     k = -1
     for node in Gpe.nodes():
@@ -301,25 +302,31 @@ def filtering(
     nedges = len(edges)
     nodes = Gpe_rel.nodes()
     nnodes = len(nodes)
-
+    #print("-init mapping, nnodes, nedges- executed in %8f s.\n" % (time.time() - t0))
+    
     # tdens0
-
+    t0 = time.time()
     if tdens0 != None:
         try:
             tdens0 = np.array([(Gpe_rel.edges[edge]["tdens"]) for edge in edges])
         except:
             tdens0 = np.array([(Gpe_rel.edges[edge]["flux"]) for edge in edges])
 
-    # topol
+    #print("-tdens np- executed in %8f s.\n" % (time.time() - t0))
 
+    # topol
+    t0 = time.time()
     topol = np.zeros((nedges, 2))
     k = -1
     for edge in edges:
         k += 1
         topol[k, :] = edge
 
-    # weight (uniform)
+    #print("-topol np- executed in %8f s.\n" % (time.time() - t0))
 
+
+    # weight (uniform)
+    t0 = time.time()
     weight = np.empty(nedges, dtype=object)
 
     k = -1
@@ -334,8 +341,10 @@ def filtering(
         else:
             weight[k] = Gpe_rel.edges[edge][weight_flag]
 
-    # rhs (f+ and f-)
+    #print("-weight np- executed in %8f s.\n" % (time.time() - t0))
 
+    # rhs (f+ and f-)
+    t0 = time.time() 
     if (
         sinks is not None and sources is not None
     ):  # there are lists from the sources and sinks are going to be chosen.
@@ -361,7 +370,9 @@ def filtering(
 
     assert sum(rhs) < 0.01
     assert len(rhs) == nnodes
+    #print("-rhs builder- executed in %8f s.\n" % (time.time() - t0))
 
+    
     # init and set controls
     ctrl = Dmkcontrols.DmkCtrl()
     Dmkcontrols.get_from_file(ctrl, root + "/nextrout_core/dmk_discr.ctrl")
@@ -377,6 +388,8 @@ def filtering(
     #
     if verbose:
         print(ctrl.outer_solver_approach)
+    
+    t0 = time.time()
 
     [info, tdens, pot, flux, timefun] = dmk_graph.dmk_graph(
         topol,
@@ -388,6 +401,9 @@ def filtering(
         ctrl=ctrl,
     )
 
+    print("-dmk- executed in %8f s.\n" % (time.time() - t0))
+
+    t0 = time.time()
     tdens = list(tdens)
     flux = list(flux)
 
@@ -421,6 +437,9 @@ def filtering(
         except:
             pass
 
+    #print("-reweighting- executed in %8f s.\n" % (time.time() - t0))
+    
+    t0 = time.time()
     Gf.remove_nodes_from(list(nx.isolates(Gf)))
 
     weights_in_Gf = np.array(weights_in_Gf)
@@ -441,6 +460,14 @@ def filtering(
     inputs["rhs"] = rhs
     inputs["pflux"] = beta_d
     inputs["tdens0"] = tdens0
+
+    if True:
+        timestr = time.strftime("%Y%m%d-%H%M%S")
+        
+        with open('inputs_'+timestr+'.pkl', 'wb') as handle:
+            pickle.dump(inputs, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+    #print("-pos assignment- executed in %8f s.\n" % (time.time() - t0))
 
     return Gf, weights_in_Gf, colors, inputs
 

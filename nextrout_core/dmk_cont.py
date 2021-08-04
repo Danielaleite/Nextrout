@@ -51,13 +51,13 @@ def grid_gen(ndiv, nref=1, flag_grid='unitsquare'):
 
     # set mesh size 
     length=1.0/float(ndiv)
-
+    print('gg')
     # build grid using prebuild examples 
     points, vertices, coord,topol,element_attributes = example_grid.example_grid(flag_grid,length)
 
     # initialized fortran variable for the spatial discretization
     [grid,subgrid]=dmk_p1p0.init_geometry(topol, coord, 1)
-
+    print('end')
     return grid, subgrid, points, vertices, coord,topol,element_attributes
 
 def center_computation(topol, coord):

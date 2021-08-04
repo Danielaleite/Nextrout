@@ -3,7 +3,7 @@
 !************************************************************************
 !** CONVERGENCE CONTROLS ***************************************************
 200          ! max_time_iterations    (time iterations, 0=solve ell. PDE )
-1.0e-8      ! tolerance_system_variation (tolerance for convergence. Currently it is measured with the tdens variation )
+1.0e-3      ! tolerance_system_variation (tolerance for convergence. Currently it is measured with the tdens variation )
 !** TIME STEPPING APPROACH **********************************************
 1           ! time_discretization_scheme (1=ee_tdens 2=ei_tdens 3=ee_gfvar gf 4=ei_gfvar )
 20          ! max_nonlinear_iterations (max non linear iterations)
@@ -28,8 +28,8 @@
 ! I/O 
 !************************************************************************
 0           ! debug          (0 no debug, >0 full debug)
-2           ! info_state     (0==no info, >0 increasing information printed)
-3           ! info_update    (0==no info, >0 increasing information printed)
+0           ! info_state     (0==no info, >0 increasing information printed)
+0           ! info_update    (0==no info, >0 increasing information printed)
 !** REAL & INTEGER FORMAT ********************************************
 I12         ! iformat        (integer format for data file)
 1e18.10     ! rformat        (real    format for data file)

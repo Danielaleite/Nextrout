@@ -40,7 +40,7 @@ def nextrout(
     grid, subgrid, points, vertices, coord,topol,element_attributes = dmk_cont.grid_gen(ndiv)
     forcing, triang_source_indices,triang_sink_indices = dmk_cont.forcing_generator(forcing_flag, grid, coord, topol, extra_info=extra_info)
     tdpot, timefun = dmk_cont.dmk_cont(forcing,beta_c, ndiv, storing = storing)
-
+    print('prpr')
 
     if storing is not None:
         triang = mtri.Triangulation(coord.transpose()[0,:], coord.transpose()[1,:], topol)
@@ -105,16 +105,16 @@ def nextrout(
         if len(temp_sources) ==0 or len(temp_sinks) == 0:
             raise ValueError('Not enough sources or sinks. Increase btns_factor.')
 
-        temp_Gf,weights,colors, inputs_discr = filtering.filtering(
-            temp_Gpe, 
-            temp_sources, 
-            temp_sinks, 
-            beta_d = beta_d, 
-            tdens0 = 2, # 2 means not unitary (i.e., taken from Gpe)
-            threshold = min_f, 
-            BPweights = BPw, 
-            weight_flag = 'length',
-            stopping_threshold_f = stop_thresh_f)
+            temp_Gf,weights,colors, inputs_discr = filtering.filtering(
+                temp_Gpe, 
+                temp_sources, 
+                temp_sinks, 
+                beta_d = beta_d, 
+                tdens0 = 2, # 2 means not unitary (i.e., taken from Gpe)
+                threshold = min_f, 
+                BPweights = BPw, 
+                weight_flag = 'length',
+                stopping_threshold_f = stop_thresh_f)
         
         # put everything together
 

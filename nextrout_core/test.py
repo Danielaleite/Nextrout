@@ -1,11 +1,12 @@
 import pickle as pkl
 import os
 from main import nextrout
+import faulthandler
 ### testing:
 
 # generate forcing
 
-forcing_flag = 'dirac'
+forcing_flag = 'dirac2'#'dirac'
 
 if forcing_flag == 'rect_cnst':
 
@@ -187,6 +188,8 @@ elif test_flag =='dirac3':
 os.system('mkdir '+storing+test_flag)
 storing = storing+'/'+test_flag 
 
+print('b4 nr')
+faulthandler.enable()
 nextrout(forcing_flag,
     extra_info,
     beta_c=beta_c,
