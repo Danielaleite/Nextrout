@@ -332,7 +332,7 @@ def filtering(
 
     k = -1
     for edge in edges:
-        
+
         k += 1
 
         if isinstance(weight_flag, str):
@@ -428,12 +428,12 @@ def filtering(
     for edge in Gpe_rel.edges():
         ed_count += 1
         if BPweights == "flux":
-            if abs(flux[ed_count]) > max_flux * threshold:
+            if abs(flux[ed_count]) >= max_flux * threshold:
                 Gf.add_edge(*edge, flux=flux[ed_count])
                 weights_in_Gf.append(flux[ed_count])
 
         elif BPweights == "tdens":
-            if abs(tdens[ed_count]) > max_tdens * threshold:
+            if abs(tdens[ed_count]) >= max_tdens * threshold:
                 Gf.add_edge(*edge, tdens=tdens[ed_count])
                 weights_in_Gf.append(tdens[ed_count])
 
