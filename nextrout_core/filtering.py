@@ -392,7 +392,7 @@ def filtering(
     ctrl.id_save_dat = 1
     ctrl.fn_tdens = "tdens.dat"
     ctrl.fn_pot = "pot.dat"
-    ctrl.max_time_iterations = MaxNumIter
+    ctrl.max_time_iterations = 100#MaxNumIter
     # if and where save log
     ctrl.id_save_statistics = 1
     ctrl.fn_statistics = "dmk.log"
@@ -446,7 +446,9 @@ def filtering(
             Gf.add_node(edge[1], weight=Gpe_rel.nodes[edge[1]]["tdens"])
         except:
             pass
+    if threshold == 0:
 
+        assert len(Gpe.edges()) == len(weights_in_Gf)
     #print("-reweighting- executed in %8f s.\n" % (time.time() - t0))
     
     t0 = time.time()
@@ -471,7 +473,7 @@ def filtering(
     inputs["pflux"] = beta_d
     inputs["tdens0"] = tdens0
 
-    if True:
+    if False:
         timestr = time.strftime("%Y%m%d-%H%M%S")
         
         with open('inputs_'+timestr+'.pkl', 'wb') as handle:
