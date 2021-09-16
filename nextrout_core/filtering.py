@@ -386,22 +386,43 @@ def filtering(
 
     
     # init and set controls
-    ctrl = Dmkcontrols.DmkCtrl()
-    Dmkcontrols.get_from_file(ctrl, root + "/Nextrout/nextrout_core/dmk_discr.ctrl")
-    # if and where save data
-    ctrl.id_save_dat = 1
-    ctrl.fn_tdens = "tdens.dat"
-    ctrl.fn_pot = "pot.dat"
-    ctrl.max_time_iterations = 100#MaxNumIter
-    # if and where save log
-    ctrl.id_save_statistics = 1
-    ctrl.fn_statistics = "dmk.log"
+    #ctrl = Dmkcontrols.DmkCtrl()
+    ctrl=dmk_graph.init_dmkctrl(tdens_gfvar='tdens',explicit_implicit='explicit')
+    #Dmkcontrols.get_from_file(ctrl, root + "/Nextrout/nextrout_core/dmk_discr.ctrl")
+    # convergence 
+    ctrl.max_nonlinear_iterations=10
+    ctrl.max_time_iterations = MaxNumIter
+    ctrl.tolerance_nonlinear = stopping_threshold_f
+
+
+    # Initial time step size controls
+    ctrl.deltat = 2
+
+    # activate print (goes to the terminal)
+    # 0=off >0 incremental info are printed
+    ctrl.debug=0
+    ctrl.info_state=0
+    ctrl.info_update=0
+
+    # linear solver controls
+    ctrl.outer_solver_approach='ITERATIVE'
+    ctrl.outer_solver_tolerance=1.0e-5
+    # OUTPUT FILES
+    # saving data (on/off where)
+    ctrl.id_save_dat=0
+    ctrl.fn_tdens='tdens.dat'
+    ctrl.fn_pot='pot.dat'
+    # Log file desination
+    ctrl.fn_statistics='dmk.log'
     # if print info
     #
     if verbose:
         print(ctrl.outer_solver_approach)
     
     t0 = time.time()
+
+    with open('topol.pkl', 'wb') as handle:
+            pickle.dump(topol, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     [info, tdens, pot, flux, timefun] = dmk_graph.dmk_graph(
         topol,
