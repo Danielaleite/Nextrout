@@ -280,6 +280,8 @@ def filtering(
     rhs=None,
     MaxNumIter = 100,
     verbose=False,
+    tdens_gfvar='tdens',
+    explicit_implicit='explicit'
 ):
     
     inputs = {}
@@ -387,7 +389,7 @@ def filtering(
     
     # init and set controls
     #ctrl = Dmkcontrols.DmkCtrl()
-    ctrl=dmk_graph.init_dmkctrl(tdens_gfvar='tdens',explicit_implicit='explicit')
+    ctrl=dmk_graph.init_dmkctrl(tdens_gfvar=tdens_gfvar,explicit_implicit=explicit_implicit)
     #Dmkcontrols.get_from_file(ctrl, root + "/Nextrout/nextrout_core/dmk_discr.ctrl")
     # convergence 
     ctrl.max_nonlinear_iterations=10
@@ -401,8 +403,8 @@ def filtering(
     # activate print (goes to the terminal)
     # 0=off >0 incremental info are printed
     ctrl.debug=0
-    ctrl.info_state=0
-    ctrl.info_update=0
+    ctrl.info_state=3
+    ctrl.info_update=3
 
     # linear solver controls
     ctrl.outer_solver_approach='ITERATIVE'
