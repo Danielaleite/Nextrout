@@ -415,7 +415,7 @@ def filtering(
     ctrl.fn_tdens='tdens.dat'
     ctrl.fn_pot='pot.dat'
     # Log file desination
-    ctrl.fn_statistics='dmk.log'
+    #ctrl.fn_statistics='dmk.log'
     # if print info
     #
     if verbose:
