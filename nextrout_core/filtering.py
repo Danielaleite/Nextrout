@@ -403,8 +403,8 @@ def filtering(
     # activate print (goes to the terminal)
     # 0=off >0 incremental info are printed
     ctrl.debug=0
-    ctrl.info_state=3
-    ctrl.info_update=3
+    ctrl.info_state=0
+    ctrl.info_update=0
 
     # linear solver controls
     ctrl.outer_solver_approach='ITERATIVE'
