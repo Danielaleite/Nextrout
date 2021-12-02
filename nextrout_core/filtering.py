@@ -39,6 +39,7 @@ import dmk_p1p0
 sys.path.append(
     root + "/dmk/dmk_solver/build/python/fortran_python_interface/"
 )
+print(os.listdir(root + "/dmk/dmk_solver/build/python/fortran_python_interface/"))
 from dmk import (
     Dmkcontrols,  # controls for dmk simulations)
     Timefunctionals,  # information of time/algorithm evolution
