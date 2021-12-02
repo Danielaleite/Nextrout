@@ -17,6 +17,7 @@ root = lines[0]
 root = root[:-len(root.split('/')[-1])]
 
 if 'lustre' in root: root = root.replace('/lustre','')
+print('root without lustre',root)
 # Import I/O for timedata
 try:
     sys.path.append(root + "/dmk/globals/python/timedata/")
