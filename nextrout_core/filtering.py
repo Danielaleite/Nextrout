@@ -16,6 +16,7 @@ with open(file_path + "/../nextrout_location.txt") as f:
 root = lines[0]
 root = root[:-len(root.split('/')[-1])]
 
+if 'lustre' in root: root = root.replace('/lustre','')
 # Import I/O for timedata
 try:
     sys.path.append(root + "/dmk/globals/python/timedata/")
@@ -403,8 +404,8 @@ def filtering(
     # activate print (goes to the terminal)
     # 0=off >0 incremental info are printed
     ctrl.debug=0
-    ctrl.info_state=0
-    ctrl.info_update=0
+    ctrl.info_state=3
+    ctrl.info_update=3
 
     # linear solver controls
     ctrl.outer_solver_approach='ITERATIVE'
@@ -482,7 +483,7 @@ def filtering(
 
     for node in Gf.nodes():
 
-        Gf.nodes[node]["pos"] = Gpe_rel.nodes[node]["pos"]
+        #Gf.nodes[node]["pos"] = Gpe_rel.nodes[node]["pos"]
 
         if node in sources_rel:
             colors.append("g")
