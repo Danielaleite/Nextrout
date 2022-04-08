@@ -17,7 +17,7 @@ root = lines[0]
 root = root[:-len(root.split('/')[-1])]
 
 if 'lustre' in root: root = root.replace('/lustre','')
-print('root without lustre',root)
+
 # Import I/O for timedata
 try:
     sys.path.append(root + "/dmk/globals/python/timedata/")
@@ -39,7 +39,7 @@ import dmk_p1p0
 sys.path.append(
     root + "/dmk/dmk_solver/build/python/fortran_python_interface/"
 )
-print(os.listdir(root + "/dmk/dmk_solver/build/python/fortran_python_interface/"))
+
 from dmk import (
     Dmkcontrols,  # controls for dmk simulations)
     Timefunctionals,  # information of time/algorithm evolution
@@ -426,8 +426,8 @@ def filtering(
     
     t0 = time.time()
 
-    with open('topol.pkl', 'wb') as handle:
-            pickle.dump(topol, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    #with open('topol.pkl', 'wb') as handle:
+    #        pickle.dump(topol, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     [info, tdens, pot, flux, timefun] = dmk_graph.dmk_graph(
         topol,
@@ -485,7 +485,7 @@ def filtering(
 
     for node in Gf.nodes():
 
-        #Gf.nodes[node]["pos"] = Gpe_rel.nodes[node]["pos"]
+        Gf.nodes[node]["pos"] = Gpe_rel.nodes[node]["pos"]
 
         if node in sources_rel:
             colors.append("g")
