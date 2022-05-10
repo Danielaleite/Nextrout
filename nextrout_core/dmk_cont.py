@@ -251,7 +251,8 @@ def dmk_cont(forcing, beta_c, ndiv, tdens0 = None, nref= 0, flag_grid = 'unitsqu
 
     # solve with dmk
     info=0
-    dmkp1p0_steady_data(grid, subgrid, tdpot, dmkin, ctrl, info,timefun=timefun)
+    id_subgrid=np.ones(1,np.int32)
+    dmkp1p0_steady_data(grid, subgrid,  id_subgrid[0],tdpot, dmkin, ctrl, info,timefun=timefun)
 
     if info ==0: print('convergence achieved!.')
 
