@@ -43,7 +43,7 @@ from dmk import (Dmkcontrols,    # controls for dmk simulations)
 import matplotlib.pyplot as plt
 import matplotlib.tri as mtri
 
-def grid_gen(ndiv, nref=1, flag_grid='unitsquare'):
+def grid_gen(ndiv, nref=1, flag_grid='rect_cnst'):
     #
     # Define mesh for spatial disctetization.
     # Build the "coord" and "topol" numpy arrays describing coordinate and topology of the mesh.
@@ -186,7 +186,7 @@ def kappa_generator(coord, kappa_flag):
     return fvalue
 
 
-def dmk_cont(forcing, beta_c, ndiv, tdens0 = None, nref= 0, flag_grid = 'unitsquare', kappa_flag = None, storing = None):
+def dmk_cont(forcing, beta_c, ndiv, extra_info, niter=80,tdens0 = None, nref= 0, flag_grid = 'rect_cnst', kappa_flag = None, storing = None):
 
     if storing == None:
         storing = '.'
@@ -201,6 +201,12 @@ def dmk_cont(forcing, beta_c, ndiv, tdens0 = None, nref= 0, flag_grid = 'unitsqu
     ncell=grid.ncell
     ntdens=grid.ncell
     npot=subgrid.nnode
+    
+    # generate forcing
+
+    forcing, triang_source_indices, triang_sink_indices = forcing_generator(
+        forcing, grid, coord, topol, extra_info=extra_info
+    )
 
     # initial integrated forcing term
     rhs=np.zeros(subgrid.ncell)
@@ -240,7 +246,7 @@ def dmk_cont(forcing, beta_c, ndiv, tdens0 = None, nref= 0, flag_grid = 'unitsqu
     ctrl.fn_tdens=storing+'/tdens.dat'
     ctrl.fn_pot=storing+'/pot.dat'
     ctrl.fn_statistics=storing+'/dmk.log'
-    ctrl.max_time_iterations = 300
+    ctrl.max_time_iterations = niter
     #
     # init type for storing evolution/algorithm info
     #
