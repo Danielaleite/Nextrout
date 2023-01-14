@@ -28,8 +28,8 @@
 ! I/O 
 !************************************************************************
 0           ! debug          (0 no debug, >0 full debug)
-2           ! info_state     (0==no info, >0 increasing information printed)
-1           ! info_update    (0==no info, >0 increasing information printed)
+0           ! info_state     (0==no info, >0 increasing information printed)
+0           ! info_update    (0==no info, >0 increasing information printed)
 !** REAL & INTEGER FORMAT ********************************************
 I12         ! iformat        (integer format for data file)
 1e18.10     ! rformat        (real    format for data file)
