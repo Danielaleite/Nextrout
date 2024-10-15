@@ -4,13 +4,6 @@ import os
 
 print('<< Installing Nextrout >>')
 
-# Create a virtual environment
-os.system('python3 -m venv nextrout-env')
-os.system('source nextrout-env/bin/activate')
-
-# Upgrade pip to the latest version
-os.system('pip install --upgrade pip')
-
 # Install required python packages with specific versions
 python_reqs = [
     'meshpy',
@@ -18,7 +11,7 @@ python_reqs = [
     'numpy==1.22.0',          
     'scipy',
     'matplotlib==3.4.3',     
-    'pandas==1.20.3',
+    'pandas',
     'f90wrap'
 ]
 
