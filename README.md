@@ -1,3 +1,8 @@
+<p align="center">
+  <img src="https://img.shields.io/badge/python-3.6-blue.svg" alt="Python 3.6">
+</p>
+
+---
 # Network extraction by routing optimization
 
 **NextRout** - Network Extraction from Routing Optimization - is a tool created to extract Network topologies from dynamical equations related to routing optimization problems. It is divided into three steps: extraction of an optimal trajectory from a dynamical system of equations in a continuous framework; pre-extraction of the network; and filtering of possible redundancies.
@@ -72,7 +77,7 @@ Nextrout is being developed continuously. We appreciate any help or suggestions.
 
 ## Authors
 
-* Daniela Leite, Diego Theuerkauf 
+* Daniela Leite, Diego Theuerkauf, Caterina De Bacco, Enrico Facca, Marco Putti
 
 See also the list of [contributors](https://github.com/Danielaleite/Nextrout/graphs/contributors) who participated in this project.
 
