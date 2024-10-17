@@ -1,4 +1,4 @@
-python_scripts/.idea
+.idea
 python_scripts/__pycache__
 python_scripts/bash_scripts
 python_scripts/jobs
