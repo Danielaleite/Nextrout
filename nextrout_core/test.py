@@ -206,7 +206,7 @@ nextrout(forcing_flag,
     terminal_criterion =  terminal_criterion,
     storing = storing)
 
-'''
+
 with open('./outputs/'+'./inputs.pkl', 'rb') as file:
     inputs = pkl.load(file)
 
@@ -214,4 +214,3 @@ print(inputs.keys())
 
 print(inputs['discrete'].keys())
 print(inputs['continuous'].keys())
-'''

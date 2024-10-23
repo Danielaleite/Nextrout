@@ -1,6 +1,7 @@
+
 MIT License
 
-Copyright (c) 2023 Daniela Leite
+Copyright (c) 2020 Daniela Leite, Diego Baptista, Caterina De Bacco
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -39,7 +39,7 @@ def nextrout(
     # run the dmk_cont
     grid, subgrid, points, vertices, coord,topol,element_attributes = dmk_cont.grid_gen(ndiv)
     forcing, triang_source_indices,triang_sink_indices = dmk_cont.forcing_generator(forcing_flag, grid, coord, topol, extra_info=extra_info)
-    tdpot, timefun = dmk_cont.dmk_cont(forcing,beta_c, ndiv, storing = storing)
+    tdpot, timefun = dmk_cont.dmk_cont(forcing,beta_c, ndiv, extra_info, storing = storing)
 
 
     if storing is not None:
