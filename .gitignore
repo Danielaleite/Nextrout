@@ -34,3 +34,4 @@ otp_utilities/
 nextrout_location.txt
 
 *venv*
+*__pycache__*
