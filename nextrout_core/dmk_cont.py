@@ -205,9 +205,9 @@ def dmk_cont(forcing, beta_c, ndiv, extra_info, niter=80,tdens0 = None, nref= 0,
     
     # generate forcing
 
-    forcing, triang_source_indices, triang_sink_indices = forcing_generator(
-        forcing, grid, coord, topol, extra_info=extra_info
-    )
+    # forcing, triang_source_indices, triang_sink_indices = forcing_generator(
+    #     forcing, grid, coord, topol, extra_info=extra_info
+    # )
 
     # initial integrated forcing term
     rhs=np.zeros(subgrid.ncell)
@@ -243,7 +243,7 @@ def dmk_cont(forcing, beta_c, ndiv, extra_info, niter=80,tdens0 = None, nref= 0,
 
     # init and set controls
     ctrl = Dmkcontrols.DmkCtrl()
-    Dmkcontrols.get_from_file(ctrl,root+'/nextrout_core/dmk_cont.ctrl')
+    Dmkcontrols.get_from_file(ctrl,root / 'Nextrout/nextrout_core/dmk_cont.ctrl')
     ctrl.fn_tdens=storing+'/tdens.dat'
     ctrl.fn_pot=storing+'/pot.dat'
     ctrl.fn_statistics=storing+'/dmk.log'
